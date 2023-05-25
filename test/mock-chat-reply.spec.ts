@@ -54,6 +54,14 @@ describe(`hi`, () => {
   });
 });
 
+describe(`url unshorten`, () => {
+  test(`rickroll`, async () => {
+    const m = await client.sendExpect(`http://tiny.cc/mtd7vz`, /dQw4w9WgXcQ/);
+
+    console.log(m);
+  });
+});
+
 describe(`help`, () => {
   test(`help nothing`, async () => {
     const m = await client.sendExpect(`eliza help`, /help with/i, {
