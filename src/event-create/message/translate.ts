@@ -9,12 +9,19 @@ import { langFile, reverseLangFile } from "@/lib/langfile";
 export default createChatReply({
   // wild card
   name: `translate`,
+  description: `translate text to another language`,
   async exec(message) {
     // eslint-disable-next-line prefer-const
     let [_, to, ctx] =
       message.prefixlessContent.match(
         /^(?:([A-Za-z]+)\s+)?(?:translate|tl)(?:\s+(.*))?/
-      ) ?? [];
+      ) ??
+      message.prefixlessContent.match(
+        /^(?:translate\s+(?:(?:in)?to\s+)?(\w+.+?):)(?:\s+(.*))?/
+      ) ??
+      [];
+
+    let hint = ``;
 
     to = to?.toLowerCase();
 
@@ -31,6 +38,23 @@ export default createChatReply({
 
     if (!ctx) {
       return `missing translation context. example: "tl こんにちは世界"`;
+    }
+
+    // do a quick ctx check
+    const toLang = ctx.match(/^(\w+)/)?.[1];
+    if (toLang) {
+      if (toLang.length === 2) {
+        // user is trying to supply a language code
+        if (!langFile[toLang]) {
+          hint = `'${toLang}' seems like a language code. Did you forget a colon? ex) translate ja: poco loco`;
+        }
+      } else {
+        // is it a language?
+        const temp = reverseLangFile[toLang];
+        if (temp) {
+          hint = `'${toLang}' seems like a language name. Did you forget a colon? ex) translate japanese: poco loco`;
+        }
+      }
     }
 
     if (to) {
@@ -88,7 +112,9 @@ export default createChatReply({
     message.reply(
       `translated from ${detectedLanguage[1]} to ${
         langFile[to ?? `en`]
-      }:\n${translated}`
+      }:\n${translated}` + hint
+        ? `\n> ${hint}`
+        : ``
     );
   },
 });
