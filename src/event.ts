@@ -27,13 +27,15 @@ type createChatReplyOptions<Client extends ElizaClient> = {
   // permissions
 };
 
+const JustSkip = Symbol(`JustSkip`);
+
 /**
  * Make sure you pass in a compiled regex
  */
 export function preprocessMessage<Client extends { prefix: RegExp }>(
   this: Client,
   message: Message
-): ProcessedMessage | null {
+): ProcessedMessage {
   if (this.prefix.flags.includes(`g`) || this.prefix.sticky) {
     throw new Error(`Prefix must not be global or sticky`);
   }
@@ -41,12 +43,19 @@ export function preprocessMessage<Client extends { prefix: RegExp }>(
   const newMessage = message as ProcessedMessage;
   const match = this.prefix.exec(message.content);
 
-  if (!match) {
-    return null;
-  }
+  const prefixlessContent = match && message.content.slice(match[0].length);
+  const prefixMatch = match;
 
-  newMessage.prefixlessContent = message.content.slice(match[0].length);
-  newMessage.prefixMatch = match;
+  Object.defineProperty(newMessage, `prefixlessContent`, {
+    get() {
+      if (prefixlessContent === null) {
+        throw JustSkip;
+      }
+      return prefixlessContent;
+    },
+  });
+
+  newMessage.prefixMatch = prefixMatch;
 
   // Defaults
   newMessage.replied = false;
@@ -109,12 +118,13 @@ export function createMessageCreateHandler(
     ): Promise<null | ProcessedMessage> {
       const message = args[0];
 
-      // calculate prefix
-      const processedMessage = preprocessMessage.call(this, message);
-
-      if (!processedMessage) {
+      // Prevent replying self
+      if (message.author.id === this.user?.id) {
         return null;
       }
+
+      // calculate prefix
+      const processedMessage = preprocessMessage.call(this, message);
 
       const errors: { namespace: string; error: string }[] = [];
 
@@ -126,6 +136,7 @@ export function createMessageCreateHandler(
         const result = await (async () =>
           handler.exec.call(this, processedMessage))().catch((e) => {
           console.error(e);
+          if (e === JustSkip) return;
           return `internal error has occured`;
         });
 
