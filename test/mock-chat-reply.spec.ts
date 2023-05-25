@@ -2,6 +2,14 @@ import { ChannelType } from "discord.js";
 import { client } from "./fixtures";
 
 describe(`translate`, () => {
+  test(`eliza tl|translate`, async () => {
+    const m = await client.sendExpect(
+      `eliza tl`,
+      /missing translation context/i
+    );
+
+    expect(m).to.matchSnapshot();
+  });
   test(`translate syntax`, async () => {
     const m = await client.sendExpect(
       `eliza japan translate poco loco`,
