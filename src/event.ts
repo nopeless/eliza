@@ -57,7 +57,10 @@ export function preprocessMessage<Client extends { prefix: RegExp }>(
     ...args: Parameters<Message[`reply`]>
   ) {
     this.replied = true;
-    return replyFunction.apply(this, args);
+    return replyFunction.apply(this, args).catch((e) => {
+      console.warn(`Failed to reply to message, ${newMessage.url}`);
+      return e;
+    });
   };
 
   return newMessage;
@@ -101,14 +104,14 @@ export function createMessageCreateHandler(
     fn: async function (
       this: ElizaClient,
       ...args: ClientEvents[`messageCreate`]
-    ) {
+    ): Promise<null | ProcessedMessage> {
       const message = args[0];
 
       // calculate prefix
       const processedMessage = preprocessMessage.call(this, message);
 
       if (!processedMessage) {
-        return;
+        return null;
       }
 
       const errors: { namespace: string; error: string }[] = [];
@@ -143,7 +146,7 @@ export function createMessageCreateHandler(
         }
       }
 
-      if (processedMessage.replied) return;
+      if (processedMessage.replied) return processedMessage;
 
       if (errors.length === 0) {
         // Use context parser here to check if they are actually directing this to eliza
@@ -151,11 +154,11 @@ export function createMessageCreateHandler(
         console.log(
           `message was ${processedMessage.content}, but no handler was found`
         );
-        return;
+        return processedMessage;
       }
       if (errors.length == 1) {
         await message.reply(errors[0].error);
-        return;
+        return processedMessage;
       }
 
       await message.reply(
@@ -163,6 +166,8 @@ export function createMessageCreateHandler(
           .map(({ namespace, error }) => `${namespace}: ${error}`)
           .join(`\n`)
       );
+
+      return processedMessage;
     },
   };
 }
