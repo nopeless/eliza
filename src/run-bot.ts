@@ -9,6 +9,7 @@ const client = new ElizaClient({
   dev: process.env.NODE_ENV !== `production`,
   ownerID: process.env.OWNER_ID ?? ``,
   prefix: `eliza `,
+  status: `you playing over there`,
   intents: [
     GatewayIntentBits.DirectMessages,
     GatewayIntentBits.MessageContent,

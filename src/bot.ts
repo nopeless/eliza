@@ -1,4 +1,4 @@
-import { Client, GuildMember, User } from "discord.js";
+import { ActivityType, Client, GuildMember, User } from "discord.js";
 import eventCreate from "./event-create";
 import { Hellgate, Ring } from "hellgate";
 import { writeFile } from "fs/promises";
@@ -32,6 +32,7 @@ class ElizaClient extends Client {
     options: {
       dev?: boolean;
       ownerID?: string;
+      status?: string;
       /**
        * Directory to store data
        *
@@ -53,13 +54,20 @@ class ElizaClient extends Client {
     this.workingDirectory = options.workingDirectory ?? `./data`;
 
     setInterval(() => {
-      if (this.heat / 5 > 1) {
+      if (this.heat / 5 > 0.6) {
         // sending more than 1 message per second
         // disable all commands
         console.error(
           `Too many messages collected. Bot might be rouge. Disabling all commands and idling`
         );
         this.removeAllListeners();
+
+        this.user?.setActivity(`I need a break`);
+
+        this.user?.setPresence({
+          status: `dnd`,
+        });
+        this.heat = 0;
       }
       this.heat *= 0.9; // collect over 5 seconds
     }, 500);
@@ -114,6 +122,16 @@ class ElizaClient extends Client {
     }
 
     this.data = JSON.parse(readFileSync(this.dataFile, `utf-8`));
+
+    this.on(`ready`, () => {
+      this.user?.setActivity({
+        type: ActivityType.Watching,
+        name: options.status ?? `you play`,
+      });
+      this.user?.setPresence({
+        status: `online`,
+      });
+    });
   }
 
   public async saveFile() {
