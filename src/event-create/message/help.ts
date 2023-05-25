@@ -13,6 +13,16 @@ export default createChatReply({
     const [_, commandName] =
       message.prefixlessContent.match(/^help(?:\s+(.*))?/) ?? [];
 
+    if (!_) return;
+
+    if (
+      message.mentions.users.size > 0 &&
+      !message.mentions.has(message.client.user)
+    ) {
+      // definitely talking about others
+      return;
+    }
+
     let hint = ``;
 
     if (!commandName) {
