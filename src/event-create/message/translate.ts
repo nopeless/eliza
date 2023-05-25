@@ -83,14 +83,6 @@ export default createChatReply({
               }) * 1
         );
 
-        console.log(
-          natural.LevenshteinDistance(`japan`, `akan`, {
-            insertion_cost: 0.5,
-            deletion_cost: 1,
-            substitution_cost: 1,
-          })
-        );
-
         // get top 3 suggestions
         const suggestions = keys
           .slice(0, 3)
@@ -112,9 +104,7 @@ export default createChatReply({
     message.reply(
       `translated from ${detectedLanguage[1]} to ${
         langFile[to ?? `en`]
-      }:\n${translated}` + hint
-        ? `\n> ${hint}`
-        : ``
+      }:\n${translated}` + (hint ? `\n> ${hint}` : ``)
     );
   },
 });

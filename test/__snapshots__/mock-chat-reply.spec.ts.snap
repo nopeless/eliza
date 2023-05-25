@@ -2,7 +2,23 @@
 
 exports[`hi > hi 1`] = `"hi there!"`;
 
-exports[`translate > incorrect usage 1`] = `
+exports[`translate > forgot colon 1`] = `
+"translated from Spanish; Castilian to English:
+\\"little crazy japanese\\"
+> 'japanese' seems like a language name. Did you forget a colon? ex) translate japanese: poco loco"
+`;
+
+exports[`translate > natural syntax 1`] = `
+"translated from Spanish; Castilian to English:
+\\"to japanese: little crazy\\""
+`;
+
+exports[`translate > no colon required 1`] = `
+"translated from Spanish; Castilian to English:
+\\"little crazy\\""
+`;
+
+exports[`translate > tl syntax 1`] = `
 "translated from Spanish; Castilian to Japanese:
 \\"ちょっとおかしい\\""
 `;
