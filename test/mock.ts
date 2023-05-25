@@ -2,7 +2,7 @@ import { ChannelType } from "discord.js";
 
 // @ts-ignore
 export class MockMessage {
-  replies: string[] = [];
+  mockReplies: string[] = [];
   public channel: {
     type: ChannelType;
   };
@@ -20,7 +20,9 @@ export class MockMessage {
   }
 
   async reply(message: string | { content: string }) {
-    this.replies.push(typeof message === `string` ? message : message.content);
+    this.mockReplies.push(
+      typeof message === `string` ? message : message.content
+    );
     return;
   }
 }

@@ -38,11 +38,11 @@ client.sendExpect = async (
 ) => {
   const m = await client.send(message, options);
 
-  expect(m.replies).to.have.length(1);
+  expect(m.mockReplies).to.have.length(1);
 
-  expect(m.replies[0]).to.match(expected);
+  expect(m.mockReplies[0]).to.match(expected);
 
-  return m.replies[0];
+  return m.mockReplies[0];
 };
 
 export { client };
