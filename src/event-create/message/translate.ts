@@ -64,27 +64,27 @@ export default createChatReply({
         if (!langFile[to]) {
           return `invalid language code ${to}. refer https://en.wikipedia.org/wiki/ISO_639-1`;
         }
+      } else {
+        // user is attempting to supply a language name
+        // check if it's a valid language name
+
+        const temp = reverseLangFile[to];
+        if (!temp) {
+          // sort keys by similarity to the language name
+          const keys = sortBySimilarity(to, Object.keys(reverseLangFile));
+
+          // get top 3 suggestions
+          const suggestions = keys
+            .slice(0, 3)
+            .map((k) => `${k} (${langFile[reverseLangFile[k]]})`);
+
+          return `language ${to} was not found. maybe try ${toWordList(
+            suggestions,
+            `or`
+          )}. try finding the 2 letter language code from https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes`;
+        }
+        to = temp;
       }
-
-      // user is attempting to supply a language name
-      // check if it's a valid language name
-
-      const temp = reverseLangFile[to];
-      if (!temp) {
-        // sort keys by similarity to the language name
-        const keys = sortBySimilarity(to, Object.keys(reverseLangFile));
-
-        // get top 3 suggestions
-        const suggestions = keys
-          .slice(0, 3)
-          .map((k) => `${k} (${langFile[reverseLangFile[k]]})`);
-
-        return `language ${to} was not found. maybe try ${toWordList(
-          suggestions,
-          `or`
-        )}. try finding the 2 letter language code from https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes`;
-      }
-      to = temp;
     }
 
     const { detectedLanguage, translated } = await legacyGoogleTranslate(
