@@ -6,14 +6,17 @@ export class MockMessage {
   public channel: {
     type: ChannelType;
   };
+  public author = {
+    id: `nopeless`,
+  };
   constructor(public content: string, options: { type?: ChannelType } = {}) {
     this.channel = {
       type: options.type ?? ChannelType.GuildText,
     };
   }
 
-  async reply(content: string) {
-    this.replies.push(content);
+  async reply(message: string | { content: string }) {
+    this.replies.push(typeof message === `string` ? message : message.content);
     return;
   }
 }
