@@ -845,6 +845,13 @@ color-name@~1.1.4:
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
 
+commonjs-extension-resolution-loader@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/commonjs-extension-resolution-loader/-/commonjs-extension-resolution-loader-0.1.0.tgz#a14eff85b5916940004671619bded966018e3ecf"
+  integrity sha512-XDCkM/cYIt1CfPs+LNX8nC2KKrzTx5AAlGLpx7A4BjWQCHR9LphDu9Iq5zXYf+PXhCkpLGBFiyiTnwmSnNxbWQ==
+  dependencies:
+    resolve "^1.22.1"
+
 compromise@^14.9.0:
   version "14.9.0"
   resolved "https://registry.yarnpkg.com/compromise/-/compromise-14.9.0.tgz#b2a44db68b3519e837376c71c49aac6cab4bcee8"
@@ -2077,9 +2084,9 @@ mkdirp@^1.0.4:
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
 mlly@^1.2.0:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/mlly/-/mlly-1.2.1.tgz#cd50151f5712b651c5c379085157bcdff661133b"
-  integrity sha512-1aMEByaWgBPEbWV2BOPEMySRrzl7rIHXmQxam4DM8jVjalTQDjpN2ZKOLUrwyhfZQO7IXHml2StcHMhooDeEEQ==
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/mlly/-/mlly-1.3.0.tgz#3184cb80c6437bda861a9f452ae74e3434ed9cd1"
+  integrity sha512-HT5mcgIQKkOrZecOjOX3DJorTikWXwsBfpcr/MGBkhfWcjiqvnaL/9ppxvIUXfjT6xt4DVIAsN9fMUz1ev4bIw==
   dependencies:
     acorn "^8.8.2"
     pathe "^1.1.0"
