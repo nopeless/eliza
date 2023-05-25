@@ -118,6 +118,34 @@ function scopeAllowed(
   return scopes.some((scope) => scopeAllowed(scope, type));
 }
 
+async function handleDiscordEmoji(
+  emojiStr: string,
+  message: ProcessedMessage
+): Promise<boolean> {
+  // check if result is a discord emoji
+  const emoji = parseEmoji(emojiStr);
+  if (emoji) {
+    if (emoji.id || [...emoji.name.slice(0, 8)].length === 1) {
+      // use this as reaction
+      const r = await message
+        .react(emoji.id || emoji.name)
+        .then(() => true)
+        .catch(() => false);
+      if (!r) {
+        console.warn(
+          `Failed to react to message ${message.id} with emoji`,
+          emoji
+        );
+        await message.reply(`${emojiStr} (I wanted to react but I cant)`);
+      }
+
+      return true;
+    }
+  }
+
+  return false;
+}
+
 export function createMessageCreateHandler(
   handlerObj: Record<string, createChatReplyOptions<ElizaClient>>
 ) {
@@ -165,23 +193,8 @@ export function createMessageCreateHandler(
 
         if (result) {
           if (typeof result === `string`) {
-            // check if result is a discord emoji
-            const emoji = parseEmoji(result);
-            if (emoji) {
-              // use this as reaction
-              const r = await message
-                .react(emoji.id || emoji.name)
-                .then(() => true)
-                .catch(() => false);
-              if (!r) {
-                console.warn(
-                  `Failed to react to message ${message.id} with emoji ${result}`
-                );
-                await message.reply(`${result} (I wanted to react but I cant)`);
-              }
-
+            if (await handleDiscordEmoji(result, processedMessage))
               return processedMessage;
-            }
 
             errors.push({ namespace, error: result });
           } else if (Array.isArray(result)) {
