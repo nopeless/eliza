@@ -41,6 +41,7 @@
     "dotenv": "^16.0.3",
     "hellgate": "^2.1.0",
     "natural": "^6.3.0",
+    "url-unshort": "^6.1.0",
     "wordnet-db": "^3.1.14"
   }
 }
