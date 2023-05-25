@@ -1,6 +1,11 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`hi > hi 1`] = `"hi there!"`;
+exports[`help > help correct match 1`] = `
+"Here is the description
+translate text to another language"
+`;
+
+exports[`help > help vague match 1`] = `"Did you mean 'translate'? Try \\"help translate\\""`;
 
 exports[`translate > forgot colon 1`] = `
 "translated from Spanish; Castilian to English:

@@ -1,8 +1,7 @@
 import { createChatReply } from "../../event";
 import { legacyGoogleTranslate } from "../../lib";
-import natural from "natural";
 import { toWordList } from "../../lib/nlp";
-import { sortByKey } from "../../lib/util";
+import { sortBySimilarity } from "../../lib/util";
 // import compromise from "compromise";
 import { langFile, reverseLangFile } from "@/lib/langfile";
 
@@ -73,15 +72,7 @@ export default createChatReply({
       const temp = reverseLangFile[to];
       if (!temp) {
         // sort keys by similarity to the language name
-        const keys = sortByKey(Object.keys(reverseLangFile), (k) =>
-          k.includes(to)
-            ? (k.length - to.length) / k.length
-            : natural.LevenshteinDistance(to, k, {
-                insertion_cost: 0.5,
-                deletion_cost: 1,
-                substitution_cost: 1,
-              }) * 1
-        );
+        const keys = sortBySimilarity(to, Object.keys(reverseLangFile));
 
         // get top 3 suggestions
         const suggestions = keys

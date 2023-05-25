@@ -1,3 +1,8 @@
+import {
+  DamerauLevenshteinDistanceOptions,
+  LevenshteinDistance,
+} from "natural";
+
 export function sortByKey<T>(arr: T[], key: (o: T) => number) {
   // create cache
   const cache: Map<T, number> = new Map();
@@ -11,10 +16,40 @@ export function sortByKey<T>(arr: T[], key: (o: T) => number) {
   return arr.sort((a, b) => cache.get(a)! - cache.get(b)!);
 }
 
+export function sortBySimilarity(
+  key: string,
+  strings: string[],
+  optionsOverride: DamerauLevenshteinDistanceOptions = {}
+) {
+  const options = {
+    insertion_cost: 0.5,
+    deletion_cost: 1,
+    substitution_cost: 1,
+    ...optionsOverride,
+  };
+
+  return sortByKey(strings, (k) =>
+    k.includes(key)
+      ? (k.length - key.length) / k.length
+      : LevenshteinDistance(key, k, options) * 1
+  );
+}
+
 export function reverse(s: string) {
   return s.split(``).reverse().join(``);
 }
 
 export function capitalize(s: string) {
   return s[0].toUpperCase() + s.slice(1);
+}
+
+export function getPropLowercase<T extends Record<string, unknown>>(
+  obj: T,
+  prop: string
+) {
+  for (const key in obj) {
+    if (key.toLowerCase() === prop.toLowerCase()) {
+      return key;
+    }
+  }
 }
