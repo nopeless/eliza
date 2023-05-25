@@ -14,7 +14,9 @@
     "dev": "tsx src/run-bot.ts",
     "dev:watch": "tsx watch --onSuccess \"npm run build && npm run dev\"",
     "test": "vitest",
-    "test:cli": "vitest --watch"
+    "test:cli": "vitest --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "devDependencies": {
     "@types/node": "^20.2.3",
