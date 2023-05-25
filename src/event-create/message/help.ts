@@ -1,6 +1,8 @@
 import { getPropLowercase, sortBySimilarity } from "@/lib/util";
 import { createChatReply } from "../../event";
-import { LevenshteinDistance } from "natural";
+import natural from "natural";
+
+const LevenshteinDistance = natural.LevenshteinDistance;
 
 export default createChatReply({
   name: `help`,

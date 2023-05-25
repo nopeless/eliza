@@ -1,7 +1,6 @@
-import {
-  DamerauLevenshteinDistanceOptions,
-  LevenshteinDistance,
-} from "natural";
+import natural, { DamerauLevenshteinDistanceOptions } from "natural";
+
+const LevenshteinDistance = natural.LevenshteinDistance;
 
 export function sortByKey<T>(arr: T[], key: (o: T) => number) {
   // create cache
