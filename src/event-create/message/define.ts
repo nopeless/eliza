@@ -21,12 +21,19 @@ export default createChatReply({
       return `Please specify a word to define. ex) define hello`;
     }
 
-    const { definition } = (await defineWord(word)) ?? {};
-
+    let definition: string;
+    try {
+      definition = ((await defineWord(word)) ?? {}).definition;
+    } catch {
+      await message.reply(
+        `Sorry, I can't define words right now because the api is down. Please try again later.`
+      );
+      return;
+    }
     if (definition) {
       await message.reply(`Here is the definition of '${word}'\n${definition}`);
     } else {
-      await message.reply(`Something went wrong, sorry!`);
+      await message.reply(`No definitions were found for ${word}`);
     }
   },
 });
