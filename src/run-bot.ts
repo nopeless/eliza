@@ -1,4 +1,4 @@
-import { GatewayIntentBits } from "discord.js";
+import { GatewayIntentBits, Partials } from "discord.js";
 
 import * as dotenv from "dotenv";
 dotenv.config();
@@ -15,6 +15,7 @@ const client = new ElizaClient({
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
   ],
+  partials: [Partials.Message, Partials.Channel],
 });
 
 if (!process.env.DISCORD_TOKEN) {
