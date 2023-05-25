@@ -3,9 +3,16 @@ import { createChatReply } from "../../event";
 export default createChatReply({
   name: `hello`,
   async exec(message) {
-    if (message.prefixlessContent.match(/^hi|hello$/)) {
+    let m;
+    if (
+      (m = message.prefixlessContent.match(
+        /^(?:hi|hello|(?:wh?as?)?sup|(?:what'?s)\s+(?:good|up))$/
+      ))
+    ) {
       // TODO add variety
-      await message.reply(`hi there!`);
+      await message.reply(
+        m[0].match(/\bup|whats?|good\b/) ? `sup` : `hi there!`
+      );
     }
 
     // why not use nlp here?
