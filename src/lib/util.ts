@@ -2,6 +2,12 @@ import natural, { DamerauLevenshteinDistanceOptions } from "natural";
 
 const LevenshteinDistance = natural.LevenshteinDistance;
 
+export async function sleep(ms: number) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 export function sortByKey<T>(arr: T[], key: (o: T) => number) {
   // create cache
   const cache: Map<T, number> = new Map();
@@ -61,3 +67,17 @@ export async function promiseAllMap<
   const results = await Promise.all(promises);
   return results;
 }
+
+export const fakeTime = {
+  readText: async function (text: string, speed = 100) {
+    await sleep((text.length * 1000 * 0.2 * 60) / speed);
+  },
+  thinkText: async function (text: string, multiplier = 1) {
+    // for now im going to assume that it takes 0.2 seconds to think 1 word
+    await sleep(text.split(` `).length * 0.2 * 1000 * multiplier);
+  },
+  writeText: async function (text: string, wpm = 60) {
+    // for now im going to assume that all characters take the same amount of time to type
+    await sleep((text.length * 1000 * 0.2 * 60) / wpm);
+  },
+};
