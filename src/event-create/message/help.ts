@@ -7,7 +7,7 @@ const LevenshteinDistance = natural.LevenshteinDistance;
 export default createChatReply({
   name: `help`,
   description: `usage: help <command name>`,
-  async exec(message) {
+  async exec(message): Promise<void | string> {
     const commands = (await import(`./index`)).default;
 
     const [_, commandName] =
@@ -16,10 +16,7 @@ export default createChatReply({
     let hint = ``;
 
     if (!commandName) {
-      await message.reply(
-        `What do you need help with? If you are asking for a command, try "help <command name>"`
-      );
-      return;
+      return `What do you need help with? If you are asking for a command, try "help <command name>"`;
     }
 
     const prop = getPropLowercase(commands, commandName);
@@ -28,12 +25,10 @@ export default createChatReply({
       const command = commands[prop];
       if (command.description) {
         await message.reply(`Here is the description\n${command.description}`);
+        return;
       } else {
-        await message.reply(
-          `I'm sorry but there seems to be no description found for command '${prop}'`
-        );
+        return `I'm sorry but there seems to be no description found for command '${prop}'`;
       }
-      return;
     }
 
     // its not a direct command. perhaps a typo?
@@ -59,10 +54,8 @@ export default createChatReply({
       }
     }
 
-    await message.reply(
+    return (
       `I would love to help to my capabilities` + (hint ? `\n> ${hint}` : ``)
     );
-
-    return;
   },
 });
