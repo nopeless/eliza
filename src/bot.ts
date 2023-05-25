@@ -23,6 +23,10 @@ class ElizaClient extends Client {
 
   public dataFile!: string;
   public data!: {
+    suggestions: {
+      author: string;
+      content: string;
+    }[];
     people: {
       match: string[];
       id: string;
@@ -116,11 +120,19 @@ class ElizaClient extends Client {
     if (!existsSync(this.dataFile)) {
       writeFileSync(
         this.dataFile,
-        JSON.stringify({ people: [] } satisfies (typeof this)["data"])
+        JSON.stringify({
+          people: [],
+          suggestions: [],
+        } satisfies (typeof this)["data"])
       );
     }
 
-    this.data = JSON.parse(readFileSync(this.dataFile, `utf-8`));
+    // TODO validate and fill missing
+    this.data = {
+      people: [],
+      suggestions: [],
+      ...JSON.parse(readFileSync(this.dataFile, `utf-8`)),
+    };
   }
 
   protected _initiatePresenceOnLoad(options: { status?: string }) {
