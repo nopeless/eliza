@@ -6,7 +6,9 @@ export default createChatReply({
   description: `usage: define <word>`,
   async exec(message) {
     const [_, word] =
-      message.prefixlessContent.match(/^def(?:ine)?(?: (.+))?$/) ?? [];
+      message.prefixlessContent.match(
+        /^def(?:ine)?(?:\s(?:(?:a|an|the)\s)?(.+))?$/
+      ) ?? [];
 
     if (!_) return;
 
