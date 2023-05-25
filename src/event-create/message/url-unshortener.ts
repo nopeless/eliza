@@ -21,10 +21,8 @@ export default createChatReply({
     if (pool.length === 0) return;
 
     await message.reply({
-      options: {
-        allowedMentions: {
-          repliedUser: false,
-        },
+      allowedMentions: {
+        repliedUser: false,
       },
       content:
         pool.length === 1
