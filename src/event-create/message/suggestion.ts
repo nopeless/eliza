@@ -25,6 +25,8 @@ export default createChatReply({
       message.prefixlessContent.match(/^delete (\d+)/) ?? [];
 
     if (deleteCommand) {
+      if (!this.hell.can(message.author, `saveFile`))
+        return `You don't have permissions`;
       if (!deleteMessage) {
         await message.reply(`Please specify a suggestion to delete.`);
         return;
