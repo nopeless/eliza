@@ -3,6 +3,7 @@ import { ChannelType } from "discord.js";
 // @ts-ignore
 export class MockMessage {
   mockReplies: string[] = [];
+  mockReactions: string[] = [];
   public channel: {
     type: ChannelType;
   };
@@ -20,9 +21,17 @@ export class MockMessage {
   }
 
   async reply(message: string | { content: string }) {
+    if (this.mockReplies.length > 0) {
+      throw new Error(`Message already replied to`);
+    }
     this.mockReplies.push(
       typeof message === `string` ? message : message.content
     );
+    return;
+  }
+
+  async react(emoji: string) {
+    this.mockReactions.push(emoji);
     return;
   }
 }
