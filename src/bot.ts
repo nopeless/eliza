@@ -92,7 +92,7 @@ class ElizaClient extends Client {
       // correspondance problem
       this.on(event as never, async (arg) => {
         const res = await handler.fn.bind(this)(arg);
-        if (res?.replied) {
+        if (this.isReady() && res?.replied) {
           this.heat += 1;
         }
       });
