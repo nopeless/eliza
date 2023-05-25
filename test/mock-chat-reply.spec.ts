@@ -88,3 +88,27 @@ describe(`help`, () => {
     console.log(m);
   });
 });
+
+describe(`should not reply`, () => {
+  for (const message of [
+    `so I was walking down the street`,
+    `number 15 burger king foot lettuce`,
+    `victory royale`,
+    `yeah I'm a gamer`,
+    `fortnite sucks`,
+    `minecraft is better`,
+    `ackchually`,
+    `I'm gonna say the word`,
+    `You need therapy`,
+    `I need therapy`,
+    `stop trying to make me say it`,
+    `I'm not gonna say it`,
+    `We are number one`,
+  ]) {
+    test(message, async () => {
+      const m = await client.send(message);
+
+      expect(m.replies).to.have.length(0);
+    });
+  }
+});
