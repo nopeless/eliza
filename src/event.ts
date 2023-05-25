@@ -64,17 +64,24 @@ export function preprocessMessage<Client extends { prefix: RegExp }>(
   const replyFunction = message.reply;
 
   // Inject
-  newMessage.reply = function (
+  newMessage.reply = async function (
     this: ProcessedMessage,
     ...args: Parameters<Message[`reply`]>
   ) {
+    if (this.replied) {
+      console.warn(`Message was already replied`);
+      console.trace();
+      return newMessage;
+    }
+
     this.replied = true;
-    return replyFunction.apply(this, args).catch((e) => {
+    return replyFunction.apply(this, args).catch((e: unknown) => {
+      console.error(e);
       console.warn(
         `Failed to reply to message, ${newMessage.url}. Attempted to reply with`,
         args[0]
       );
-      return e;
+      return newMessage;
     });
   };
 
