@@ -200,7 +200,7 @@ export function createMessageCreateHandler(
       await message.reply(
         sortedErrors
           .slice(0, errorCutoff)
-          .map(({ namespace, error }) => `${namespace}: ${error}`)
+          .map(({ namespace, error }) => `[${namespace}]: ${error}`)
           .join(`\n`) +
           (sortedErrors.length > errorCutoff
             ? `\n...omitted (${
