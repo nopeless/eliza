@@ -4,6 +4,7 @@ import saveFile from "./save-file";
 import help from "./help";
 import exit from "./exit";
 import urlUnshortener from "./url-unshortener";
+import define from "./define";
 
 export default {
   // administrative
@@ -11,6 +12,7 @@ export default {
 
   // commands
   translate,
+  define,
   saveFile,
   hello,
 
