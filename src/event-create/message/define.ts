@@ -8,6 +8,8 @@ export default createChatReply({
     const [_, word] =
       message.prefixlessContent.match(/^def(?:ine)?(?: (.+))?$/) ?? [];
 
+    if (!_) return;
+
     if (!word) {
       return `Please specify a word to define. ex) define hello`;
     }
