@@ -8,6 +8,7 @@ import { langFile, reverseLangFile } from "../../lib/langfile";
 export default createChatReply({
   // wild card
   name: `translate`,
+  aliases: [`tl`],
   description: `translate text to another language`,
   async exec(message) {
     // eslint-disable-next-line prefer-const

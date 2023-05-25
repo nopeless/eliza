@@ -11,6 +11,7 @@ type ChannelTypeString = keyof typeof ChannelType;
 type createChatReplyOptions<Client extends ElizaClient> = {
   name: string;
   description?: string;
+  aliases?: string[];
   scope?: (ChannelTypeString | ChannelType)[] | ChannelType | ChannelTypeString;
 
   /**
@@ -176,17 +177,25 @@ export function createMessageCreateHandler(
         }
         return processedMessage;
       }
-      if (errors.length == 1) {
-        await message.reply(errors[0].error);
-        return processedMessage;
-      }
-
-      const errorCutoff = 3;
 
       const sortedErrors = sortByKey(
         errors.filter((v) => v.namespace !== `help`),
         (v) => v.error.length
       );
+
+      // It means the only error was a help error
+      if (sortedErrors.length === 0) {
+        await message.reply(errors[0].error);
+        return processedMessage;
+      }
+
+      // continue as usual
+      if (sortedErrors.length == 1) {
+        await message.reply(sortedErrors[0].error);
+        return processedMessage;
+      }
+
+      const errorCutoff = 3;
 
       await message.reply(
         sortedErrors
