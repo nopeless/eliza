@@ -9,6 +9,10 @@ export class MockMessage {
   public author = {
     id: `nopeless`,
   };
+  public mentions = {
+    users: new Map(),
+    has: () => false,
+  };
   constructor(public content: string, options: { type?: ChannelType } = {}) {
     this.channel = {
       type: options.type ?? ChannelType.GuildText,
