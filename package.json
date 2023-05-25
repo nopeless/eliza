@@ -16,7 +16,8 @@
     "test": "vitest",
     "test:cli": "vitest --watch",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "cd:restart": "git fetch && git reset --hard origin/main && yarn install --frozen-lockfile && yarn build && yarn start"
   },
   "devDependencies": {
     "@types/node": "^20.2.3",
