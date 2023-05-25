@@ -69,7 +69,10 @@ export function preprocessMessage<Client extends { prefix: RegExp }>(
   ) {
     this.replied = true;
     return replyFunction.apply(this, args).catch((e) => {
-      console.warn(`Failed to reply to message, ${newMessage.url}`);
+      console.warn(
+        `Failed to reply to message, ${newMessage.url}. Attempted to reply with`,
+        args[0]
+      );
       return e;
     });
   };
@@ -135,10 +138,12 @@ export function createMessageCreateHandler(
 
         const result = await (async () =>
           handler.exec.call(this, processedMessage))().catch((e) => {
+          if (e === JustSkip) return JustSkip;
           console.error(e);
-          if (e === JustSkip) return;
           return `internal error has occured`;
         });
+
+        if (result === JustSkip) continue;
 
         if (processedMessage.replied) {
           // we are done
@@ -162,11 +167,13 @@ export function createMessageCreateHandler(
       if (processedMessage.replied) return processedMessage;
 
       if (errors.length === 0) {
-        // Use context parser here to check if they are actually directing this to eliza
-        // await message.reply(`I'm sorry, I don't understand your request at all`);
-        console.log(
-          `message was ${processedMessage.content}, but no handler was found`
-        );
+        if (processedMessage.prefixMatch) {
+          // Use context parser here to check if they are actually directing this to eliza
+          // await message.reply(`I'm sorry, I don't understand your request at all`);
+          console.log(
+            `message was ${processedMessage.content}, but no handler was found`
+          );
+        }
         return processedMessage;
       }
       if (errors.length == 1) {
