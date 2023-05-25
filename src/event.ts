@@ -1,4 +1,4 @@
-import { ChannelType, Message, ClientEvents } from "discord.js";
+import { ChannelType, Message, ClientEvents, parseEmoji } from "discord.js";
 import { ProcessedMessage } from "./discord";
 import { ElizaClient } from "./bot";
 import { sortByKey } from "./lib/util";
@@ -158,6 +158,24 @@ export function createMessageCreateHandler(
 
         if (result) {
           if (typeof result === `string`) {
+            // check if result is a discord emoji
+            const emoji = parseEmoji(result);
+            if (emoji) {
+              // use this as reaction
+              const r = await message
+                .react(emoji.id || emoji.name)
+                .then(() => true)
+                .catch(() => false);
+              if (!r) {
+                console.warn(
+                  `Failed to react to message ${message.id} with emoji ${result}`
+                );
+                await message.reply(`${result} (I wanted to react but I cant)`);
+              }
+
+              return processedMessage;
+            }
+
             errors.push({ namespace, error: result });
           } else if (Array.isArray(result)) {
             errors.push(...result.map((e) => ({ namespace, error: e })));
