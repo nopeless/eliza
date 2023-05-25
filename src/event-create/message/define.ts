@@ -3,7 +3,7 @@ import { defineWord } from "../../lib/apis";
 
 export default createChatReply({
   name: `define`,
-  description: `usage: define <word>`,
+  description: `Look up a word in the dictionary e.g. define photosynthesis`,
   async exec(message) {
     const [_, word] =
       message.prefixlessContent.match(
