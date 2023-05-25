@@ -10,6 +10,13 @@ export default createChatReply({
 
     if (!_) return;
 
+    if (!process.env.RAPID_API_KEY) {
+      await message.reply(
+        `Sorry, I can't define words right now because I'm missing the api key. Please try again later.`
+      );
+      return;
+    }
+
     if (!word) {
       return `Please specify a word to define. ex) define hello`;
     }
