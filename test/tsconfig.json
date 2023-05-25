@@ -12,6 +12,7 @@
     "nopeless-config/tsconfig.test.json"
   ],
   "include": [
-    "../**/*.ts"
+    "../src/**/*.ts",
+    "../test/**/*.ts"
   ],
 }
