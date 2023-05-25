@@ -50,16 +50,14 @@ export default createChatReply({
         return;
       }
       this.data.suggestions = newSuggestions;
-      await message.reply(`Suggestion deleted.`);
-      return;
+      return `✅`;
     }
 
     if (message.prefixlessContent.match(/^clear suggestions?/)) {
       if (!this.hell.can(message.author, `saveFile`))
         return `You don't have permissions`;
       this.data.suggestions = [];
-      await message.reply(`Suggestions cleared.`);
-      return;
+      return `✅`;
     }
 
     const [_, suggestion] =
