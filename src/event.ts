@@ -183,7 +183,10 @@ export function createMessageCreateHandler(
 
       const errorCutoff = 3;
 
-      const sortedErrors = sortByKey(errors, (v) => v.error.length);
+      const sortedErrors = sortByKey(
+        errors.filter((v) => v.namespace !== `help`),
+        (v) => v.error.length
+      );
 
       await message.reply(
         sortedErrors
