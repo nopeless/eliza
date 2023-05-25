@@ -1,0 +1,44 @@
+{
+  "name": "eliza",
+  "version": "1.0.0",
+  "description": "A little bot I made",
+  "type": "module",
+  "repository": "https://github.com/nopeless/eliza-discord-bot",
+  "author": "nopeless <38830903+nopeless@users.noreply.github.com>",
+  "license": "MIT",
+  "private": true,
+  "main": "dist/run-bot.js",
+  "scripts": {
+    "build": "rimraf dist tsconfig.tsbuildinfo && copyfiles -u 1 \"src/**/*.json\" dist && tsc",
+    "start": "node --experimental-specifier-resolution=node dist/run-bot.js",
+    "dev": "tsx src/run-bot.ts",
+    "dev:watch": "tsx watch --onSuccess \"npm run build && npm run dev\"",
+    "test": "vitest",
+    "test:cli": "vitest --watch"
+  },
+  "devDependencies": {
+    "@types/node": "^20.2.3",
+    "@typescript-eslint/eslint-plugin": "^5.59.7",
+    "@typescript-eslint/parser": "^5.59.7",
+    "copyfiles": "^2.4.1",
+    "eslint": "^8.41.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-import-quotes": "^0.0.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "nopeless-config": "^1.6.0",
+    "prettier": "^2.8.8",
+    "rimraf": "^5.0.1",
+    "tsx": "^3.12.7",
+    "typescript": "^5.0.4",
+    "vitest": "^0.31.1"
+  },
+  "dependencies": {
+    "compromise": "^14.9.0",
+    "dead-easy-json": "^2.0.3",
+    "discord.js": "14.x",
+    "dotenv": "^16.0.3",
+    "hellgate": "^2.1.0",
+    "natural": "^6.3.0",
+    "wordnet-db": "^3.1.14"
+  }
+}
