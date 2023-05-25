@@ -18,6 +18,7 @@ class ElizaClient extends Client {
   public readonly workingDirectory: string;
   public hell;
   public guildRing;
+  public heat = 0;
 
   public dataFile: string;
   public data: {
@@ -51,10 +52,27 @@ class ElizaClient extends Client {
     // gonna be used some day
     this.workingDirectory = options.workingDirectory ?? `./data`;
 
+    setInterval(() => {
+      if (this.heat / 5 > 1) {
+        // sending more than 1 message per second
+        // disable all commands
+        console.error(
+          `Too many messages collected. Bot might be rouge. Disabling all commands and idling`
+        );
+        this.removeAllListeners();
+      }
+      this.heat *= 0.9; // collect over 5 seconds
+    }, 500);
+
     for (const [event, handler] of Object.entries(eventCreate)) {
       console.log(`Registering ${event}: ${Object.keys(handler.handlerObj)}`);
       // correspondance problem
-      this.on(event as never, handler.fn.bind(this));
+      this.on(event as never, async (arg) => {
+        const res = await handler.fn.bind(this)(arg);
+        if (res?.replied) {
+          this.heat += 1;
+        }
+      });
     }
 
     // eslint-disable-next-line @typescript-eslint/no-this-alias
