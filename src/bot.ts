@@ -19,6 +19,7 @@ class ElizaClient extends Client {
   public hell;
   public guildRing;
   public heat = 0;
+  protected _heatInterval!: NodeJS.Timeout;
 
   public dataFile!: string;
   public data!: {
@@ -72,6 +73,10 @@ class ElizaClient extends Client {
       },
       {
         saveFile(user) {
+          if (!user) return false;
+          return client.ownerID === user.id;
+        },
+        exitApplication(user) {
           if (!user) return false;
           return client.ownerID === user.id;
         },
@@ -131,7 +136,7 @@ class ElizaClient extends Client {
   }
 
   protected _initializeHeatCooldown() {
-    setInterval(() => {
+    this._heatInterval = setInterval(() => {
       if (this.heat / 5 > 0.6) {
         // sending more than 1 message per second
         // disable all commands
@@ -149,6 +154,12 @@ class ElizaClient extends Client {
       }
       this.heat *= 0.9; // collect over 5 seconds
     }, 500);
+  }
+
+  public async destroy() {
+    clearInterval(this._heatInterval);
+    await this.saveFile();
+    return super.destroy();
   }
 }
 
