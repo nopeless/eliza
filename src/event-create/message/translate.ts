@@ -1,5 +1,5 @@
 import { createChatReply } from "../../event";
-import { legacyGoogleTranslate } from "../../lib";
+import { legacyGoogleTranslate } from "../../lib/legacy-google-translate";
 import { toWordList } from "../../lib/nlp";
 import { sortBySimilarity } from "../../lib/util";
 // import compromise from "compromise";
