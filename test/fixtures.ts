@@ -5,12 +5,23 @@ const client = new ElizaClient({
   prefix: `eliza `,
   intents: [],
 }) as ElizaClient & {
-  send(message: MockMessage | string): Promise<MockMessage>;
-  sendExpect(message: MockMessage | string, expected: RegExp): Promise<string>;
+  send(
+    message: MockMessage | string,
+    options?: ConstructorParameters<typeof MockMessage>[1]
+  ): Promise<MockMessage>;
+  sendExpect(
+    message: MockMessage | string,
+    expected: RegExp,
+    options?: ConstructorParameters<typeof MockMessage>[1]
+  ): Promise<string>;
 };
 
-client.send = async (message: MockMessage | string) => {
-  message = typeof message === `string` ? new MockMessage(message) : message;
+client.send = async (
+  message: MockMessage | string,
+  options?: ConstructorParameters<typeof MockMessage>[1]
+) => {
+  message =
+    typeof message === `string` ? new MockMessage(message, options) : message;
 
   // get event handlers
   const handlers = client.listeners(`messageCreate`);
@@ -20,8 +31,12 @@ client.send = async (message: MockMessage | string) => {
   return message;
 };
 
-client.sendExpect = async (message: MockMessage | string, expected: RegExp) => {
-  const m = await client.send(message);
+client.sendExpect = async (
+  message: MockMessage | string,
+  expected: RegExp,
+  options?: ConstructorParameters<typeof MockMessage>[1]
+) => {
+  const m = await client.send(message, options);
 
   expect(m.replies).to.have.length(1);
 

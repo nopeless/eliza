@@ -1,0 +1,8 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`hi > hi 1`] = `"hi there!"`;
+
+exports[`translate > incorrect usage 1`] = `
+"translated from Spanish; Castilian to Japanese:
+\\"ちょっとおかしい\\""
+`;
