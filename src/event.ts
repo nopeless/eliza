@@ -141,7 +141,7 @@ export function createMessageCreateHandler(
           handler.exec.call(this, processedMessage))().catch((e) => {
           if (e === JustSkip) return JustSkip;
           console.error(e);
-          return `internal error has occured`;
+          return `internal error has occured with handler ${namespace}`;
         });
 
         if (result === JustSkip) continue;
