@@ -3,7 +3,7 @@ import { legacyGoogleTranslate } from "../../lib";
 import { toWordList } from "../../lib/nlp";
 import { sortBySimilarity } from "../../lib/util";
 // import compromise from "compromise";
-import { langFile, reverseLangFile } from "@/lib/langfile";
+import { langFile, reverseLangFile } from "../../lib/langfile";
 
 export default createChatReply({
   // wild card

@@ -1,4 +1,4 @@
-import { getPropLowercase, sortBySimilarity } from "@/lib/util";
+import { getPropLowercase, sortBySimilarity } from "../../lib/util";
 import { createChatReply } from "../../event";
 import natural from "natural";
 
