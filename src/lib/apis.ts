@@ -32,6 +32,6 @@ export async function defineWord(word: string) {
   }
 
   return {
-    definition: obj.definitions[0].definition,
+    definition: obj.definitions?.[0].definition,
   };
 }
