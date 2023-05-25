@@ -23,7 +23,12 @@ exports[`translate > no colon required 1`] = `
 \\"little crazy\\""
 `;
 
-exports[`translate > tl syntax 1`] = `
+exports[`translate > tl shorthand 1`] = `
+"translated from French to English:
+\\"Good morning sir\\""
+`;
+
+exports[`translate > translate syntax 1`] = `
 "translated from Spanish; Castilian to Japanese:
 \\"ちょっとおかしい\\""
 `;

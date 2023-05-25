@@ -2,10 +2,18 @@ import { ChannelType } from "discord.js";
 import { client } from "./fixtures";
 
 describe(`translate`, () => {
-  test(`tl syntax`, async () => {
+  test(`translate syntax`, async () => {
     const m = await client.sendExpect(
       `eliza japan translate poco loco`,
       /translated.+spanish/i
+    );
+
+    expect(m).to.matchSnapshot();
+  });
+  test(`tl shorthand`, async () => {
+    const m = await client.sendExpect(
+      `Eliza en tl bonjour, monsieur`,
+      /hello|good|morning/i
     );
 
     expect(m).to.matchSnapshot();
