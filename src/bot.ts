@@ -48,7 +48,7 @@ class ElizaClient extends Client {
     this.prefix = options.prefix
       ? options.prefix instanceof RegExp
         ? options.prefix
-        : new RegExp(`^` + escapeRegExp(options.prefix))
+        : new RegExp(`^` + escapeRegExp(options.prefix), `i`)
       : /^!/;
     // gonna be used some day
     this.workingDirectory = options.workingDirectory ?? `./data`;
