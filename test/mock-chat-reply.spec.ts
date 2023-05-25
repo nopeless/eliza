@@ -51,6 +51,19 @@ describe(`translate`, () => {
   });
 });
 
+describe.skipIf(!process.env.RAPID_API_KEY)(`define`, () => {
+  test(`missing word`, async () => {
+    const m = await client.sendExpect(`eliza define`, /specify/i);
+
+    expect(m).to.matchSnapshot();
+  });
+  test(`proper`, async () => {
+    const m = await client.sendExpect(`eliza define air`, /definition/i);
+
+    expect(m).to.matchSnapshot();
+  });
+});
+
 describe(`hi`, () => {
   test(`hi`, async () => {
     const m = await client.sendExpect(`eliza hello`, /hello|hi/i);
