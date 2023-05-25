@@ -52,3 +52,12 @@ export function getPropLowercase<T extends Record<string, unknown>>(
     }
   }
 }
+
+export async function promiseAllMap<
+  T,
+  F extends (arg: T, index: number) => unknown
+>(arr: T[], fn: F): Promise<Awaited<ReturnType<F>>[]> {
+  const promises = arr.map(fn) as ReturnType<F>[];
+  const results = await Promise.all(promises);
+  return results;
+}
