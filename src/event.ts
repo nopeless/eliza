@@ -1,6 +1,8 @@
 import { ChannelType, Message, ClientEvents } from "discord.js";
 import { ProcessedMessage } from "./discord";
 import { ElizaClient } from "./bot";
+import { sortByKey } from "./lib/util";
+import { toWordList } from "./lib/nlp";
 
 // If this becomes a library, this entire thing should be a typed function
 
@@ -161,10 +163,23 @@ export function createMessageCreateHandler(
         return processedMessage;
       }
 
+      const errorCutoff = 3;
+
+      const sortedErrors = sortByKey(errors, (v) => v.error.length);
+
       await message.reply(
-        errors
+        sortedErrors
+          .slice(0, errorCutoff)
           .map(({ namespace, error }) => `${namespace}: ${error}`)
-          .join(`\n`)
+          .join(`\n`) +
+          (sortedErrors.length > errorCutoff
+            ? `\n...omitted (${
+                sortedErrors.length - errorCutoff
+              } messages from ${toWordList(
+                sortedErrors.slice(errorCutoff).map((v) => v.namespace),
+                `and`
+              )})`
+            : ``)
       );
 
       return processedMessage;
