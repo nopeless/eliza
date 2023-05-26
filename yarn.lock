@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"@clack/core@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@clack/core/-/core-0.3.2.tgz#23c6e440ed263c2f012b1cc0806386481e78420b"
+  integrity sha512-FZnsNynwGDIDktx6PEZK1EuCkFpY4ldEX6VYvfl0dqeoLPb9Jpw1xoUXaVcGR8ExmYNm1w2vdGdJkEUYD/2pqg==
+  dependencies:
+    picocolors "^1.0.0"
+    sisteransi "^1.0.5"
+
 "@discordjs/builders@^1.6.3":
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/@discordjs/builders/-/builders-1.6.3.tgz#994b4fe57e77b47096f74bb5a1f664870a930a43"
@@ -879,6 +887,11 @@ concordance@^5.0.4:
     md5-hex "^3.0.1"
     semver "^7.3.2"
     well-known-symbols "^2.0.0"
+
+consola@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/consola/-/consola-3.1.0.tgz#dfdfa62ceb68bc1f06e4a76ad688566bd8813baf"
+  integrity sha512-rrrJE6rP0qzl/Srg+C9x/AE5Kxfux7reVm1Wh0wCjuXvih6DqZgqDZe8auTD28fzJ9TF0mHlSDrPpWlujQRo1Q==
 
 copyfiles@^2.4.1:
   version "2.4.1"
@@ -2586,6 +2599,11 @@ signal-exit@^4.0.1:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-4.0.2.tgz#ff55bb1d9ff2114c13b400688fa544ac63c36967"
   integrity sha512-MY2/qGx4enyjprQnFaZsHib3Yadh3IXyV2C321GY0pjGfVBu4un0uDJkwgdxqO+Rdx8JMT8IfJIRwbYVz3Ob3Q==
 
+sisteransi@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/sisteransi/-/sisteransi-1.0.5.tgz#134d681297756437cc05ca01370d3a7a571075ed"
+  integrity sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==
+
 slash@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
@@ -2608,6 +2626,11 @@ source-map@^0.6.0:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
   integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
+
+spica@^0.0.727:
+  version "0.0.727"
+  resolved "https://registry.yarnpkg.com/spica/-/spica-0.0.727.tgz#835b12a755f41f54b81347a9074343bec03a2442"
+  integrity sha512-SxjE5VY9iFfx/iPRSYE+5w1UOM8MNwPry5Ou5lStcX004/nJw0CWfg02LiZKThMESrKJvcWtF3lT4gSraMrtvQ==
 
 stackback@0.0.2:
   version "0.0.2"

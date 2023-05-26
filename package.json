@@ -17,12 +17,15 @@
     "test:cli": "vitest --watch",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "cd:restart": "git fetch && git reset --hard origin/main && yarn install --frozen-lockfile && yarn build && yarn start"
+    "cd:restart": "git fetch && git reset --hard origin/main && yarn install --frozen-lockfile && yarn build && yarn start",
+    "cli": "tsx test/cli.ts"
   },
   "devDependencies": {
+    "@clack/core": "^0.3.2",
     "@types/node": "^20.2.3",
     "@typescript-eslint/eslint-plugin": "^5.59.7",
     "@typescript-eslint/parser": "^5.59.7",
+    "consola": "^3.1.0",
     "copyfiles": "^2.4.1",
     "eslint": "^8.41.0",
     "eslint-plugin-import": "^2.27.5",
@@ -43,6 +46,7 @@
     "dotenv": "^16.0.3",
     "hellgate": "^2.1.0",
     "natural": "^6.3.0",
+    "spica": "^0.0.727",
     "url-unshort": "^6.1.0",
     "wordnet-db": "^3.1.14"
   }
