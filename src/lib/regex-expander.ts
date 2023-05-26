@@ -134,7 +134,7 @@ class Parser {
 }
  
 // Implement the ExpandableRegex class
-class ExpandableRegex {
+export class ExpandableRegex {
   private ast: RegexAST;
  
   constructor(input: string) {

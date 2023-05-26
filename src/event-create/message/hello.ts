@@ -1,4 +1,7 @@
 import { createChatReply } from "../../event";
+import { ExpandableRegex } from "../../lib/regex-expander";
+
+const greetings = new ExpandableRegex("hi!?|hello!?|how are you doing\\?|what'?s up\\??")
 
 export default createChatReply({
   name: `hello`,
@@ -11,7 +14,7 @@ export default createChatReply({
     ) {
       // TODO add variety
       await message.reply(
-        m[0].match(/\bup|whats?|good\b/) ? `sup` : `hi there!`
+        m[0].match(/\bup|whats?|good\b/) ? `sup` : greetings.random()
       );
     }
 
