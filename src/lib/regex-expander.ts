@@ -82,11 +82,6 @@ class Parser {
 
   parseRepeat(): RegexAST {
     const value = this.parsePrimary();
-    // consume escape character
-    if (this.lexer.nextChar() === `\\`) {
-      this.lexer.consumeChar(); // consume '\'
-      return { type: `literal`, value: this.lexer.consumeChar() };
-    }
 
     if (this.lexer.nextChar() === `{`) {
       // Range quantifier
@@ -124,7 +119,10 @@ class Parser {
       }
       return group;
     } else {
-      return { type: `literal`, value: this.lexer.consumeChar() };
+      let chr = this.lexer.consumeChar();
+      if (chr === `\\`) chr = this.lexer.consumeChar();
+
+      return { type: `literal`, value: chr };
     }
   }
 }
