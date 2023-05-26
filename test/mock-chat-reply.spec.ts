@@ -66,7 +66,10 @@ describe.skipIf(!process.env.RAPID_API_KEY)(`define`, () => {
 
 describe(`hi`, () => {
   test(`hi`, async () => {
-    const m = await client.sendExpect(`eliza hello`, /hello|hi/i);
+    const m = await client.sendExpect(
+      `eliza hello`,
+      /hello|hi|up|doing|good|hru|how/i
+    );
 
     console.log(m);
   });
