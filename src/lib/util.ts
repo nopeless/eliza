@@ -17,7 +17,7 @@ export function sortByKey<T>(arr: T[], key: (o: T) => number) {
   }
 
   // sort
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
   return arr.sort((a, b) => cache.get(a)! - cache.get(b)!);
 }
 
@@ -81,3 +81,78 @@ export const fakeTime = {
     await sleep((text.length * 1000 * 0.2 * 60) / wpm);
   },
 };
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates
+
+const identity = (strings: TemplateStringsArray, ...values: unknown[]) =>
+  String.raw({ raw: strings }, ...values);
+
+/**
+ * Returns 0 if no lines with content were found
+ */
+function _indentLength(lines: string[]) {
+  // filter
+  lines = lines.filter((line) => line !== ``);
+
+  // get minimum length of all strings
+  const minLength = lines.reduce((min, line) => {
+    return Math.min(min, line.length);
+  }, Infinity);
+
+  let i = 0;
+  for (i; i < minLength; i++) {
+    const space = lines[0][i];
+    // space is single char, ^$ not needed
+    if (!/\s/.test(space)) return i;
+
+    for (const line of lines) {
+      if (line[i] !== space) {
+        return i;
+      }
+    }
+  }
+
+  return i;
+}
+
+export function dedent(arg: string): string;
+export function dedent(arg: TemplateStringsArray, ...vars: unknown[]): string;
+/**
+ * While it accepts \r and \n, the final string is always \n
+ *
+ * leading newlines are always removed
+ *
+ * trailing lines are removed if they are all whitespace
+ */
+export function dedent(
+  ...args: [string] | [TemplateStringsArray, ...unknown[]]
+): string {
+  if (typeof args[0] === `string`) {
+    // normalize args
+    args = [args[0]];
+  }
+
+  const [templateStrings, ...vars] = args as [
+    TemplateStringsArray,
+    ...unknown[]
+  ];
+
+  const res = identity(templateStrings, ...vars);
+
+  let lines = res.split(/(?:\n\r?|\r\n?)/);
+
+  if (lines.length === 0) return ``;
+
+  const start = lines[0] === `` ? 1 : 0;
+  const end = /^\s+$/.test(lines[lines.length - 1])
+    ? lines.length - 1
+    : lines.length;
+
+  lines = lines.slice(start, end);
+
+  const il = _indentLength(lines);
+
+  lines = lines.map((line) => line.slice(il));
+
+  return lines.join(`\n`);
+}
