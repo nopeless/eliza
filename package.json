@@ -18,10 +18,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "cd:restart": "git fetch && git reset --hard origin/main && yarn install --frozen-lockfile && yarn build && yarn start",
-    "cli": "tsx test/cli.ts"
+    "cli": "tsx --tsconfig ./test/tsconfig.json test/cli.ts --inspect"
   },
   "devDependencies": {
-    "@clack/core": "^0.3.2",
     "@types/node": "^20.2.3",
     "@typescript-eslint/eslint-plugin": "^5.59.7",
     "@typescript-eslint/parser": "^5.59.7",
