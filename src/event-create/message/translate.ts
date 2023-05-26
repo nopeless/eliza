@@ -11,7 +11,6 @@ export default createChatReply({
   aliases: [`tl`],
   description: `translate text to another language`,
   async exec(message) {
-    // eslint-disable-next-line prefer-const
     let [_, to, ctx] =
       message.prefixlessContent.match(
         /^(?:([A-Za-z]+)\s+)?(?:translate|tl)(?:\s+(.*))?/
