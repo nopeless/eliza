@@ -147,6 +147,10 @@ export class ExpandableRegex {
     return this.generate(this.ast);
   }
  
+  getAstJSON() {
+    return JSON.stringify(this.ast, null, 2);
+  }
+
   private generate(node: RegexAST): string {
     switch (node.type) {
       case 'literal':
