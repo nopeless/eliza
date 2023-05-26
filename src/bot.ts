@@ -171,6 +171,10 @@ class ElizaClient extends Client {
   public async destroy() {
     clearInterval(this._heatInterval);
     await this.saveFile();
+    // TODO remove this after
+    // https://github.com/discordjs/discord.js/pull/9600
+    // is resolved
+    if (!this.isReady()) return;
     return super.destroy();
   }
 }
