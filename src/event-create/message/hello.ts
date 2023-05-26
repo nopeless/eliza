@@ -1,7 +1,9 @@
 import { createChatReply } from "../../event";
 import { ExpandableRegex } from "../../lib/regex-expander";
 
-const greetings = new ExpandableRegex("hi!?|hello!?|how are you doing\\?|what'?s up\\??")
+const greetings = new ExpandableRegex(
+  `hi!?|hello!?|how are you doing\\?|what'?s up\\??`
+);
 
 export default createChatReply({
   name: `hello`,
