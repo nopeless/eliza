@@ -13,7 +13,7 @@ export default createChatReply({
   async exec(message) {
     let [_, to, ctx] =
       message.prefixlessContent.match(
-        /^(?:([A-Za-z]+)\s+)?(?:translate|tl)(?:\s+(.*))?/
+        /^(?:([A-Za-z]+)\s+)?(?:translate|tl)(?::?\s+(.*))?/
       ) ??
       message.prefixlessContent.match(
         /^(?:translate\s+(?:(?:in)?to\s+)?(\w+.+?):)(?:\s+(.*))?/
