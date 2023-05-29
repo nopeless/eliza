@@ -1,13 +1,91 @@
 import { createChatReply } from "../../event";
 import { defineWord } from "../../lib/apis";
 
+const nonWords = Object.fromEntries(
+  [
+    `a`,
+    `an`,
+    `the`,
+    `what`,
+    `is`,
+    `are`,
+    `am`,
+    `i`,
+    `you`,
+    `he`,
+    `she`,
+    `it`,
+    `we`,
+    `they`,
+    `me`,
+    `him`,
+    `her`,
+    `us`,
+    `them`,
+    `my`,
+    `your`,
+    `his`,
+    `her`,
+    `our`,
+    `their`,
+    `mine`,
+    `yours`,
+    `his`,
+    `hers`,
+    `ours`,
+    `theirs`,
+    `this`,
+    `that`,
+    `these`,
+    `those`,
+    `here`,
+    `there`,
+    `who`,
+    `whom`,
+    `whose`,
+    `which`,
+    `what`,
+    `whatever`,
+    `whoever`,
+    `whomever`,
+    `whichever`,
+    `when`,
+    `where`,
+    `why`,
+    `how`,
+    `however`,
+    `whenever`,
+    `wherever`,
+    `however`,
+    `no`,
+    `not`,
+    `none`,
+    `nobody`,
+    `nothing`,
+    `nowhere`,
+    `never`,
+    `neither`,
+    `nor`,
+    `none`,
+    `nobody`,
+    `nothing`,
+    `nowhere`,
+  ].map((word) => [word, true])
+);
+
+function anyMatch(words: string[], triggers: Record<string, unknown>) {
+  return words
+    .map((w) => w.toLowerCase())
+    .some((word) => Object.hasOwnProperty.call(triggers, word));
+}
+
 export default createChatReply({
   name: `define`,
   description: `Look up a word in the dictionary e.g. define photosynthesis`,
   async exec(message) {
     const [_, word] =
       message.prefixlessContent.match(
-        /^def(?:ine)?(?:\s(?:(?:a|an|the)\s)?(.+))?$/
+        /^(?:def(?:ine)|what(?: i|'?)s)?(?:\s(?:(?:a|an|the)\s)?(.+))?$/
       ) ?? [];
 
     if (!_) return;
@@ -21,6 +99,11 @@ export default createChatReply({
 
     if (!word) {
       return `Please specify a word to define. ex) define hello`;
+    }
+
+    if (anyMatch(word.split(/\s+/), nonWords)) {
+      // this doesn't seem like a definition question
+      return;
     }
 
     let definition: string;
