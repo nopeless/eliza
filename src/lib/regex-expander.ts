@@ -181,3 +181,30 @@ export class ExpandableRegex {
     }
   }
 }
+
+const expandableRegexCache = new Map<string, ExpandableRegex>();
+
+/**
+ * Shorthand for
+ *
+ * ```ts
+ * const er = new ExpandableRegex(input);
+ *
+ * er.random();
+ * ```
+ *
+ * Has internal cache for ast parsing
+ */
+export function expandableRegex(template: TemplateStringsArray) {
+  if (template.length > 1) throw new Error(`string must be static`);
+  const input = template[0]!;
+  if (!expandableRegexCache.has(input)) {
+    expandableRegexCache.set(input, new ExpandableRegex(input));
+  }
+  return expandableRegexCache.get(input)!.random();
+}
+
+/**
+ * name alias
+ */
+export const er = expandableRegex;
