@@ -4,6 +4,7 @@ import { toWordList } from "../../lib/nlp";
 import { sortBySimilarity } from "../../lib/util";
 // import compromise from "compromise";
 import { langFile, reverseLangFile } from "../../lib/langfile";
+import { MessageType } from "discord.js";
 
 export default createChatReply({
   // wild card
@@ -44,7 +45,20 @@ export default createChatReply({
     }
 
     if (!ctx) {
-      return `missing translation context. example: "tl こんにちは世界"`;
+      // check for mentions
+      const mid = await message.fetchReference();
+
+      if (mid?.type === MessageType.Reply) {
+        const replyMsg = await message.channel.messages.fetch(mid);
+
+        if (replyMsg) {
+          ctx = replyMsg.content;
+        } else {
+          throw new Error(`failed to fetch reply message. Report this bug`);
+        }
+      } else {
+        return `missing translation context. example: "tl こんにちは世界"`;
+      }
     }
 
     // do a quick ctx check
