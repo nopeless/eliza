@@ -88,18 +88,10 @@ export function preprocessMessage<Client extends { prefix: RegExp }>(
   return newMessage;
 }
 
-export function createChatReply({
-  name,
-  description,
-  scope,
-  exec,
-}: createChatReplyOptions<ElizaClient>) {
-  return {
-    name,
-    description,
-    scope,
-    exec,
-  };
+export function createChatReply(
+  chatReply: createChatReplyOptions<ElizaClient>
+) {
+  return chatReply;
 }
 
 function scopeAllowed(
