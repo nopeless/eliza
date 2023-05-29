@@ -113,6 +113,10 @@ function _indentLength(lines: string[]) {
   return i;
 }
 
+export function randomChoice<T>(arr: T[]) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
 export function dedent(arg: string): string;
 export function dedent(arg: TemplateStringsArray, ...vars: unknown[]): string;
 /**
