@@ -44,17 +44,6 @@ export function capitalize(s: string) {
   return s[0]!.toUpperCase() + s.slice(1);
 }
 
-export function getPropLowercase<T extends Record<string, unknown>>(
-  obj: T,
-  prop: string
-) {
-  for (const key in obj) {
-    if (key.toLowerCase() === prop.toLowerCase()) {
-      return key;
-    }
-  }
-}
-
 export async function promiseAllMap<
   T,
   F extends (arg: T, index: number) => unknown
