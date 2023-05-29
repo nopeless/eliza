@@ -10,14 +10,9 @@ export async function sleep(ms: number) {
 
 export function sortByKey<T>(arr: T[], key: (o: T) => number) {
   // create cache
-  const cache: Map<T, number> = new Map();
-
-  for (const item of arr) {
-    cache.set(item, key(item));
-  }
+  const cache: Map<T, number> = new Map(arr.map((item) => [item, key(item)]));
 
   // sort
-
   return arr.sort((a, b) => cache.get(a)! - cache.get(b)!);
 }
 
@@ -45,7 +40,8 @@ export function reverse(s: string) {
 }
 
 export function capitalize(s: string) {
-  return s[0].toUpperCase() + s.slice(1);
+  if (s.length === 0) return ``;
+  return s[0]!.toUpperCase() + s.slice(1);
 }
 
 export function getPropLowercase<T extends Record<string, unknown>>(
@@ -94,6 +90,8 @@ function _indentLength(lines: string[]) {
   // filter
   lines = lines.filter((line) => line !== ``);
 
+  if (lines.length === 0) return 0;
+
   // get minimum length of all strings
   const minLength = lines.reduce((min, line) => {
     return Math.min(min, line.length);
@@ -101,7 +99,7 @@ function _indentLength(lines: string[]) {
 
   let i = 0;
   for (i; i < minLength; i++) {
-    const space = lines[0][i];
+    const space = lines[0]![i]!;
     // space is single char, ^$ not needed
     if (!/\s/.test(space)) return i;
 
@@ -144,7 +142,7 @@ export function dedent(
   if (lines.length === 0) return ``;
 
   const start = lines[0] === `` ? 1 : 0;
-  const end = /^\s+$/.test(lines[lines.length - 1])
+  const end = /^\s+$/.test(lines[lines.length - 1]!)
     ? lines.length - 1
     : lines.length;
 
