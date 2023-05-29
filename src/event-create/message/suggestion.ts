@@ -4,7 +4,9 @@ import { promiseAllMap } from "../../lib/util";
 export default createChatReply({
   name: `suggestion`,
   async exec(message) {
-    if (message.prefixlessContent.match(/^view suggestions?/)) {
+    if (
+      message.prefixlessContent.match(/^(?:view|list|show|open) suggestions?/)
+    ) {
       if (this.data.suggestions.length === 0) {
         await message.reply(`There are no suggestions yet.`);
         return;
