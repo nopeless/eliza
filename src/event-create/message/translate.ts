@@ -76,7 +76,7 @@ export default createChatReply({
           // get top 3 suggestions
           const suggestions = keys
             .slice(0, 3)
-            .map((k) => `${k} (${langFile[reverseLangFile[k]]})`);
+            .map((k) => `${k} (${langFile[reverseLangFile[k]!]})`);
 
           return `language ${to} was not found. maybe try ${toWordList(
             suggestions,

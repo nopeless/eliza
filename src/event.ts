@@ -223,13 +223,13 @@ export function createMessageCreateHandler(
 
       // It means the only error was a help error
       if (sortedErrors.length === 0) {
-        await message.reply(errors[0].error);
+        await message.reply(errors[0]!.error);
         return processedMessage;
       }
 
       // continue as usual
       if (sortedErrors.length == 1) {
-        await message.reply(sortedErrors[0].error);
+        await message.reply(sortedErrors[0]!.error);
         return processedMessage;
       }
 

@@ -23,7 +23,7 @@ for (let [key, value] of Object.entries(langFile)) {
     reverseLangFile[firstPart] = key;
 
     // extra work
-    const p = parts[i];
+    const p = parts[i]!;
     const r = (() => {
       if (p.match(/i$/)) {
         return p.replace(/i$/, ``);

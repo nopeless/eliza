@@ -26,7 +26,7 @@ export default createChatReply({
       },
       content:
         pool.length === 1
-          ? `Unshortened URL: <${pool[0].newUrl}>`
+          ? `Unshortened URL: <${pool[0]!.newUrl}>`
           : `Unshortened URLs:\n${pool
               .map((x) => `<${x.url[0]}> ➤ <${x.newUrl}>`)
               .join(`\n`)}`,
