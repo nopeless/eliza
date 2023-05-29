@@ -13,16 +13,18 @@ export default createChatReply({
   async exec(message) {
     let [_, to, ctx] =
       message.prefixlessContent.match(
-        /^(?:([A-Za-z]+)\s+)?(?:translate|tl)(?::?\s+(.*))?/
+        /^(?:translate\s+(?:(?:in)?to\s+)?(\w+[\w\s]+?):)(?:\s+(.*))?/
       ) ??
       message.prefixlessContent.match(
-        /^(?:translate\s+(?:(?:in)?to\s+)?(\w+.+?):)(?:\s+(.*))?/
+        /^(?:([A-Za-z]+)\s+)?(?:translate|tl)(?::?\s+(.*))?/
       ) ??
       [];
 
     let hint = ``;
 
     to = to?.toLowerCase();
+
+    console.log(_, to, ctx);
 
     if (!_) {
       if (message.content.match(/translate|trans/)) {

@@ -23,8 +23,8 @@ exports[`translate > forgot colon 1`] = `
 `;
 
 exports[`translate > natural syntax 1`] = `
-"translated from Spanish; Castilian to English:
-\\"to japanese: little crazy\\""
+"translated from Spanish; Castilian to Japanese:
+\\"ちょっとおかしい\\""
 `;
 
 exports[`translate > no colon required 1`] = `
