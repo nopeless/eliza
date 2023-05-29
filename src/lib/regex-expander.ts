@@ -1,5 +1,7 @@
 // Credits: ChatGPT
 
+import { randomChoice } from "./util";
+
 type RegexAST = GroupNode | ChoiceNode | RepetitionNode | LiteralNode;
 
 interface GroupNode {
@@ -152,8 +154,9 @@ export class ExpandableRegex {
       case `group`:
         return node.children.map((child) => this.generate(child)).join(``);
       case `choice`: {
-        const index = Math.floor(Math.random() * node.children.length);
-        return this.generate(node.children[index]);
+        const choice = randomChoice(node.children);
+        if (!choice) throw new Error(`node has no children`);
+        return this.generate(choice);
       }
       case `repetition`: {
         const count = this.getRandomCount(node.min, node.max);
