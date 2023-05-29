@@ -27,7 +27,7 @@ export default createChatReply({
 
     const [deleteCommand, deleteMessage] =
       message.prefixlessContent.match(
-        /^(?:suggestion delete|delete suggestion) (\d+)/
+        /^(?:suggestion delete|delete suggestion) (.+)/
       ) ?? [];
 
     if (deleteCommand) {
