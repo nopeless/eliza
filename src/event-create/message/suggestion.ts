@@ -5,7 +5,9 @@ export default createChatReply({
   name: `suggestion`,
   async exec(message) {
     if (
-      message.prefixlessContent.match(/^(?:view|list|show|open) suggestions?/)
+      message.prefixlessContent.match(
+        /^(?:(?:view|list|show|open) suggestions?|(?:view|list|show|open) suggestions?)/
+      )
     ) {
       if (this.data.suggestions.length === 0) {
         await message.reply(`There are no suggestions yet.`);
