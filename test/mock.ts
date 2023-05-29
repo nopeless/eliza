@@ -34,4 +34,8 @@ export class MockMessage {
     this.mockReactions.push(emoji);
     return;
   }
+
+  async fetchReference() {
+    return undefined;
+  }
 }
