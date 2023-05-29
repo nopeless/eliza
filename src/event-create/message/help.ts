@@ -1,4 +1,4 @@
-import { getPropLowercase, sortBySimilarity } from "../../lib/util";
+import { sortBySimilarity } from "../../lib/util";
 import { createChatReply } from "../../event";
 import natural from "natural";
 
@@ -7,7 +7,7 @@ const LevenshteinDistance = natural.LevenshteinDistance;
 export default createChatReply({
   name: `help`,
   aliases: [`?`, `h`, `info`, `command`, `commands`],
-  description: `usage: help <command name>`,
+  description: `shows information about a command e.g. help <command name>`,
   async exec(message): Promise<void | string> {
     const commands = (await import(`./index`)).default;
 
@@ -30,7 +30,21 @@ export default createChatReply({
       return `What do you need help with? If you are asking for a command, try "help <command name>"`;
     }
 
-    const prop = getPropLowercase(commands, commandName);
+    const prop = (() => {
+      for (const key of Object.keys(commands) as (keyof typeof commands)[]) {
+        const aliases = commands[key]?.aliases ?? [];
+        const cn = commandName.toLowerCase();
+
+        if (
+          [key.toLowerCase(), commands[key].name.toLowerCase()].includes(cn)
+        ) {
+          return key;
+        }
+        if (aliases.some((alias) => alias.toLowerCase() === cn)) {
+          return key;
+        }
+      }
+    })();
 
     if (prop) {
       const command = commands[prop];
@@ -46,7 +60,11 @@ export default createChatReply({
     // try to find closest match
     const closestMatch = sortBySimilarity(
       commandName,
-      Object.keys(commands)
+      Object.entries(commands).flatMap(([k, command]) => [
+        k,
+        command.name,
+        ...(command.aliases ?? []),
+      ])
     )[0];
 
     if (closestMatch) {
