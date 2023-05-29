@@ -1,9 +1,5 @@
 import { createChatReply } from "../../event";
-import { ExpandableRegex } from "../../lib/regex-expander";
-
-const greetings = new ExpandableRegex(
-  `hi!?|hello!?|how are you doing\\?|what'?s up\\??`
-);
+import { er } from "../../lib/regex-expander";
 
 export default createChatReply({
   name: `hello`,
@@ -16,18 +12,22 @@ export default createChatReply({
     ) {
       // TODO add variety
       await message.reply(
-        m[0].match(/\bup|whats?|good\b/) ? `sup` : greetings.random()
+        m[0].match(/\bup|whats?|good\b/)
+          ? `(sup|sup bro|whaddup|what's up|what's good|what's good bro|what's good broski)`
+          : er`hi!?|hello!?|how are you doing\\?|what'?s up\\??`
       );
     }
 
     // why not use nlp here?
     if (message.prefixlessContent.match(/^how are you$/)) {
-      await message.reply(`I'm doing well, thanks for asking!`);
+      await message.reply(
+        er`(I'm|I am) (doing well|having a good (time|day)), thanks for asking!( (owo|uwu|-w-))?`
+      );
     }
 
     // bye
     if (message.prefixlessContent.match(/^bye|goodbye$/)) {
-      await message.reply(`bye!`);
+      await message.reply(er`bye!|bye bye <3|see you later!`);
     }
   },
 });
