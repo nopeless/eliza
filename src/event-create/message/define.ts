@@ -81,6 +81,7 @@ function anyMatch(words: string[], triggers: Record<string, unknown>) {
 
 export default createChatReply({
   name: `define`,
+  aliases: [`def`, `what is`, `what's`],
   description: `Look up a word in the dictionary e.g. define photosynthesis`,
   async exec(message) {
     const [_, word] =

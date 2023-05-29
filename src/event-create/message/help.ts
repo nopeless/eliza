@@ -6,6 +6,7 @@ const LevenshteinDistance = natural.LevenshteinDistance;
 
 export default createChatReply({
   name: `help`,
+  aliases: [`?`, `h`, `info`, `command`, `commands`],
   description: `usage: help <command name>`,
   async exec(message): Promise<void | string> {
     const commands = (await import(`./index`)).default;

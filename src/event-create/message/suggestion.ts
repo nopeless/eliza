@@ -6,7 +6,7 @@ export default createChatReply({
   async exec(message) {
     if (
       message.prefixlessContent.match(
-        /^(?:(?:view|list|show|open) suggestions?|(?:view|list|show|open) suggestions?)/
+        /^(?:(?:view|list|show|open) suggestions?|(?:view|list|show|open) suggestions?)/i
       )
     ) {
       if (this.data.suggestions.length === 0) {
@@ -27,7 +27,7 @@ export default createChatReply({
 
     const [deleteCommand, deleteMessage] =
       message.prefixlessContent.match(
-        /^(?:suggestion delete|delete suggestion) (.+)/
+        /^(?:suggestion delete|delete suggestion) (.+)/i
       ) ?? [];
 
     if (deleteCommand) {
@@ -61,7 +61,7 @@ export default createChatReply({
 
     if (
       message.prefixlessContent.match(
-        /^(?:clear suggestions?|suggestions? clear)/
+        /^(?:clear suggestions?|suggestions? clear)/i
       )
     ) {
       if (!this.hell.can(message.author, `saveFile`))
@@ -71,7 +71,7 @@ export default createChatReply({
     }
 
     const [_, suggestion] =
-      message.prefixlessContent.match(/^suggestion(?:\s(.+))?$/) ?? [];
+      message.prefixlessContent.match(/^suggestion(?:\s(.+))?$/i) ?? [];
 
     if (!_) return;
 

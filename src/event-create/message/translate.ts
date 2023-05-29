@@ -13,10 +13,10 @@ export default createChatReply({
   async exec(message) {
     let [_, to, ctx] =
       message.prefixlessContent.match(
-        /^(?:translate\s+(?:(?:in)?to\s+)?(\w+[\w\s]+?):)(?:\s+(.*))?/
+        /^(?:translate\s+(?:(?:in)?to\s+)?(\w+[\w\s]+?):)(?:\s+(.*))?/i
       ) ??
       message.prefixlessContent.match(
-        /^(?:([A-Za-z]+)\s+)?(?:translate|tl)(?::?\s+(.*))?/
+        /^(?:([A-Za-z]+)\s+)?(?:translate|tl)(?::?\s+(.*))?/i
       ) ??
       [];
 
@@ -24,7 +24,13 @@ export default createChatReply({
 
     to = to?.toLowerCase();
 
-    console.log(_, to, ctx);
+    if (!_) {
+      // attempt to use different regex
+      [_, ctx, to] =
+        message.prefixlessContent.match(
+          /^(?:translate|what(?:'?| i)s) (.+?) (?:(?:in|to)(\s+\w+)){1,3}/i
+        ) ?? [];
+    }
 
     if (!_) {
       if (message.content.match(/translate|trans/)) {

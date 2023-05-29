@@ -3,11 +3,12 @@ import { er } from "../../lib/regex-expander";
 
 export default createChatReply({
   name: `hello`,
+  aliases: [`hi`, `hey`, `greetings`],
   async exec(message) {
     let m;
     if (
       (m = message.prefixlessContent.match(
-        /^(?:hi|hello|(?:wh?as?)?sup|(?:what'?s)\s+(?:good|up))$/
+        /^(?:hi|hello|(?:wh?as?)?sup|(?:what'?s)\s+(?:good|up))$/i
       ))
     ) {
       // TODO add variety
@@ -19,14 +20,14 @@ export default createChatReply({
     }
 
     // why not use nlp here?
-    if (message.prefixlessContent.match(/^how are you$/)) {
+    if (message.prefixlessContent.match(/^how are you$/i)) {
       await message.reply(
         er`(I'm|I am) (doing well|having a good (time|day)), thanks for asking!( (owo|uwu|-w-))?`
       );
     }
 
     // bye
-    if (message.prefixlessContent.match(/^bye|goodbye$/)) {
+    if (message.prefixlessContent.match(/^bye|goodbye$/i)) {
       await message.reply(er`bye!|bye bye <3|see you later!`);
     }
   },
