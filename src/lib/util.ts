@@ -147,3 +147,43 @@ export function dedent(
 
   return lines.join(`\n`);
 }
+
+/**
+ * Returns a regex that is swappable
+ *
+ * adds `i` flag by default
+ */
+export function swappableRegex(
+  regex1: RegExp,
+  regex2: RegExp,
+  options: { flags?: string } = {}
+) {
+  return new RegExp(
+    `^(?:(?:${regex1.source})\\s+(?:${regex2.source})|(?:${regex2.source})\\s+(?:${regex1.source}))`,
+    options.flags ?? `i`
+  );
+}
+
+/**
+ * inserts `\s+` between as well
+ */
+export function mergeRegex(regex1: RegExp, regex2: RegExp) {
+  return new RegExp(`(?:${regex1.source})\\s+(?:${regex2.source})`, `i`);
+}
+
+export function indentTrailing(
+  text: string,
+  indent = `  `,
+  options: { indentFirstLine?: boolean } = {}
+) {
+  const lines = text.split(/\n/);
+
+  const firstLine = options.indentFirstLine ? 0 : 1;
+
+  return lines
+    .map((line, i) => {
+      if (i < firstLine) return line;
+      return indent + line;
+    })
+    .join(`\n`);
+}
