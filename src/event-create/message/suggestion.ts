@@ -1,12 +1,17 @@
 import { createChatReply } from "../../event";
-import { promiseAllMap } from "../../lib/util";
+import {
+  indentTrailing,
+  mergeRegex,
+  promiseAllMap,
+  swappableRegex,
+} from "../../lib/util";
 
 export default createChatReply({
   name: `suggestion`,
   async exec(message) {
     if (
       message.prefixlessContent.match(
-        /^(?:(?:view|list|show|open) suggestions?|(?:view|list|show|open) suggestions?)/i
+        swappableRegex(/view|list|show|open/, /suggestions?/)
       )
     ) {
       if (this.data.suggestions.length === 0) {
@@ -18,7 +23,7 @@ export default createChatReply({
           await promiseAllMap(this.data.suggestions, async (s) => {
             const user = await this.users.fetch(s.author);
             const username = user ? user.username : `Unknown User`;
-            return `${username}: ${s.content}`;
+            return indentTrailing(`${username}: ${s.content}`);
           })
         ).join(`\n`)}`
       );
@@ -27,7 +32,7 @@ export default createChatReply({
 
     const [deleteCommand, deleteMessage] =
       message.prefixlessContent.match(
-        /^(?:suggestion delete|delete suggestion) (.+)/i
+        mergeRegex(swappableRegex(/delete|remove/, /suggestions?/), /\s+(.+)/)
       ) ?? [];
 
     if (deleteCommand) {
@@ -61,7 +66,7 @@ export default createChatReply({
 
     if (
       message.prefixlessContent.match(
-        /^(?:clear suggestions?|suggestions? clear)/i
+        swappableRegex(/clear|delete|remove/, /suggestions?/)
       )
     ) {
       if (!this.hell.can(message.author, `saveFile`))
@@ -71,7 +76,9 @@ export default createChatReply({
     }
 
     const [_, suggestion] =
-      message.prefixlessContent.match(/^suggestion(?:\s(.+))?$/i) ?? [];
+      message.prefixlessContent.match(
+        /^(?:(?:(?:add|create|submit|register) )?suggestion|suggest)(?:\s(.+))?$/is
+      ) ?? [];
 
     if (!_) return;
 
