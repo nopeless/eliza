@@ -24,7 +24,9 @@ export default createChatReply({
     }
 
     const [deleteCommand, deleteMessage] =
-      message.prefixlessContent.match(/^delete (\d+)/) ?? [];
+      message.prefixlessContent.match(
+        /^(?:suggestion delete|delete suggestion) (\d+)/
+      ) ?? [];
 
     if (deleteCommand) {
       if (!this.hell.can(message.author, `saveFile`))
@@ -55,7 +57,11 @@ export default createChatReply({
       return `✅`;
     }
 
-    if (message.prefixlessContent.match(/^clear suggestions?/)) {
+    if (
+      message.prefixlessContent.match(
+        /^(?:clear suggestions?|suggestions? clear)/
+      )
+    ) {
       if (!this.hell.can(message.author, `saveFile`))
         return `You don't have permissions`;
       this.data.suggestions = [];
