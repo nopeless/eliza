@@ -8,13 +8,13 @@ export default createChatReply({
     let m;
     if (
       (m = message.prefixlessContent.match(
-        /^(?:hi|hello|(?:wh?as?)?sup|(?:what'?s)\s+(?:good|up))$/i
+        /^(?:hi|hello|(?:(?:wh?as?)?sup|(?:what'?s)\s+(?:good|up)))(\s+?:dog|g|bro(?:ther)?)?$/i
       ))
     ) {
       // TODO add variety
       await message.reply(
-        m[0].match(/\bs?up|whats?|good\b/)
-          ? `(sup|sup bro|whaddup|what's up|what's good|what's good bro|what's good broski)`
+        m[0].match(/\bs?up|whats?|good|dog\b/)
+          ? er`(sup|sup bro|whaddup|what's up|what's good|what's good bro|what's good broski)`
           : er`hi!?|hello!?|how are you doing\\?|what'?s up\\??`
       );
     }
