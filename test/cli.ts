@@ -1,5 +1,5 @@
 import { consola } from "consola";
-import { dedent } from "@/lib/util";
+import { dedent, indentTrailing } from "@/lib/util";
 import { client } from "./fixtures";
 
 async function main(): Promise<false | void> {
@@ -29,18 +29,18 @@ async function main(): Promise<false | void> {
   if (response.mockReplies.length === 0) {
     consola.info(`No reply`);
   } else {
-    consola.info(response.mockReplies[0]);
+    consola.info(indentTrailing(response.mockReplies[0]!));
   }
 }
 
 function intro() {
   consola.info(
-    `\n ---- ` +
-      dedent`
-    Interactive eliza cli
+    ` ---- ` +
+      indentTrailing(dedent`
+    Interactive eliza cli ----
     This simulates Discord chat without having to run the bot
 
-    By default, all channels are active`
+    By default, all channels are active`)
   );
 }
 
