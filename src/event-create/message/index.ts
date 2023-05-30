@@ -11,11 +11,13 @@ export default {
   // administrative
   exit,
 
+  // strict passive communication modules
+  hello,
+
   // commands
   translate,
   define,
   saveFile,
-  hello,
   suggestion,
 
   // passive
