@@ -49,5 +49,6 @@
     "spica": "^0.0.727",
     "url-unshort": "^6.1.0",
     "wordnet-db": "^3.1.14"
-  }
+  },
+  "packageManager": "yarn@3.5.1"
 }
