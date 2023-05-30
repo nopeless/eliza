@@ -13,7 +13,7 @@ export default createChatReply({
     ) {
       // TODO add variety
       await message.reply(
-        m[0].match(/\bup|whats?|good\b/)
+        m[0].match(/\bs?up|whats?|good\b/)
           ? `(sup|sup bro|whaddup|what's up|what's good|what's good bro|what's good broski)`
           : er`hi!?|hello!?|how are you doing\\?|what'?s up\\??`
       );
