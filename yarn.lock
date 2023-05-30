@@ -2158,10 +2158,10 @@ noms@0.0.0:
     inherits "^2.0.1"
     readable-stream "~1.0.31"
 
-nopeless-config@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/nopeless-config/-/nopeless-config-1.7.0.tgz#593bd488f7bb53948620c325aa0e28d516d2b1cf"
-  integrity sha512-B9w9wdTtXgQkvzPL76qbXTkFxcFatoqI8SuDqhrluHwFZ9w+LLMnFNGc8b65JEZ0Qh8i7STuCeUFJsbM2Ye/RQ==
+nopeless-config@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/nopeless-config/-/nopeless-config-1.10.0.tgz#af305c0ec152a54e8c0016440340e95a6ea664d1"
+  integrity sha512-58RCg6mpdSX+KIhNe1GTnFRFIVxrhuhJ4/jMfENFstu7obxXY7uOrWfnaAefS9cqfS64DNjVcQBvXGCt4BXTxg==
   dependencies:
     vite-tsconfig-paths "^4.2.0"
 
