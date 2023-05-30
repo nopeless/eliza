@@ -8,6 +8,17 @@ import { toWordList } from "./lib/nlp";
 
 type ChannelTypeString = keyof typeof ChannelType;
 
+type Exec<Client extends ElizaClient> = (
+  this: Client,
+  message: ProcessedMessage,
+  ...args: never[]
+) =>
+  | void
+  | Message
+  | string
+  | string[]
+  | Promise<void | Message | string | string[]>;
+
 type createChatReplyOptions<Client extends ElizaClient> = {
   name: string;
   description?: string;
@@ -19,10 +30,7 @@ type createChatReplyOptions<Client extends ElizaClient> = {
    *
    * If no replies are made, the strings are joined and then sent as a single message
    */
-  exec(
-    this: Client,
-    message: ProcessedMessage
-  ): void | string | string[] | Promise<void | string | string[]>;
+  exec: Exec<Client>;
 
   // TODO
   // permissions
@@ -86,6 +94,10 @@ export function preprocessMessage<Client extends { prefix: RegExp }>(
   };
 
   return newMessage;
+}
+
+export function createChatReplyExec<Fn extends Exec<ElizaClient>>(fn: Fn) {
+  return fn;
 }
 
 export function createChatReply(
@@ -164,7 +176,7 @@ export function createMessageCreateHandler(
           continue;
         }
 
-        const result = await (async () =>
+        let result = await (async () =>
           handler.exec.call(this, processedMessage))().catch((e) => {
           if (e === JustSkip) return JustSkip;
           console.error(e);
@@ -172,6 +184,11 @@ export function createMessageCreateHandler(
         });
 
         if (result === JustSkip) continue;
+
+        if (result instanceof Message) {
+          // syntactic sugar for undefined
+          result = undefined;
+        }
 
         if (processedMessage.replied) {
           // we are done
