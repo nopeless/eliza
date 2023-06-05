@@ -6,6 +6,7 @@ import exit from "./exit";
 import urlUnshortener from "./url-unshortener";
 import define from "./define";
 import suggestion from "./suggestion";
+import randomQuote from "./random-quote";
 
 export default {
   // administrative
@@ -13,6 +14,7 @@ export default {
 
   // strict passive communication modules
   hello,
+  randomQuote,
 
   // commands
   translate,
