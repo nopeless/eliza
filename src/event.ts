@@ -12,12 +12,7 @@ type Exec<Client extends ElizaClient> = (
   this: Client,
   message: ProcessedMessage,
   ...args: never[]
-) =>
-  | void
-  | Message
-  | string
-  | string[]
-  | Promise<void | Message | string | string[]>;
+) => void | string | string[] | Promise<void | Message | string | string[]>;
 
 type createChatReplyOptions<Client extends ElizaClient> = {
   name: string;
