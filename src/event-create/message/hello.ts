@@ -13,21 +13,21 @@ export default createChatReply({
     ) {
       // TODO add variety
       await message.reply(
-        m[0].match(/\bs?up|whats?|good|dog\b/)
+        m[0].match(/\b(?:s?up|whats?|good|dog)\b/)
           ? er`(sup|sup bro|whaddup|what's up|what's good|what's good bro|what's good broski)`
           : er`hi!?|hello!?|how are you doing\\?|what'?s up\\??`
       );
     }
 
     // why not use nlp here?
-    if (message.prefixlessContent.match(/^how are you$/i)) {
+    else if (message.prefixlessContent.match(/^how are you$/i)) {
       await message.reply(
         er`(I'm|I am) (doing well|having a good (time|day)), thanks for asking!( (owo|uwu|-w-))?`
       );
     }
 
     // bye
-    if (message.prefixlessContent.match(/^bye|goodbye$/i)) {
+    else if (message.prefixlessContent.match(/^(?:bye|goodbye)$/i)) {
       await message.reply(er`bye!|bye bye <3|see you later!`);
     }
   },
