@@ -10,7 +10,7 @@ import { Message } from "discord.js";
 
 const listCommands = createChatReplyExec(async function (message) {
   if (message.prefixlessContent.match(swappableRegex(/list/, /commands?/))) {
-    return await message.reply(
+    return message.reply(
       `Here are the commands:\n${Object.entries(commands)
         .map(([key, command]) => {
           return `${key} - ${command.name}`;
@@ -101,7 +101,7 @@ export default createChatReply({
   aliases: [`?`, `h`, `info`, `command`, `commands`, `list`],
   description: `shows information about a command e.g. help <command name>`,
   async exec(message): // typedefs only needed for this module
-  Promise<string | string[] | Message | undefined> {
+    Promise<string | string[] | Message | undefined> {
     return (
       (await listCommands.bind(this)(message)) ??
       (await commandHelp.bind(this)(message))

@@ -20,7 +20,7 @@ export default createChatReply({
 
     if (pool.length === 0) return;
 
-    await message.reply({
+    return message.reply({
       allowedMentions: {
         repliedUser: false,
       },

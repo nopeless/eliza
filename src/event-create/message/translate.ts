@@ -114,7 +114,7 @@ export default createChatReply({
       to
     );
 
-    message.reply(
+    return message.reply(
       `translated from ${detectedLanguage[1]} to ${
         langFile[to ?? `en`]
       }:\n${translated}` + (hint ? `\n> ${hint}` : ``)

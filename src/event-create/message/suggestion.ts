@@ -1,4 +1,5 @@
 import { createChatReply } from "../../event";
+import { er } from "../../lib/regex-expander";
 import {
   indentTrailing,
   mergeRegex,
@@ -8,6 +9,8 @@ import {
 
 export default createChatReply({
   name: `suggestion`,
+  aliases: [`suggest`, `bug`, `error`, `feature`],
+  description: `Create a new suggestion e.g. suggest Bug when using suggestion command`,
   async exec(message) {
     if (
       message.prefixlessContent.match(
@@ -15,10 +18,9 @@ export default createChatReply({
       )
     ) {
       if (this.data.suggestions.length === 0) {
-        await message.reply(`There are no suggestions yet.`);
-        return;
+        return message.reply(`There are no suggestions yet.`);
       }
-      await message.reply(
+      return message.reply(
         `Here are the suggestions:\n${(
           await promiseAllMap(this.data.suggestions, async (s) => {
             const user = await this.users.fetch(s.author);
@@ -27,7 +29,6 @@ export default createChatReply({
           })
         ).join(`\n`)}`
       );
-      return;
     }
 
     const [deleteCommand, deleteMessage] =
@@ -39,8 +40,7 @@ export default createChatReply({
       if (!this.hell.can(message.author, `saveFile`))
         return `You don't have permissions`;
       if (!deleteMessage) {
-        await message.reply(`Please specify a suggestion to delete.`);
-        return;
+        return message.reply(`Please specify a suggestion to delete.`);
       }
 
       const newSuggestions = this.data.suggestions.filter(
@@ -55,10 +55,9 @@ export default createChatReply({
       }
 
       if (this.data.suggestions.length !== newSuggestions.length + 1) {
-        await message.reply(
+        return message.reply(
           `Multiple suggestions were found matching ${deleteMessage}. Please be more specific.`
         );
-        return;
       }
       this.data.suggestions = newSuggestions;
       return `✅`;
@@ -75,9 +74,9 @@ export default createChatReply({
       return `✅`;
     }
 
-    const [_, suggestion] =
+    const [_, cmd, suggestion] =
       message.prefixlessContent.match(
-        /^(?:(?:(?:add|create|submit|register) )?suggestion|suggest)(?:\s(.+))?$/is
+        /^((?:(?:add|create|submit|register) )?suggestion|suggest)(?:\s(.+))?$/is
       ) ?? [];
 
     if (!_) return;
@@ -86,14 +85,13 @@ export default createChatReply({
       this.data.suggestions.filter((v) => v.author === message.author.id)
         .length >= 3
     ) {
-      await message.reply(
+      return message.reply(
         `You have reached the suggestion limit. Please wait for your suggestions to be reviewed.`
       );
-      return;
     }
 
     if (!suggestion) {
-      return `Please specify a suggestion. ex) suggestion add a way to view someone's minecraft skin`;
+      return `Please specify a suggestion. ex) ${cmd} add a way to view someone's minecraft skin`;
     }
 
     this.data.suggestions.push({
@@ -101,8 +99,8 @@ export default createChatReply({
       content: suggestion,
     });
 
-    await message.reply(
-      `Thank you for your suggestion! It has been recorded and will be reviewed by the developers.`
+    return message.reply(
+      er`Thanks, (I'll let the devs know|your suggestion has been recorded)`
     );
   },
 });

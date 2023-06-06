@@ -21,10 +21,9 @@ export default createChatReply({
     if (!_) return;
 
     if (!process.env.RAPID_API_KEY) {
-      await message.reply(
+      return message.reply(
         `Sorry, I can't define words right now because I'm missing the api key. Please try again later.`
       );
-      return;
     }
 
     if (!word) {
@@ -40,11 +39,11 @@ export default createChatReply({
     try {
       definition = ((await defineWord(word)) ?? {}).definition;
     } catch {
-      await message.reply(
+      return message.reply(
         `Sorry, I can't define words right now because the api is down. Please try again later.`
       );
-      return;
     }
+
     if (definition) {
       await message.reply(`Here is the definition of '${word}'\n${definition}`);
     } else {
