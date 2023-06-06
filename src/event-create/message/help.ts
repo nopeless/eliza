@@ -101,7 +101,7 @@ export default createChatReply({
   aliases: [`?`, `h`, `info`, `command`, `commands`, `list`],
   description: `shows information about a command e.g. help <command name>`,
   async exec(message): // typedefs only needed for this module
-    Promise<string | string[] | Message | undefined> {
+  Promise<string | string[] | Message | undefined> {
     return (
       (await listCommands.bind(this)(message)) ??
       (await commandHelp.bind(this)(message))
