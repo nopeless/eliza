@@ -10,6 +10,6 @@ export default createChatReply({
 
     await this.saveFile();
 
-    message.reply(`wrote save file`);
+    return message.reply(`wrote save file`);
   },
 });
