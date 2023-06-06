@@ -15,7 +15,8 @@ export default createChatReply({
     if (
       message.prefixlessContent.match(
         swappableRegex(/view|list|show|open/, /suggestions?/)
-      )
+      ) ||
+      message.prefixlessContent.match(/^suggestions$/)
     ) {
       if (this.data.suggestions.length === 0) {
         return message.reply(`There are no suggestions yet.`);
@@ -23,8 +24,10 @@ export default createChatReply({
       return message.reply(
         `Here are the suggestions:\n${(
           await promiseAllMap(this.data.suggestions, async (s) => {
-            const user = await this.users.fetch(s.author);
-            const username = user ? user.username : `Unknown User`;
+            const user = this.isReady()
+              ? await this.users.fetch(s.author)
+              : null;
+            const username = user?.username ?? `Unknown User`;
             return indentTrailing(`${username}: ${s.content}`);
           })
         ).join(`\n`)}`
