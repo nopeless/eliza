@@ -45,6 +45,7 @@
     "dotenv": "^16.0.3",
     "hellgate": "^2.1.0",
     "natural": "^6.3.0",
+    "node-nlp": "^4.27.0",
     "spica": "^0.0.727",
     "url-unshort": "^6.1.0",
     "wink-eng-lite-web-model": "^1.5.0",
