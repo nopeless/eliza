@@ -195,7 +195,10 @@ const expandableRegexCache = new Map<string, ExpandableRegex>();
  *
  * Has internal cache for ast parsing
  */
-export function expandableRegex(template: TemplateStringsArray) {
+export function expandableRegex(template: TemplateStringsArray | string) {
+  if (typeof template === `string`)
+    template = [template] as unknown as TemplateStringsArray;
+
   if (template.length > 1) throw new Error(`string must be static`);
   const input = template[0]!;
   if (!expandableRegexCache.has(input)) {
