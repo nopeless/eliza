@@ -1,6 +1,9 @@
 # Production working directory
 data
 
+# NLP
+model.nlp
+
 # IDE
 .vscode
 
