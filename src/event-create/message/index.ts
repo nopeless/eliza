@@ -7,6 +7,7 @@ import urlUnshortener from "./url-unshortener";
 import define from "./define";
 import suggestion from "./suggestion";
 import randomQuote from "./random-quote";
+import natural from "./natural";
 
 export default {
   // administrative
@@ -27,4 +28,7 @@ export default {
 
   // fallback
   help,
+
+  // natural language processing
+  natural,
 };

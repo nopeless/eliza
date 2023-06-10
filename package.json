@@ -18,7 +18,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "cd:restart": "git fetch && git reset --hard origin/main && yarn install --frozen-lockfile && yarn build && yarn start",
-    "cli": "tsx --tsconfig ./test/tsconfig.json test/cli.ts --inspect"
+    "cli": "tsx --tsconfig ./test/tsconfig.json test/cli.ts --inspect",
+    "train": "tsx src/scripts/train.ts"
   },
   "devDependencies": {
     "@types/node": "^20.2.3",
