@@ -93,7 +93,7 @@ export async function train() {
   if (existsSync(`./model.nlp`)) await unlink(`./model.nlp`);
 
   const docfile = await readFile(
-    join(dirname(import.meta), `./document-responses.md`),
+    join(dirname(import.meta), `./document-responses.txt`),
     {
       encoding: `utf8`,
     }
