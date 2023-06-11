@@ -42,7 +42,7 @@ client.sendExpect = async (
 
   expect(m.mockReplies[0]).to.match(expected);
 
-  return m.mockReplies[0];
+  return m.mockReplies[0]!;
 };
 
 export { client };
