@@ -7,8 +7,6 @@ import assert from "assert";
 import { existsSync } from "fs";
 import { er } from "./regex-expander";
 
-const filename = `./nlp-model.json`;
-
 export const manager = new NlpManager({
   languages: [`en`],
   nlu: { useNoneFeature: false, log: false },
@@ -24,7 +22,12 @@ const loading = false;
 
 export async function load() {
   if (loading) return loaded;
-  await manager.load();
+
+  if (!existsSync(`./model.nlp`)) {
+    await train();
+  } else {
+    await manager.load();
+  }
   nlpLoadPromise!();
 }
 
@@ -87,7 +90,7 @@ export async function doc(s: string) {
  * Loads file and trains
  */
 export async function train() {
-  if (existsSync(filename)) await unlink(filename);
+  if (existsSync(`./model.nlp`)) await unlink(`./model.nlp`);
 
   const docfile = await readFile(
     join(dirname(import.meta), `./document-responses.md`),
