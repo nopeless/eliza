@@ -27,7 +27,11 @@ async function main(): Promise<false | void> {
   const response = await client.send(input);
 
   if (response.mockReplies.length === 0) {
-    consola.info(`No reply`);
+    if (response.mockReactions.length > 0) {
+      consola.info(`Reactions: ${response.mockReactions[0]!}`);
+    } else {
+      consola.info(`No reply`);
+    }
   } else {
     consola.info(indentTrailing(response.mockReplies[0]!));
   }
