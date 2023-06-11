@@ -4,6 +4,7 @@ import { MockMessage } from "./mock";
 const client = new ElizaClient({
   prefix: `eliza `,
   intents: [],
+  ownerID: `nopeless`,
 }) as ElizaClient & {
   send(
     message: MockMessage | string,
