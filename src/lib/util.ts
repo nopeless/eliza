@@ -1,5 +1,13 @@
 import natural, { DamerauLevenshteinDistanceOptions } from "natural";
 
+export type U2I<U> = (U extends unknown ? (k: U) => void : never) extends (
+  k: infer I
+) => void
+  ? I
+  : never;
+
+export type Id<T> = T extends infer U ? { [K in keyof U]: U[K] } : never;
+
 const LevenshteinDistance = natural.LevenshteinDistance;
 
 export async function sleep(ms: number) {
