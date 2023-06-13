@@ -9,7 +9,7 @@
   "private": true,
   "main": "dist/run-bot.js",
   "scripts": {
-    "build": "rimraf dist tsconfig.tsbuildinfo && copyfiles -u 1 \"src/**/*.json\" dist && tsc",
+    "build": "rimraf dist tsconfig.tsbuildinfo && copyfiles -u 1 \"src/**/*.{json,txt}\" dist && tsc",
     "start": "node --loader=commonjs-extension-resolution-loader dist/run-bot.js",
     "dev": "tsx src/run-bot.ts",
     "dev:watch": "tsx watch --onSuccess \"npm run build && npm run dev\"",
