@@ -232,7 +232,7 @@ export function createMessageCreateHandler(
       }
 
       // continue as usual
-      if (sortedErrors.length == 1) {
+      if (sortedErrors.length === 1) {
         await message.reply(sortedErrors[0]!.error);
         return processedMessage;
       }
