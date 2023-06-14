@@ -16,6 +16,38 @@ export async function sleep(ms: number) {
   });
 }
 
+export type Primitive =
+  | boolean
+  | number
+  | string
+  | symbol
+  | bigint
+  | undefined
+  | null;
+
+/**
+ * Similar to python's groupby
+ */
+export function groupby<T>(arr: T[], key: (item: T) => Primitive) {
+  let prevKey: Primitive = NaN;
+
+  const groups: [Primitive, T[]][] = [];
+
+  for (const item of arr) {
+    const k = key(item);
+
+    if (k !== prevKey) {
+      groups.push([k, [item]]);
+    } else {
+      groups[groups.length - 1]![1].push(item);
+    }
+
+    prevKey = k;
+  }
+
+  return groups;
+}
+
 export function sortByKey<T>(arr: T[], key: (o: T) => number) {
   // create cache
   const cache: Map<T, number> = new Map(arr.map((item) => [item, key(item)]));
