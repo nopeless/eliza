@@ -1,4 +1,8 @@
 {
+  "extends": [
+    "../tsconfig.json",
+    "nopeless-config/tsconfig.test.json"
+  ],
   "compilerOptions": {
     "rootDir": "..",
     "paths": {
@@ -7,10 +11,6 @@
       ]
     }
   },
-  "extends": [
-    "../tsconfig.json",
-    "nopeless-config/tsconfig.test.json"
-  ],
   "include": [
     "../src/**/*.ts",
     "../test/**/*.ts"
