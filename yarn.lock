@@ -2312,7 +2312,7 @@ __metadata:
     hellgate: ^2.1.0
     natural: ^6.3.0
     node-nlp: ^4.27.0
-    nopeless-config: ^1.10.0
+    nopeless-config: latest
     prettier: ^2.8.8
     rimraf: ^5.0.1
     spica: ^0.0.727
@@ -3139,13 +3139,6 @@ __metadata:
     merge2: ^1.4.1
     slash: ^3.0.0
   checksum: b4be8885e0cfa018fc783792942d53926c35c50b3aefd3fdcfb9d22c627639dc26bd2327a40a0b74b074100ce95bb7187bfeae2f236856aa3de183af7a02aea6
-  languageName: node
-  linkType: hard
-
-"globrex@npm:^0.1.2":
-  version: 0.1.2
-  resolution: "globrex@npm:0.1.2"
-  checksum: adca162494a176ce9ecf4dd232f7b802956bb1966b37f60c15e49d2e7d961b66c60826366dc2649093cad5a0d69970cfa8875bd1695b5a1a2f33dcd2aa88da3c
   languageName: node
   linkType: hard
 
@@ -4193,12 +4186,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nopeless-config@npm:^1.10.0":
-  version: 1.10.0
-  resolution: "nopeless-config@npm:1.10.0"
-  dependencies:
-    vite-tsconfig-paths: ^4.2.0
-  checksum: abfc7ca8826987989fcce0cfea16fbc28e48e64976288902f51ead1fff43779cf2e83cdd1d1f08c1088e1179783c5c0c678712f29884c5417f30303741a46861
+"nopeless-config@npm:latest":
+  version: 1.11.3
+  resolution: "nopeless-config@npm:1.11.3"
+  checksum: d99677e3e694c3d0b30fb9b58c0711fadc66997cb0957f5602f8f84a154e24bd71385680fa76cd235646492f0da2646d33f13e5f032c8f5f7355a2e7d49bb693
   languageName: node
   linkType: hard
 
@@ -5261,20 +5252,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsconfck@npm:^2.1.0":
-  version: 2.1.1
-  resolution: "tsconfck@npm:2.1.1"
-  peerDependencies:
-    typescript: ^4.3.5 || ^5.0.0
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  bin:
-    tsconfck: bin/tsconfck.js
-  checksum: c531525f39763cbbd7e6dbf5e29f12a7ae67eb8712816c14d06a9db6cbdc9dda9ac3cd6db07ef645f8a4cdea906447ab44e2c8679e320871cf9dd598756e8c83
-  languageName: node
-  linkType: hard
-
 "tsconfig-paths@npm:^3.14.1":
   version: 3.14.2
   resolution: "tsconfig-paths@npm:3.14.2"
@@ -5497,22 +5474,6 @@ __metadata:
   bin:
     vite-node: vite-node.mjs
   checksum: f70ffa3f6dcb4937cdc99f59bf360d42de83c556ba9a19eb1c3504ef20db4c1d1afa644d9a8e63240e851c0c95773b64c526bdb3eb4794b5e941ddcd57124aa9
-  languageName: node
-  linkType: hard
-
-"vite-tsconfig-paths@npm:^4.2.0":
-  version: 4.2.0
-  resolution: "vite-tsconfig-paths@npm:4.2.0"
-  dependencies:
-    debug: ^4.1.1
-    globrex: ^0.1.2
-    tsconfck: ^2.1.0
-  peerDependencies:
-    vite: "*"
-  peerDependenciesMeta:
-    vite:
-      optional: true
-  checksum: 73a8467de72d7ac502328454fd00c19571cd4bad2dd5982643b24718bb95e449a3f4153cfc2d58a358bfc8f37e592fb442fc10884b59ae82138c1329160cd952
   languageName: node
   linkType: hard
 
