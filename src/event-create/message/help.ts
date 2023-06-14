@@ -59,9 +59,8 @@ const commandHelp = createChatReplyExec(async function (message) {
     if (command.description) {
       await message.reply(`Here is the description\n${command.description}`);
       return;
-    } else {
-      return `I'm sorry but there seems to be no description found for command '${prop}'`;
     }
+    return `I'm sorry but there seems to be no description found for command '${prop}'`;
   }
 
   // its not a direct command. perhaps a typo?
@@ -86,9 +85,8 @@ const commandHelp = createChatReplyExec(async function (message) {
         `Did you mean '${closestMatch}'? Try "help ${closestMatch}"`
       );
       return;
-    } else {
-      hint = `P.S. if you are trying to get help for a command, try "help <command name>"`;
     }
+    hint = `P.S. if you are trying to get help for a command, try "help <command name>"`;
   }
 
   return (

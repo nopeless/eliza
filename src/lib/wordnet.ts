@@ -19,8 +19,8 @@ export function existsSynonym(a: string, b: string) {
 
   const syns = Object.create(null);
 
-  wordnet.lookup(a, function (results) {
-    results.forEach(function (result) {
+  wordnet.lookup(a, (results) => {
+    results.forEach((result) => {
       for (const syn of result.synonyms) {
         syns[syn] = true;
       }
