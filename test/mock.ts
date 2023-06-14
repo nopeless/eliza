@@ -27,12 +27,10 @@ export class MockMessage {
     this.mockReplies.push(
       typeof message === `string` ? message : message.content
     );
-    return;
   }
 
   async react(emoji: string) {
     this.mockReactions.push(emoji);
-    return;
   }
 
   async fetchReference() {
