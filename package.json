@@ -47,11 +47,11 @@
     "hellgate": "^2.1.0",
     "natural": "^6.3.0",
     "node-nlp": "^4.27.0",
-    "spica": "^0.0.727",
+    "spica-node": "^0.0.736",
     "url-unshort": "^6.1.0",
     "wink-eng-lite-web-model": "^1.5.0",
     "wink-nlp": "^1.14.0",
     "wordnet-db": "^3.1.14"
   },
-  "packageManager": "yarn@3.5.1"
+  "packageManager": "yarn@3.6.0"
 }
