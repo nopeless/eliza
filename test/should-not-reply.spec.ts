@@ -1,0 +1,65 @@
+import { client } from "./fixtures";
+console.log(client);
+describe(`should not reply`, () => {
+	for (const message of [
+		"so I was walking down the street",
+		"number 15 burger king foot lettuce",
+		"victory royale",
+		"Pourquoi ping",
+		"Can't wait to burn the baklava",
+		"With our best buddy gus jamal",
+		"Go watch cocomelon`",
+		"You who is reading this yeah you",
+		"Why are you still reading this get out",
+		"hehe :mage:",
+		"Welcome @exopi",
+		"it will make us both better",
+		"why is it i wanna study for my complex analysis and pde class when i have a linear prog final tomorrow :agony:",
+		"Hello, how are you doing today?",
+		"Could you please let me know the status of the project?",
+		"I'm sorry for the delay in responding to your email.",
+		"Congratulations on your promotion!",
+		"Hey everyone! How's it going? Hope you're all having a great day! ",
+		"A big shoutout to all the awesome people in this server! You guys are amazing! ",
+		"Congrats to [username] for reaching a new level! Keep up the good work!",
+		"I just wanted to say how much I appreciate the fun and engaging conversations we have in this server. You all make it a great place to hang out!",
+		"Friendly reminder to take breaks and stay hydrated. Your health is important! ",
+		"I want to express my gratitude to all the helpful members in this server. Your knowledge and advice are invaluable!",
+		"Huge thanks to our fantastic moderators for creating a friendly and welcoming environment. You're doing an incredible job!",
+		"Kudos to all the gamers out there! Keep having fun and enjoying your favorite games!",
+		"A warm welcome to all the new members who joined recently. Introduce yourselves and make yourselves at home!",
+		"Thanks to everyone who participated in the game night. It was a blast playing together. Let's do it again soon!",
+		"I stumbled upon this adorable pet picture and couldn't resist sharing it. Prepare for cuteness overload!",
+		"Shoutout to the talented artists in our server. Your creations are truly amazing. Keep sharing your work!",
+		"A big thank you to the music lovers for sharing your favorite tunes. I've discovered some awesome tracks through your recommendations!",
+		"Let's take a moment to appreciate the friendships we've built here. You all make this server feel like a second family.",
+		"Shoutout to all the night owls and early birds in the server. There's always someone around to chat with!",
+		"Special thanks to our server bots for their assistance. You help keep things running smoothly!",
+		"Wishing everyone a fantastic weekend filled with fun and relaxation. Enjoy your time off!",
+		"I just wanted to say that this server has an incredible community. It's like a big family, and I'm grateful to be a part of it.",
+		"A huge shoutout to the support team for their quick responses and resolving issues promptly. You're doing an amazing job!",
+		"Remember to respect each other's opinions and keep the discussions civil. Let's make this server a welcoming place for everyone.",
+		"Thank you for your support and cooperation.",
+		"I apologize for any inconvenience caused.",
+		"Just a reminder that our meeting is scheduled for tomorrow at 2 PM.",
+		"Please find attached the updated version of the document.",
+		"Great job on completing the task ahead of schedule!",
+		"Wishing you a wonderful weekend!",
+		"yeah I'm a gamer",
+		"fortnite sucks",
+		"minecraft is better",
+		"ackchually",
+		"I'm gonna say the word",
+		"You need therapy",
+		"I need therapy",
+		"stop trying to make me say it",
+		"I'm not gonna say it",
+		"We are number one",
+	]) {
+		test(message, async () => {
+			const m = await client.send(message);
+
+			expect(m.mockReplies).to.have.length(0);
+		});
+	}
+});

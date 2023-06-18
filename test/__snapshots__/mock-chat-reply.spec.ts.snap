@@ -37,6 +37,11 @@ exports[`translate > tl shorthand 1`] = `
 \\"Good morning sir\\""
 `;
 
+exports[`translate > tl shorthand 2`] = `
+"translated from French to English:
+\\"Good morning sir\\""
+`;
+
 exports[`translate > translate syntax 1`] = `
 "translated from Spanish; Castilian to Japanese:
 \\"ちょっとおかしい\\""
