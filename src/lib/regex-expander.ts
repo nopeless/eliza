@@ -107,9 +107,8 @@ class Parser {
     } else if (this.lexer.nextChar() === `*`) {
       this.lexer.consumeChar(); // consume '*'
       return { type: `repetition`, min: 0, max: null, child: value };
-    } else {
-      return value;
     }
+    return value;
   }
 
   parsePrimary(): RegexAST {
@@ -120,31 +119,69 @@ class Parser {
         throw new Error(`Expected ")"`);
       }
       return group;
-    } else {
-      let chr = this.lexer.consumeChar();
-      if (chr === `\\`) chr = this.lexer.consumeChar();
-
-      return { type: `literal`, value: chr };
     }
+    let chr = this.lexer.consumeChar();
+    if (chr.match(/[[\](){}|?*+]/)) {
+      throw new Error(`Unexpected non-escaped character "${chr}"`);
+    }
+
+    if (chr === `\\`) chr = this.lexer.consumeChar();
+
+    return { type: `literal`, value: chr };
   }
 }
 
 // Implement the ExpandableRegex class
 export class ExpandableRegex {
-  private ast: RegexAST;
+  protected _ast: RegexAST;
 
   constructor(input: string) {
     const lexer = new Lexer(input);
     const parser = new Parser(lexer);
-    this.ast = parser.parse();
+    this._ast = parser.parse();
   }
 
   random(): string {
-    return this.generate(this.ast);
+    return this.generate(this._ast);
   }
 
-  getAstJSON() {
-    return JSON.stringify(this.ast, null, 2);
+  get ast() {
+    return this._ast;
+  }
+
+  public stringifyAst() {
+    return this._stringifyAst(this._ast);
+  }
+
+  protected _stringifyAst(node: RegexAST, indent = ``): string {
+    switch (node.type) {
+      case `literal`:
+        return indent + `Literal: ${node.value}\n`;
+      case `group`:
+        return (
+          indent +
+          (node.children.length
+            ? `Group:\n` +
+              node.children
+                .map((child) => this._stringifyAst(child, indent + `  `))
+                .join(``)
+            : `Empty Group`)
+        );
+      case `choice`:
+        return (
+          indent +
+          `Choice of ${node.children.length}:\n` +
+          node.children
+            .map((child) => this._stringifyAst(child, indent + `  `))
+            .join(``)
+        );
+      case `repetition`:
+        return (
+          indent +
+          `Repetition: ${node.min} ${node.max}\n` +
+          this._stringifyAst(node.child, indent + `  `)
+        );
+    }
   }
 
   private generate(node: RegexAST): string {
@@ -176,9 +213,8 @@ export class ExpandableRegex {
         count++;
       }
       return count;
-    } else {
-      return min + Math.floor(Math.random() * (max - min + 1));
     }
+    return min + Math.floor(Math.random() * (max - min + 1));
   }
 }
 
