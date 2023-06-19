@@ -4,6 +4,11 @@ import { nonWords } from "./nlp";
 // const alphanumericSplitterRegex = /(?<=[A-Za-z])\d+|^\d+/g;
 const segmentRegex = /[A-Z]{2,}(?![a-z])|[A-Z][a-z]*/g;
 
+type User = {
+  id: string;
+  name: string;
+};
+
 /**
  * Generate all possible segments from a string
  *
@@ -79,7 +84,18 @@ function identifyAdditionalSegments(name: string) {
 /**
  * Adds new property to users, be careful
  */
-export async function identifyCults(users: { id: string; name: string }[]) {
+export async function identifyCults(users: User[]) {
+  const possibleSegments = await calculateSegments(users);
+
+  const cults = await calculateCults(possibleSegments, users);
+
+  return {
+    segments: possibleSegments,
+    cults,
+  };
+}
+
+export async function calculateSegments(users: User[]) {
   // step 1. extract identifiers
   // this is done by identifying as much identifiers as possible
   // does not care about numbers
@@ -137,6 +153,16 @@ export async function identifyCults(users: { id: string; name: string }[]) {
     }
   }
 
+  return possibleSegments;
+}
+
+/**
+ * Here possible segments only act as a set
+ */
+export async function calculateCults(
+  possibleSegments: Map<string, number>,
+  users: User[]
+) {
   // step 3. attempt to associate users with their cults
   const indoctrinatedUsers = new Set<string>();
 

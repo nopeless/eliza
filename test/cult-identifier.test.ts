@@ -4,7 +4,7 @@ import { readFileLines } from "@/lib/util";
 it(`identifyCults`, async () => {
   const names = readFileLines(`./test/resources/nicknames.txt`);
 
-  const cults = await identifyCults(
+  const { cults } = await identifyCults(
     names.map((name) => ({
       id: name,
       name,
