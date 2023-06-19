@@ -25,10 +25,12 @@ export const nonWords = Object.fromEntries(
     `are`,
     `am`,
     `i`,
+    `im`,
     `you`,
     `he`,
     `she`,
     `it`,
+    `its`,
     `we`,
     `they`,
     `me`,
@@ -84,5 +86,10 @@ export const nonWords = Object.fromEntries(
     `nobody`,
     `nothing`,
     `nowhere`,
+    `in`,
+    `of`,
+    `to`,
+    `mr`,
+    `ms`,
   ].map((word) => [word, true])
 );
