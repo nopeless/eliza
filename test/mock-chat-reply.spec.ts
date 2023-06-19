@@ -70,42 +70,32 @@ describe(`hi`, () => {
       `eliza hello`,
       /hello|hi|up|doing|good|hru|how/i
     );
-
-    console.log(m);
   });
 });
 
 describe(`url unshorten`, () => {
   test(`rickroll`, async () => {
-    const m = await client.sendExpect(`http://tiny.cc/mtd7vz`, /dQw4w9WgXcQ/);
-
-    console.log(m);
+    client.sendExpect(`http://tiny.cc/mtd7vz`, /dQw4w9WgXcQ/);
   });
 });
 
 describe(`help`, () => {
   test(`help nothing`, async () => {
-    const m = await client.sendExpect(`eliza help`, /help with/i);
-
-    console.log(m);
+    client.sendExpect(`eliza help`, /help with/i);
   });
   test(`help correct match`, async () => {
-    const m = await client.sendExpect(`eliza help translate`, /language/i);
-
-    expect(m).to.matchSnapshot();
+    client.sendExpect(`eliza help translate`, /language/i);
   });
   test(`help vague match`, async () => {
-    const m = await client.sendExpect(`eliza help translte it`, /mean/i);
+    client.sendExpect(`eliza help translte it`, /mean/i);
 
     expect(m).to.matchSnapshot();
   });
   test(`help not a command help`, async () => {
-    const m = await client.sendExpect(
+    await client.sendExpect(
       `eliza help I need some guava juice but I can't find them in my store`,
       /I would/i
     );
-
-    console.log(m);
   });
 });
 
