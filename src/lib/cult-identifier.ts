@@ -114,8 +114,6 @@ export async function calculateSegments(users: User[]) {
     if (i % 100 !== 0) await awaitTick;
   }
 
-  // console.log(possibleSegments);
-
   // step 2. get segments with at least 2 in popularity
   for (const [segment, count] of possibleSegments) {
     // need at least 2 for a cult
@@ -150,8 +148,6 @@ export async function calculateCults(
     combineCache[user.name] = user.name.replace(/\W/g, ``);
   }
 
-  // console.log([...possibleSegments.keys()].filter((x) => x.length === 3));
-
   while (possibleSegments.size > 0) {
     const prominentCult = max(
       possibleSegments,
@@ -160,8 +156,6 @@ export async function calculateCults(
     )!;
     const cultName = prominentCult[0]!;
     possibleSegments.delete(cultName);
-
-    // console.log(cultName);
 
     // Yes, i know this is redundant, but believe it or not generating it here doesn't matter that much
     const segments = [...cultName.matchAll(segmentRegex)].map(
