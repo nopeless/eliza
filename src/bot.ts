@@ -4,11 +4,7 @@ import { Hellgate, Ring } from "hellgate";
 import { writeFile } from "fs/promises";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { join } from "path";
-
-// https://stackoverflow.com/a/6969486/10629176
-function escapeRegExp(string: string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, `\\$&`); // $& means the whole matched string
-}
+import { escapeRegExp } from "./lib/util";
 
 class ElizaClient extends Client {
   public dev: boolean;
