@@ -251,7 +251,7 @@ export async function identifyCults(users: { id: string; name: string }[]) {
       // return false;
     });
 
-    console.log(cultName, associates);
+    // console.log(cultName, associates);
 
     if (associates.length < 5 || devoutAssociates * 2 < associates.length) {
       continue;
