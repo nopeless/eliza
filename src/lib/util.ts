@@ -1,3 +1,4 @@
+import { readFileSync } from "fs";
 import natural, { DamerauLevenshteinDistanceOptions } from "natural";
 
 export type U2I<U> = (U extends unknown ? (k: U) => void : never) extends (
@@ -48,6 +49,13 @@ export function groupby<T>(arr: T[], key: (item: T) => Primitive) {
   return groups;
 }
 
+/**
+ * Sorts an array by a key
+ *
+ * order: ascending
+ *
+ * `a, b => a - b`
+ */
 export function sortByKey<T>(arr: T[], key: (o: T) => number) {
   // create cache
   const cache: Map<T, number> = new Map(arr.map((item) => [item, key(item)]));
@@ -226,4 +234,107 @@ export function indentTrailing(
       return indent + line;
     })
     .join(`\n`);
+}
+
+export function readFileLines(filePath: string) {
+  return readFileSync(filePath, `utf-8`).split(/\r?\n/);
+}
+
+/**
+ * `sleep(0)`
+ */
+export const awaitTick = {
+  then(fn: (...args: never[]) => unknown) {
+    setImmediate(fn);
+  },
+};
+
+export function max<T>(args: Iterable<T>, key: (arg: T) => number) {
+  let max = -Infinity;
+  let maxArg: T | undefined;
+
+  for (const arg of args) {
+    const val = key(arg);
+    if (val > max) {
+      max = val;
+      maxArg = arg;
+    }
+  }
+
+  return maxArg;
+}
+
+/**
+ * Returns the best match for the provided string
+ *
+ * `The world's prettiest dancer`, `World Dancer` -> `world's prettiest dancer`
+ *
+ * Use modified LCS algorithm
+ *
+ * pattern must be normalized and lowercase
+ *
+ * provided must be a strict subset of provided (otherwise null)
+ */
+export function bestStringMatch(provided: string, pattern: string) {
+  provided = provided.normalize().toLowerCase();
+
+  // match pattern, right greedy first (avoid false ranges)
+
+  for (let left = provided.length - pattern.length; left >= 0; left--) {
+    const right = _stringMatchHelper(provided, pattern, left, 0);
+    if (right !== null) return provided.slice(left, right);
+  }
+
+  return null;
+}
+
+/**
+ * 0 string copy fast recursive helper, left greedy
+ *
+ * returns right index
+ */
+function _stringMatchHelper(
+  provided: string,
+  pattern: string,
+  providedIndex: number,
+  patternIndex: number
+): number | null {
+  if (patternIndex >= pattern.length) return providedIndex;
+  if (providedIndex >= provided.length) return null;
+
+  const mustStartBefore = provided.length - pattern.length + patternIndex;
+  for (let idx = providedIndex; idx <= mustStartBefore; idx++) {
+    if (provided[idx] === pattern[patternIndex]) {
+      const right = _stringMatchHelper(
+        provided,
+        pattern,
+        idx + 1,
+        patternIndex + 1
+      );
+      if (right !== null) return right;
+    }
+  }
+
+  return null;
+}
+
+// export function stringSegmentIncludes(provided: string[], pattern: string[]) {
+//   for (let i = 0; i < provided.length - pattern.length; i++) {
+//     let match = true;
+//     for (let j = 0; j < pattern.length; j++) {
+//       if (provided[i + j] !== pattern[j]) {
+//         match = false;
+//         break;
+//       }
+//     }
+
+//     if (match) return true;
+//   }
+
+//   return false;
+// }
+
+// https://stackoverflow.com/a/6969486/10629176
+export function escapeRegExp(string: string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, `\\$&`); // $& means the whole matched string
 }
