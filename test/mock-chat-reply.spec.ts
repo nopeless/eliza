@@ -66,10 +66,7 @@ describe.skipIf(!process.env.RAPID_API_KEY)(`define`, () => {
 
 describe(`hi`, () => {
   test(`hi`, async () => {
-    const m = await client.sendExpect(
-      `eliza hello`,
-      /hello|hi|up|doing|good|hru|how/i
-    );
+    await client.sendExpect(`eliza hello`, /hello|hi|up|doing|good|hru|how/i);
   });
 });
 
@@ -87,7 +84,9 @@ describe(`help`, () => {
     client.sendExpect(`eliza help translate`, /language/i);
   });
   test(`help vague match`, async () => {
-    client.sendExpect(`eliza help translte it`, /mean/i);
+    const m = await client.sendExpect(`eliza help translte it`, /mean/i);
+
+    expect(m).to.matchSnapshot();
   });
   test(`help not a command help`, async () => {
     await client.sendExpect(
