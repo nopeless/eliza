@@ -35,4 +35,4 @@ what is your age
 
 how tall are you
 what is your height
-> i am (tall )?[1-9][0-9]* (m|cm|mm) tall
+> i am (tall )?\d+ (m|cm|mm) tall
