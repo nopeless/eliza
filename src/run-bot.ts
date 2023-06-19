@@ -15,6 +15,7 @@ export const client = new ElizaClient({
     GatewayIntentBits.MessageContent,
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildMembers,
   ],
   partials: [Partials.Message, Partials.Channel],
 });
