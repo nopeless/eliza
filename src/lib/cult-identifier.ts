@@ -309,6 +309,8 @@ export async function identifyCults(users: { id: string; name: string }[]) {
     //     possibleSegments.delete(segment);
     //   }
     // }
+
+    await awaitTick;
   }
 
   return cults;

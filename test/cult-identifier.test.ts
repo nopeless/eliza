@@ -1,5 +1,5 @@
 import { identifyCults } from "@/lib/cult-identifier";
-import { indentTrailing, readFileLines } from "@/lib/util";
+import { readFileLines } from "@/lib/util";
 
 it(`identifyCults`, async () => {
   const names = readFileLines(`./test/resources/nicknames.txt`);
@@ -11,15 +11,5 @@ it(`identifyCults`, async () => {
     }))
   );
 
-  for (const cult of cults) {
-    const s =
-      `${cult.name} (${cult.associates.length})\n` +
-      indentTrailing(cult.associates.map((m) => m.name).join(`\n`), `  `, {
-        indentFirstLine: true,
-      });
-
-    console.log(s);
-
-    expect(cults).to.matchSnapshot();
-  }
+  expect(cults).to.matchSnapshot();
 });
