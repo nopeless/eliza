@@ -5,7 +5,7 @@ dotenv.config();
 
 import { ElizaClient } from "./bot";
 
-const client = new ElizaClient({
+export const client = new ElizaClient({
   dev: process.env.NODE_ENV !== `production`,
   ownerID: process.env.OWNER_ID ?? ``,
   prefix: `eliza `,
