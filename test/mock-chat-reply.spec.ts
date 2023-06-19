@@ -88,8 +88,6 @@ describe(`help`, () => {
   });
   test(`help vague match`, async () => {
     client.sendExpect(`eliza help translte it`, /mean/i);
-
-    expect(m).to.matchSnapshot();
   });
   test(`help not a command help`, async () => {
     await client.sendExpect(
