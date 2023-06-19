@@ -7,6 +7,8 @@ cya
 
 uwu
 > owo|uwu
+> owo what's this?
+> uwo what's this?
 
 ---
 
@@ -18,3 +20,19 @@ tu madre
 > if you want my comeback (you can|just) (scrape|take) it off your mother's teeth
 > you mean nope
 > you need therapy(, clearly)?|do you want therapy\?
+> seek therapy
+> you need help
+> seek help
+
+---
+
+how old are you
+what is your age
+> i am (0|50|49|12|7) years old
+> quit asking me personal questions please
+
+---
+
+how tall are you
+what is your height
+> i am (tall )?[1-9][0-9]* (m|cm|mm) tall
