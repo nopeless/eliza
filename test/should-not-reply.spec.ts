@@ -1,7 +1,7 @@
 import { client } from "./fixtures";
 import { readFileLines } from "./readFile";
 console.log(client);
-const messages: string[] = readFileLines("./test-messages.txt")
+const messages: string[] = readFileLines("./test/test-messages.txt")
 describe(`should not reply`, () => {
 	for (const message of messages) {
 		test(message, async () => {
