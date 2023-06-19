@@ -424,3 +424,28 @@ exports[`identifyCults 1`] = `
   },
 ]
 `;
+
+exports[`identifyCults 2`] = `
+[
+  {
+    "associates": [
+      {
+        "id": "M2A FunkyCat",
+        "name": "M2A FunkyCat",
+      },
+    ],
+    "identifier": "funkycat",
+    "name": "FunkyCat",
+  },
+  {
+    "associates": [
+      {
+        "id": "Morbing FunkyCow",
+        "name": "Morbing FunkyCow",
+      },
+    ],
+    "identifier": "funkycow",
+    "name": "FunkyCow",
+  },
+]
+`;

@@ -34,24 +34,6 @@ function possibleSegmentGenerator(
   return segments;
 }
 
-// function extractParts(name: string) {
-//   // space has highest priority
-//   return name
-//     .split(/\s+|_+|-+/)
-//     .flatMap(
-//       // segmentation
-//       (s) => s.split(alphanumericSplitterRegex)
-//     )
-//     .flatMap((s) => {
-//       const matches = [...s.matchAll(segmentRegex)];
-
-//       if (matches.length === 0) matches.push([s]);
-
-//       return matches;
-//     })
-//     .map((s) => s[0].normalize().toLowerCase());
-// }
-
 function capitalize(s: string) {
   return s[0]!.toUpperCase() + s.slice(1).toLowerCase();
 }
@@ -81,19 +63,9 @@ function identifyAdditionalSegments(name: string) {
   return null;
 }
 
-/**
- * Adds new property to users, be careful
- */
-export async function identifyCults(users: User[]) {
-  const possibleSegments = await calculateSegments(users);
-
-  const cults = await calculateCults(possibleSegments, users);
-
-  return {
-    segments: possibleSegments,
-    cults,
-  };
-}
+type CalculateCultOptions = {
+  skipCultPopulationValidation?: boolean;
+};
 
 export async function calculateSegments(users: User[]) {
   // step 1. extract identifiers
@@ -161,10 +133,13 @@ export async function calculateSegments(users: User[]) {
  */
 export async function calculateCults(
   possibleSegments: Map<string, number>,
-  users: User[]
+  users: User[],
+  options: CalculateCultOptions = {}
 ) {
   // step 3. attempt to associate users with their cults
   const indoctrinatedUsers = new Set<string>();
+
+  const { skipCultPopulationValidation = false } = options;
 
   const cults = [];
 
@@ -262,46 +237,16 @@ export async function calculateCults(
         return true;
       }
 
+      // you have no hope, fowl believer
       return false;
-      // // you have no hope, fowl believer
-      // if (!segments.some((s) => normalizeCache[u.name]!.includes(s[0]))) return;
-
-      // // lets see if we can find a match
-      // const bestMatch = bestStringMatch(u.name, cultName);
-
-      // if (bestMatch === null) return;
-
-      // // eh, you will do
-      // if (bestMatch.length - cultName.length <= 5) return true;
-
-      // return false;
     });
 
-    // console.log(cultName, associates);
-
-    if (associates.length < 5 || devoutAssociates * 2 < associates.length) {
+    if (
+      (associates.length < 5 || devoutAssociates * 2 < associates.length) &&
+      !(skipCultPopulationValidation && associates.length > 0)
+    ) {
       continue;
     }
-
-    // const exactFrequent = new Map<string, number>();
-
-    // for (const exact of exacts) {
-    //   if (exact === null) continue;
-
-    //   if (!exactFrequent.has(exact)) {
-    //     exactFrequent.set(exact, 0);
-    //   }
-
-    //   exactFrequent.set(exact, exactFrequent.get(exact)! + 1);
-    // }
-
-    // const cultRepresentative = max(exactFrequent, ([_, count]) => count)!;
-
-    // if (cultRepresentative[1]! <= 1) {
-    //   // cult is rather, indecisive
-    //   possibleSegments.delete(prominentCult[0]!);
-    //   continue;
-    // }
 
     // registering cult
     cults.push({
@@ -313,31 +258,24 @@ export async function calculateCults(
     // removing associates from possibleSegments
     for (const associate of associates) {
       indoctrinatedUsers.add(associate.id);
-
-      // const associateCultAssociations = userSegmentAssociations.get(
-      //   associate.id
-      // );
-      // if (!associateCultAssociations) continue;
-
-      // for (const ca of associateCultAssociations) {
-      //   const segment = possibleSegments.get(ca);
-      //   if (!segment) continue;
-
-      //   segment.count--;
-      // }
     }
-
-    // possibleSegments.delete(prominentCult[0]!);
-
-    // // cleaning
-    // for (const [segment, segmentInfo] of possibleSegments) {
-    //   if (segmentInfo.count < 3) {
-    //     possibleSegments.delete(segment);
-    //   }
-    // }
 
     await awaitTick;
   }
 
   return cults;
+}
+
+/**
+ * Returns JSON serializable object
+ */
+export function cultCacheExport(segments: Map<string, number>) {
+  return [...segments.keys()];
+}
+
+/**
+ * Returns Map<string, 0> to pass into identifyCults
+ */
+export function cultCacheImport(segments: string[]) {
+  return new Map(segments.map((s) => [s, 0]));
 }
