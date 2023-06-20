@@ -150,7 +150,7 @@ function _indentLength(lines: string[]) {
   return i;
 }
 
-export function randomChoice<T>(arr: T[]) {
+export function randomChoice<T>(arr: { [index: number]: T; length: number }) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
