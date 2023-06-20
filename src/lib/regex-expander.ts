@@ -2,18 +2,40 @@
 
 import { randomChoice } from "./util";
 
-type RegexAST = GroupNode | ChoiceNode | RepetitionNode | LiteralNode;
+type RegexAST =
+  | GroupNode
+  | ChoiceNode
+  | RepetitionNode
+  | LiteralNode
+  | CharSelectNode;
 
+/**
+ * (group)
+ */
 interface GroupNode {
   type: "group";
   children: RegexAST[];
 }
 
+/**
+ * a|b|c
+ */
 interface ChoiceNode {
   type: "choice";
   children: RegexAST[];
 }
 
+/**
+ * [a-z]
+ */
+interface CharSelectNode {
+  type: "range";
+  selection: string;
+}
+
+/**
+ * a+
+ */
 interface RepetitionNode {
   type: "repetition";
   min: number;
@@ -21,6 +43,9 @@ interface RepetitionNode {
   child: RegexAST;
 }
 
+/**
+ * a
+ */
 interface LiteralNode {
   type: "literal";
   value: string;
@@ -36,6 +61,7 @@ class Lexer {
 
   consumeChar() {
     const currentChar = this.nextChar();
+    if (currentChar === ``) throw new Error(`Unexpected end of input`);
     this.input = this.input.slice(1);
     return currentChar;
   }
@@ -51,12 +77,13 @@ class Lexer {
 
 // Implement the parser
 class Parser {
+  protected isInCharSelect = false;
   constructor(private lexer: Lexer) {}
 
   parse() {
     const result = this.parseChoice();
     if (this.lexer.nextChar() !== ``) {
-      throw new Error(`Unexpected character`);
+      throw new Error(`Expected end of input, got ${this.lexer.nextChar()}`);
     }
     return result;
   }
@@ -82,6 +109,9 @@ class Parser {
     return { type: `group`, children };
   }
 
+  /**
+   * Falls back to parsePrimary
+   */
   parseRepeat(): RegexAST {
     const value = this.parsePrimary();
 
@@ -89,10 +119,21 @@ class Parser {
       // Range quantifier
       this.lexer.consumeChar(); // consume '{'
       const min = Number(this.lexer.consumeWhile((char) => /\d/.test(char)));
-      let max: number | null = null;
+      let max: number | null = min;
       if (this.lexer.nextChar() === `,`) {
         this.lexer.consumeChar(); // consume ','
-        max = Number(this.lexer.consumeWhile((char) => /\d/.test(char)));
+        const maxStr = this.lexer.consumeWhile((char) => char !== `}`);
+
+        // update max if it exists
+        if (maxStr !== ``) {
+          if (!maxStr.match(/^\d+$/))
+            throw new Error(`Maximum repeat of ${maxStr} is not a number`);
+          max = Number(maxStr);
+          if (max < min)
+            throw new Error(
+              `Maximum repeat ${max} is less than minimum repeat ${min}`
+            );
+        }
       }
       if (this.lexer.consumeChar() !== `}`) {
         throw new Error(`Expected "}"`);
@@ -111,16 +152,90 @@ class Parser {
     return value;
   }
 
+  parseCharSelect(): CharSelectNode {
+    const possibleChars = [];
+    while (this.lexer.nextChar() !== `]`) {
+      const chr = this.lexer.consumeChar();
+      if (this.lexer.nextChar() === `-`) {
+        // is range, like [a-z]
+        this.lexer.consumeChar(); // consume '-'
+        const end = this.lexer.consumeChar();
+        const startCode = chr.charCodeAt(0);
+        const endCode = end.charCodeAt(0);
+
+        if (startCode > endCode) {
+          throw new Error(`Invalid range "${chr}-${end}"`);
+        }
+
+        for (let i = startCode; i <= endCode; i++) {
+          possibleChars.push(String.fromCharCode(i));
+        }
+
+        continue;
+      }
+
+      if (this.lexer.nextChar() === `\\`) {
+        this.lexer.consumeChar(); // consume '\'
+        const escaped = this.lexer.consumeChar();
+        if (escaped === `d`) {
+          // digit
+          for (let i = 0; i <= 9; i++) {
+            possibleChars.push(String(i));
+          }
+        } else if (escaped === `w`) {
+          // word
+          for (let i = 97; i <= 122; i++) {
+            possibleChars.push(String.fromCharCode(i));
+          }
+          for (let i = 65; i <= 90; i++) {
+            possibleChars.push(String.fromCharCode(i));
+          }
+          // _ is also a word
+          possibleChars.push(`_`);
+        } else if (escaped === `s`) {
+          // whitespace
+          possibleChars.push(` `, `\n`, `\t`, `\r`);
+        } else {
+          // everything else
+          possibleChars.push(escaped);
+        }
+        continue;
+      }
+
+      possibleChars.push(chr);
+    }
+    return { type: `range`, selection: possibleChars.join(``) };
+  }
+
   parsePrimary(): RegexAST {
     if (this.lexer.nextChar() === `(`) {
       this.lexer.consumeChar(); // consume '('
       const group = this.parseChoice();
+      if (group.children.length === 0) {
+        throw new Error(`Empty group`);
+      }
       if (this.lexer.consumeChar() !== `)`) {
         throw new Error(`Expected ")"`);
       }
       return group;
     }
+
+    if (this.lexer.nextChar() === `[` && !this.isInCharSelect) {
+      this.lexer.consumeChar(); // consume '['
+      this.isInCharSelect = true;
+      const range = this.parseCharSelect();
+      if (range.selection.length === 0) {
+        throw new Error(`Empty range`);
+      }
+      if (this.lexer.consumeChar() !== `]`) {
+        throw new Error(`Expected "]"`);
+      }
+      this.isInCharSelect = false;
+      return range;
+    }
+
     let chr = this.lexer.consumeChar();
+
     if (chr.match(/[[\](){}|?*+]/)) {
       throw new Error(`Unexpected non-escaped character "${chr}"`);
     }
@@ -175,10 +290,12 @@ export class ExpandableRegex {
             .map((child) => this._stringifyAst(child, indent + `  `))
             .join(``)
         );
+      case `range`:
+        return indent + `Range: [${node.selection}]\n`;
       case `repetition`:
         return (
           indent +
-          `Repetition: ${node.min} ${node.max}\n` +
+          `Repetition: {${node.min}, ${node.max}}\n` +
           this._stringifyAst(node.child, indent + `  `)
         );
     }
@@ -192,8 +309,15 @@ export class ExpandableRegex {
         return node.children.map((child) => this.generate(child)).join(``);
       case `choice`: {
         const choice = randomChoice(node.children);
-        if (!choice) throw new Error(`node has no children`);
+        if (!choice)
+          throw new Error(`node has no children (should not happen)`);
         return this.generate(choice);
+      }
+      case `range`: {
+        const choice = randomChoice(node.selection);
+        if (!choice)
+          throw new Error(`node has no selection (should not happen)`);
+        return choice;
       }
       case `repetition`: {
         const count = this.getRandomCount(node.min, node.max);
@@ -205,11 +329,15 @@ export class ExpandableRegex {
     }
   }
 
+  /**
+   * Inclusive range
+   */
   private getRandomCount(min: number, max: number | null): number {
     if (max === null) {
       let count = min;
       // exponentially decreasing probability
-      while (Math.random() > 0.5) {
+      // with min adjustment
+      while (Math.random() > 0.5 / min ** (1 / 3)) {
         count++;
       }
       return count;

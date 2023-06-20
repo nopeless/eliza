@@ -82,10 +82,11 @@ describe(`apis`, () => {
 describe(`RegexExpander`, () => {
   test(`should work`, () => {
     expect(er(`a`)).to.equal(`a`);
-
     expect(er(`a|b`)).to.match(/^a|b$/);
     expect(er(`a|b|c`)).to.match(/^a|b|c$/);
     expect(er(`a+b`)).to.match(/^a+b$/);
+    expect(er(`[a-z]`)).to.match(/^[a-z]$/);
+    expect(er(`[a-z]{3}`)).to.match(/^[a-z]{3}$/);
   });
 
   test(`should throw`, () => {
@@ -105,6 +106,8 @@ describe(`RegexExpander`, () => {
     s(`)`);
     s(`[`);
     s(`]`);
+    s(`()`);
+    s(`[]`);
     s(`{1,0}`);
     s(`{a}`);
     s(`{1,a}`);
