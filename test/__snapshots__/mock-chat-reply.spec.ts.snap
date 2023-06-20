@@ -7,11 +7,6 @@ exports[`define > proper 1`] = `
 expose to fresh air"
 `;
 
-exports[`help > help correct match 1`] = `
-"Here is the description
-translate text to another language"
-`;
-
 exports[`help > help vague match 1`] = `"Did you mean 'translate'? Try \\"help translate\\""`;
 
 exports[`translate > eliza tl|translate 1`] = `"missing translation context. example: \\"tl こんにちは世界\\""`;
