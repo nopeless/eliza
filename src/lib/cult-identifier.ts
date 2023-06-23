@@ -1,12 +1,17 @@
-import { awaitTick, escapeRegExp, max } from "./util";
+import { awaitTick, escapeRegExp } from "./util";
 import { nonWords } from "./nlp";
 
 // const alphanumericSplitterRegex = /(?<=[A-Za-z])\d+|^\d+/g;
-const segmentRegex = /[A-Z]{2,}(?![a-z])|[A-Z][a-z]*/g;
+const segmentRegex = /[A-Z]{2,}(?![a-z])|[A-Z][a-z]*|^[a-z]+|\d+/g;
 
-type User = {
+// higher => get all the niche cults
+// lower => only get really well defined cults
+const CULT_SEGMENTATION_POPULARITY_THRESHOLD = 5;
+
+export type CultUser = {
   id: string;
   name: string;
+  numeralDiscriminator: null | string;
 };
 
 /**
@@ -34,19 +39,46 @@ function possibleSegmentGenerator(
   return segments;
 }
 
+// function pascalCaseSegmenter(name: string) {
+//   return [...name.matchAll(segmentRegex)]
+//     .map((v) => v[0].normalize().toLowerCase())
+//     .filter((word) => word && word.length > 1 && !nonWords[word])
+//     .map((word) => capitalize(word));
+// }
+
+// function snakeCaseSegmenter(name: string) {
+//   return name.split(`_`).flatMap((v) => {
+//     if (v.length === 0) return [];
+//     const l = pascalCaseSegmenter(v);
+//     if (l.length === 0) return [capitalize(v)];
+//     return l;
+//   });
+// }
+
+export function segmenter(name: string) {
+  const parts = name
+    .split(/\s|\W|_/)
+    .filter((v) => !!v)
+    .flatMap((v) => v.match(segmentRegex) || [v])
+    .map((v) => v.normalize().toLowerCase())
+    .filter((v) => !Object.hasOwn(nonWords, v))
+    .map(capitalize);
+  return parts;
+}
+
+/**
+ * Please pass in normalized strings
+ */
 function capitalize(s: string) {
   return s[0]!.toUpperCase() + s.slice(1).toLowerCase();
 }
 
 function identifyAdditionalSegments(name: string) {
-  // additional segments
-  if (name.match(/[A-Z]/) && name.match(/[a-z]/)) {
-    // identify capital parts
-    const capitalParts = [...name.matchAll(/\b[A-Z]{3,}\b/g)];
-    if (capitalParts.length === 1) {
-      // FIA, this is for you
-      return [capitalParts[0]![0]!];
-    }
+  // identify capital parts
+  const capitalParts = [...name.matchAll(/[A-Z]{3,}(?:\b|(?=\W)|(?=_))/g)];
+  if (capitalParts.length === 1) {
+    // FIA, this is for you
+    return [capitalize(capitalParts[0]![0]!)];
   }
   let m;
   if ((m = name.match(/[^\w\s]{3,}/))) {
@@ -67,7 +99,7 @@ type CalculateCultOptions = {
   skipCultPopulationValidation?: boolean;
 };
 
-export async function calculateSegments(users: User[]) {
+export async function calculateSegments(users: CultUser[]) {
   // step 1. extract identifiers
   // this is done by identifying as much identifiers as possible
   // does not care about numbers
@@ -80,14 +112,11 @@ export async function calculateSegments(users: User[]) {
   for (let i = 0; i < users.length; i++) {
     const user = users[i]!;
     const name = user.name;
-    const parts = [...name.matchAll(segmentRegex)]
-      .map((v) => v[0].normalize().toLowerCase())
-      .filter((word) => word && word.length > 1 && !nonWords[word])
-      .map((word) => capitalize(word));
-
-    if (parts.length === 0) parts.push(name);
+    const parts = segmenter(name);
 
     const segments = possibleSegmentGenerator(parts, [2, 4]);
+
+    // segments.push(...parts);
 
     const additionalSegments = identifyAdditionalSegments(name);
 
@@ -98,17 +127,18 @@ export async function calculateSegments(users: User[]) {
     const scache = Object.create(null);
 
     for (const segment of segments) {
+      // a user cannot submit two identical segments
       if (scache[segment]) continue;
       scache[segment] = true;
       // lowercase identifiers
       if (segment.length <= 1) continue;
 
       if (!possibleSegments.has(segment)) {
-        possibleSegments.set(segment, 0);
+        possibleSegments.set(segment, 1);
+      } else {
+        // increase by one
+        possibleSegments.set(segment, possibleSegments.get(segment)! + 1);
       }
-
-      // increase by one
-      possibleSegments.set(segment, possibleSegments.get(segment)! + 1);
     }
 
     if (i % 100 !== 0) await awaitTick;
@@ -131,7 +161,7 @@ export async function calculateSegments(users: User[]) {
  */
 export async function calculateCults(
   possibleSegments: Map<string, number>,
-  users: User[],
+  users: CultUser[],
   options: CalculateCultOptions = {}
 ) {
   // step 3. attempt to associate users with their cults
@@ -141,21 +171,30 @@ export async function calculateCults(
 
   const cults = [];
 
-  const normalizeCache = Object.create(null) as Record<string, string>;
-  const combineCache = Object.create(null) as Record<string, string>;
+  const normalizeCache = new Map<string, string>();
+  const combineCache = new Map<string, string>();
   for (const user of users) {
-    normalizeCache[user.name] = user.name.normalize().toLowerCase();
-    combineCache[user.name] = user.name.replace(/\W/g, ``);
+    normalizeCache.set(user.name, user.name.normalize().toLowerCase());
+    combineCache.set(user.name, user.name.replace(/\W/g, ``));
   }
 
-  while (possibleSegments.size > 0) {
-    const prominentCult = max(
-      possibleSegments,
-      ([segment, count]) =>
-        (segment.match(/[a-z]/i) ? 1000 : 0) + 100 * segment.length + count
-    )!;
+  // console.time(`cult`);
+  let i = 0;
+
+  for (const prominentCult of [...possibleSegments.entries()].sort(
+    ([segment, count]) =>
+      (segment.match(/[a-z]/i) ? 1000 : 0) + 100 * segment.length + count
+  )) {
     const cultName = prominentCult[0]!;
     possibleSegments.delete(cultName);
+
+    // console.timeLog(`cult`, cultName, prominentCult[1]);
+    if (
+      prominentCult[1]! <= CULT_SEGMENTATION_POPULARITY_THRESHOLD &&
+      !skipCultPopulationValidation
+    )
+      continue;
+    i++;
 
     // Yes, i know this is redundant, but believe it or not generating it here doesn't matter that much
     const segments = [...cultName.matchAll(segmentRegex)].map(
@@ -165,7 +204,7 @@ export async function calculateCults(
     );
 
     const seg = segments.map((v) => v.toLowerCase()).join(` `);
-    const cultRegexB = new RegExp(`\\b${escapeRegExp(seg)}\\b`);
+    const cultRegexB = new RegExp(`\\b${escapeRegExp(seg)}\\b`, `i`);
 
     const normalizedCultName = cultName.normalize().toLowerCase();
 
@@ -187,7 +226,7 @@ export async function calculateCults(
         if (
           u.name.match(/\s/) &&
           // no need to escape regex as it is literal
-          u.name.match(new RegExp(`\\b${cultName}\\b`))
+          u.name.match(cultRegexB)
         ) {
           devoutAssociates++;
           return true;
@@ -196,9 +235,11 @@ export async function calculateCults(
         return false;
       }
 
-      if (normalizeCache[u.name]!.includes(normalizedCultName)) {
+      if (normalizeCache.get(u.name)!.includes(normalizedCultName)) {
         // segmentation stragey
-        if (normalizeCache[u.name]!.split(/\W/).includes(normalizedCultName)) {
+        if (
+          normalizeCache.get(u.name)!.split(/\W/).includes(normalizedCultName)
+        ) {
           devoutAssociates++;
           return true;
         }
@@ -249,13 +290,14 @@ export async function calculateCults(
       associates: associates,
     });
 
-    // removing associates from possibleSegments
     for (const associate of associates) {
       indoctrinatedUsers.add(associate.id);
     }
 
-    await awaitTick;
+    if (i % 10 !== 0) await awaitTick;
   }
+
+  // console.timeEnd(`cult`);
 
   return cults;
 }
