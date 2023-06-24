@@ -1,3 +1,8 @@
+
+# This file contains document responses for eliza
+
+---
+
 good bye
 see you
 cya
@@ -15,6 +20,10 @@ ur mum
 you're mother
 your mother
 tu madre
-> if you want my comeback (you can|just) (scrape|take) it off your mother's teeth
 > you mean nope
 > you need therapy(, clearly)?|do you want therapy\?
+
+---
+
+Eliza isn't siri!
+> Or am I\?
