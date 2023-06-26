@@ -86,20 +86,13 @@ export async function doc(s: string) {
 
 // TRAINING PART
 
-/**
- * Loads file and trains
- */
-export async function train() {
-  if (existsSync(`./model.nlp`)) await unlink(`./model.nlp`);
-
-  const docfile = await readFile(
-    join(dirname(import.meta), `./document-responses.txt`),
-    {
-      encoding: `utf8`,
-    }
-  );
-
-  const parts = docfile.split(/-{3,}/);
+export async function parseDocumentResponseFile(content: string) {
+  const parts = content
+    // remove comments
+    .replace(/^(?:#|\/\/).*$/g, ``)
+    // multiline comments
+    .replace(/<--.*?-->/gs, ``)
+    .split(/-{3,}/);
 
   const docs = [];
 
@@ -120,7 +113,80 @@ export async function train() {
     const reconstructedPart = lines.join(`\n`);
 
     const matches = reconstructedPart.matchAll(
-      /(.+?(?:\n(?!>).+?)*)((?:\n+>.+)+)/g
+      /^(.+?(?:\n(?!>).+?)*)((?:\n+>.+)+)/gm
+    );
+
+    for (const match of matches) {
+      const [_, question, answer] = match;
+
+      assert(question);
+      assert(answer);
+
+      const questions = question
+        .split(/\n/)
+        .map((s) => s.trim())
+        .filter((s) => s !== ``);
+      const answers = answer
+        .split(/\n/)
+        .map((s) => s.slice(1).trim())
+        .filter((s) => s !== ``);
+
+      const first = questions[0];
+
+      assert(first);
+
+      // slugify
+      const slug = first.replace(/\W+/g, `-`).toLowerCase();
+
+      docs.push({
+        slug,
+        questions,
+        answers,
+      });
+    }
+  }
+}
+
+/**
+ * Loads file and trains
+ */
+export async function train() {
+  if (existsSync(`./model.nlp`)) await unlink(`./model.nlp`);
+
+  const docfile = await readFile(
+    join(dirname(import.meta), `./document-responses.txt`),
+    {
+      encoding: `utf8`,
+    }
+  );
+
+  const parts = docfile
+    // remove comments
+    .replace(/^(?:#|\/\/).*$/g, ``)
+    // multiline comments
+    .replace(/<--.*?-->/gs, ``)
+    .split(/-{3,}/);
+
+  const docs = [];
+
+  for (const part of parts) {
+    const lines = part
+      .split(/\n/)
+      .map((s) => s.trim())
+      .filter((s) => s !== ``);
+
+    // do some validations
+    if (lines.length < 2) {
+      throw new Error(
+        `Invalid document response file. Each part must have at least 2 lines. content: ${lines}`
+      );
+    }
+
+    // do not ask me how this works
+    const reconstructedPart = lines.join(`\n`);
+
+    const matches = reconstructedPart.matchAll(
+      /^(.+?(?:\n(?!>).+?)*)((?:\n+>.+)+)/gm
     );
 
     for (const match of matches) {
