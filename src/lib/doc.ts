@@ -147,7 +147,10 @@ export async function train() {
       assert(first);
 
       // slugify
-      const slug = first.replace(/\W+/g, `-`).toLowerCase();
+      const slug = first
+        .replace(/\W+/g, `-`)
+        .replaceAll(/^-+|-+$/g, ``)
+        .toLowerCase();
 
       docs.push({
         slug,
