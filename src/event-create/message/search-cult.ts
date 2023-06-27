@@ -44,7 +44,7 @@ export default createChatReply({
       cultCache.set(guild.id, segments);
     }
 
-    const cults = await calculateCults(segments, cultUsers);
+    const cults = await calculateCults(new Map(segments), cultUsers);
 
     if (query) {
       const cult = cults.find((v) => v.identifier === query.toLowerCase());

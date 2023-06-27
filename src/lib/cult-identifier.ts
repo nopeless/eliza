@@ -157,7 +157,7 @@ export async function calculateSegments(users: CultUser[]) {
 }
 
 /**
- * Here possible segments only act as a set
+ * ALTERS `possibleSegments` IN PLACE, PLEASE PASS IN NEW MAP
  */
 export async function calculateCults(
   possibleSegments: Map<string, number>,
@@ -306,12 +306,12 @@ export async function calculateCults(
  * Returns JSON serializable object
  */
 export function cultCacheExport(segments: Map<string, number>) {
-  return [...segments.keys()];
+  return Object.fromEntries(segments.entries());
 }
 
 /**
  * Returns Map<string, 0> to pass into identifyCults
  */
-export function cultCacheImport(segments: string[]) {
-  return new Map(segments.map((s) => [s, 0]));
+export function cultCacheImport(segments: Record<string, number>) {
+  return new Map(Object.entries(segments));
 }
