@@ -1,8 +1,4 @@
 
-# This file contains document responses for eliza
-
----
-
 good bye
 see you
 cya
