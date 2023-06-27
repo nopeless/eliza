@@ -10,7 +10,7 @@
   "main": "dist/run-bot.js",
   "scripts": {
     "build": "rimraf dist tsconfig.tsbuildinfo && copyfiles -u 1 \"src/**/*.{json,txt}\" dist && tsc",
-    "start": "node --loader=./bite-me-im-making-my-own-loader.js dist/run-bot.js",
+    "start": "node --loader=extensionless dist/run-bot.js",
     "dev": "tsx src/run-bot.ts",
     "dev:watch": "tsx watch --onSuccess \"npm run build && npm run dev\"",
     "test": "vitest",
@@ -47,7 +47,7 @@
     "hellgate": "^2.1.0",
     "natural": "^6.3.0",
     "node-nlp": "^4.27.0",
-    "spica-node": "0.0.738-patch1",
+    "spica-node": "0.0.738-patch2",
     "url-unshort": "^6.1.0",
     "wink-eng-lite-web-model": "^1.5.0",
     "wink-nlp": "^1.14.0",

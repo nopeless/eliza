@@ -5,7 +5,7 @@ import {
   calculateCults,
   calculateSegments,
 } from "../../lib/cult-identifier";
-import { Cache } from "spica-node/cache";
+import { Cache } from "spica-node/dist/cache.js";
 
 const cultCache = new Cache<string, Map<string, number>>({
   capacity: 1000,
