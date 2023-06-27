@@ -37,7 +37,9 @@ const commandHelp = createChatReplyExec(async function (message) {
   let hint = ``;
 
   if (!commandName) {
-    return `What do you need help with? If you are asking for a command, try "help <command name>"`;
+    return message.reply(
+      `What do you need help with? If you are asking for a command, try "help <command name>"`
+    );
   }
 
   const prop = (() => {
