@@ -5,13 +5,8 @@ exports[`identifyCults 1`] = `
   {
     "associates": [
       {
-        "id": "FunkyCat002 ᓚᘏᗢ",
-        "name": "FunkyCat002 ᓚᘏᗢ",
-        "numeralDiscriminator": null,
-      },
-      {
-        "id": "FunkyCat532 but not really cat",
-        "name": "FunkyCat532 but not really cat",
+        "id": "♡ Zoofy CuteFox003 ᓚᘏᗢ 😊",
+        "name": "♡ Zoofy CuteFox003 ᓚᘏᗢ 😊",
         "numeralDiscriminator": null,
       },
       {
@@ -20,131 +15,66 @@ exports[`identifyCults 1`] = `
         "numeralDiscriminator": null,
       },
       {
-        "id": "Sparky FunkyCat010⚡",
-        "name": "Sparky FunkyCat010⚡",
+        "id": "Cutefox 999 >///<",
+        "name": "Cutefox 999 >///<",
         "numeralDiscriminator": null,
       },
       {
-        "id": "funkycat024",
-        "name": "funkycat024",
+        "id": "nop CuteFox II",
+        "name": "nop CuteFox II",
         "numeralDiscriminator": null,
       },
       {
-        "id": "FunkyCatgod420 ᓚᘏᗢ",
-        "name": "FunkyCatgod420 ᓚᘏᗢ",
+        "id": "D4C CuteFox<3 420",
+        "name": "D4C CuteFox<3 420",
         "numeralDiscriminator": null,
       },
       {
-        "id": "FunkyCat006 ᓚᘏᗢ",
-        "name": "FunkyCat006 ᓚᘏᗢ",
+        "id": "Lag Deus (Insaneously CuteFox32)",
+        "name": "Lag Deus (Insaneously CuteFox32)",
         "numeralDiscriminator": null,
       },
       {
-        "id": "min funkycat042 ᓚᘏᗢ",
-        "name": "min funkycat042 ᓚᘏᗢ",
+        "id": "Pecky <3 (CuteFox Leader 🦊)",
+        "name": "Pecky <3 (CuteFox Leader 🦊)",
         "numeralDiscriminator": null,
       },
       {
-        "id": "Haisong - FunkyCat005 ᓚᘏᗢ",
-        "name": "Haisong - FunkyCat005 ᓚᘏᗢ",
+        "id": "♡ Zoofy CuteFox003 ᓚᘏᗢ  😊",
+        "name": "♡ Zoofy CuteFox003 ᓚᘏᗢ  😊",
         "numeralDiscriminator": null,
       },
       {
-        "id": "orchid - FunkyCat203 ᓚᘏᗢ",
-        "name": "orchid - FunkyCat203 ᓚᘏᗢ",
+        "id": "Milan | CuteFox100",
+        "name": "Milan | CuteFox100",
         "numeralDiscriminator": null,
       },
       {
-        "id": "FunkyCat 690 #UwUMommyToo",
-        "name": "FunkyCat 690 #UwUMommyToo",
+        "id": "Sid | CuteFox 795 🦊",
+        "name": "Sid | CuteFox 795 🦊",
         "numeralDiscriminator": null,
       },
       {
-        "id": "Akitti | FunkyCat013 ᓚᘏᗢ",
-        "name": "Akitti | FunkyCat013 ᓚᘏᗢ",
+        "id": "TTT | Cutefox {010}♡",
+        "name": "TTT | Cutefox {010}♡",
         "numeralDiscriminator": null,
       },
       {
-        "id": "psi | FunkyCat 420",
-        "name": "psi | FunkyCat 420",
-        "numeralDiscriminator": null,
-      },
-      {
-        "id": "Crispy | FunkyCat069 ◕⩊◕",
-        "name": "Crispy | FunkyCat069 ◕⩊◕",
-        "numeralDiscriminator": null,
-      },
-      {
-        "id": "FunkyCat004 Shork",
-        "name": "FunkyCat004 Shork",
-        "numeralDiscriminator": null,
-      },
-      {
-        "id": "A.L.I.C.E | FunkyCat871",
-        "name": "A.L.I.C.E | FunkyCat871",
-        "numeralDiscriminator": null,
-      },
-      {
-        "id": "jupiter the funkycat 0010 ᓚᘏᗢ",
-        "name": "jupiter the funkycat 0010 ᓚᘏᗢ",
-        "numeralDiscriminator": null,
-      },
-      {
-        "id": "FunkyCat130.5 -Zappkin",
-        "name": "FunkyCat130.5 -Zappkin",
-        "numeralDiscriminator": null,
-      },
-      {
-        "id": "FunkyCat007 ᓚᘏᗢ",
-        "name": "FunkyCat007 ᓚᘏᗢ",
-        "numeralDiscriminator": null,
-      },
-      {
-        "id": "Val | FunkyCat(s)044 | DID sys",
-        "name": "Val | FunkyCat(s)044 | DID sys",
-        "numeralDiscriminator": null,
-      },
-      {
-        "id": "FunkyCat001 ᓚᘏᗢ",
-        "name": "FunkyCat001 ᓚᘏᗢ",
-        "numeralDiscriminator": null,
-      },
-      {
-        "id": "FunkyCat666 ᓚᘏᗢ",
-        "name": "FunkyCat666 ᓚᘏᗢ",
-        "numeralDiscriminator": null,
-      },
-      {
-        "id": "ains | funkycat050 ᓚᘏᗢ",
-        "name": "ains | funkycat050 ᓚᘏᗢ",
-        "numeralDiscriminator": null,
-      },
-      {
-        "id": "FunkyCat009ᓚᘏᗢ",
-        "name": "FunkyCat009ᓚᘏᗢ",
-        "numeralDiscriminator": null,
-      },
-      {
-        "id": "Funkycat~to2520",
-        "name": "Funkycat~to2520",
-        "numeralDiscriminator": null,
-      },
-      {
-        "id": "Orbies the FunkyCat023 ᓚᘏᗢ",
-        "name": "Orbies the FunkyCat023 ᓚᘏᗢ",
-        "numeralDiscriminator": null,
-      },
-      {
-        "id": "chartbit | FunkyCat369 ᓚᘏᗢ",
-        "name": "chartbit | FunkyCat369 ᓚᘏᗢ",
+        "id": "Swarnim | CuteFox007",
+        "name": "Swarnim | CuteFox007",
         "numeralDiscriminator": null,
       },
     ],
-    "identifier": "funkycat",
-    "name": "FunkyCat",
+    "identifier": "cutefox",
+    "name": "CuteFox",
   },
   {
     "associates": [
+      {
+        "id": "FunkyCat002 ᓚᘏᗢ",
+        "name": "FunkyCat002 ᓚᘏᗢ",
+        "numeralDiscriminator": null,
+      },
       {
         "id": "Gijscoman ᓚᘏᗢ",
         "name": "Gijscoman ᓚᘏᗢ",
@@ -166,6 +96,16 @@ exports[`identifyCults 1`] = `
         "numeralDiscriminator": null,
       },
       {
+        "id": "FunkyCatgod420 ᓚᘏᗢ",
+        "name": "FunkyCatgod420 ᓚᘏᗢ",
+        "numeralDiscriminator": null,
+      },
+      {
+        "id": "FunkyCat006 ᓚᘏᗢ",
+        "name": "FunkyCat006 ᓚᘏᗢ",
+        "numeralDiscriminator": null,
+      },
+      {
         "id": "clattanoid ᓚᘏᗢ",
         "name": "clattanoid ᓚᘏᗢ",
         "numeralDiscriminator": null,
@@ -173,6 +113,11 @@ exports[`identifyCults 1`] = `
       {
         "id": "Franz  | Red Cat Sorceress ᓚᘏᗢ",
         "name": "Franz  | Red Cat Sorceress ᓚᘏᗢ",
+        "numeralDiscriminator": null,
+      },
+      {
+        "id": "min funkycat042 ᓚᘏᗢ",
+        "name": "min funkycat042 ᓚᘏᗢ",
         "numeralDiscriminator": null,
       },
       {
@@ -196,8 +141,18 @@ exports[`identifyCults 1`] = `
         "numeralDiscriminator": null,
       },
       {
+        "id": "Haisong - FunkyCat005 ᓚᘏᗢ",
+        "name": "Haisong - FunkyCat005 ᓚᘏᗢ",
+        "numeralDiscriminator": null,
+      },
+      {
         "id": "ANTI-ANTI COMP SCI ᓚᘏᗢ",
         "name": "ANTI-ANTI COMP SCI ᓚᘏᗢ",
+        "numeralDiscriminator": null,
+      },
+      {
+        "id": "orchid - FunkyCat203 ᓚᘏᗢ",
+        "name": "orchid - FunkyCat203 ᓚᘏᗢ",
         "numeralDiscriminator": null,
       },
       {
@@ -208,6 +163,11 @@ exports[`identifyCults 1`] = `
       {
         "id": "olanui ᓚᘏᗢ",
         "name": "olanui ᓚᘏᗢ",
+        "numeralDiscriminator": null,
+      },
+      {
+        "id": "Akitti | FunkyCat013 ᓚᘏᗢ",
+        "name": "Akitti | FunkyCat013 ᓚᘏᗢ",
         "numeralDiscriminator": null,
       },
       {
@@ -226,13 +186,18 @@ exports[`identifyCults 1`] = `
         "numeralDiscriminator": null,
       },
       {
-        "id": "♡ Zoofy CuteFox003 ᓚᘏᗢ  😊",
-        "name": "♡ Zoofy CuteFox003 ᓚᘏᗢ  😊",
+        "id": "jupiter the funkycat 0010 ᓚᘏᗢ",
+        "name": "jupiter the funkycat 0010 ᓚᘏᗢ",
         "numeralDiscriminator": null,
       },
       {
         "id": "Reigen ᓚᘏᗢ",
         "name": "Reigen ᓚᘏᗢ",
+        "numeralDiscriminator": null,
+      },
+      {
+        "id": "FunkyCat007 ᓚᘏᗢ",
+        "name": "FunkyCat007 ᓚᘏᗢ",
         "numeralDiscriminator": null,
       },
       {
@@ -271,6 +236,26 @@ exports[`identifyCults 1`] = `
         "numeralDiscriminator": null,
       },
       {
+        "id": "FunkyCat001 ᓚᘏᗢ",
+        "name": "FunkyCat001 ᓚᘏᗢ",
+        "numeralDiscriminator": null,
+      },
+      {
+        "id": "FunkyCat666 ᓚᘏᗢ",
+        "name": "FunkyCat666 ᓚᘏᗢ",
+        "numeralDiscriminator": null,
+      },
+      {
+        "id": "ains | funkycat050 ᓚᘏᗢ",
+        "name": "ains | funkycat050 ᓚᘏᗢ",
+        "numeralDiscriminator": null,
+      },
+      {
+        "id": "FunkyCat009ᓚᘏᗢ",
+        "name": "FunkyCat009ᓚᘏᗢ",
+        "numeralDiscriminator": null,
+      },
+      {
         "id": "FIA - Medical Car ᓚᘏᗢ",
         "name": "FIA - Medical Car ᓚᘏᗢ",
         "numeralDiscriminator": null,
@@ -286,8 +271,18 @@ exports[`identifyCults 1`] = `
         "numeralDiscriminator": null,
       },
       {
+        "id": "Orbies the FunkyCat023 ᓚᘏᗢ",
+        "name": "Orbies the FunkyCat023 ᓚᘏᗢ",
+        "numeralDiscriminator": null,
+      },
+      {
         "id": "Yukki ᓚᘏᗢ",
         "name": "Yukki ᓚᘏᗢ",
+        "numeralDiscriminator": null,
+      },
+      {
+        "id": "chartbit | FunkyCat369 ᓚᘏᗢ",
+        "name": "chartbit | FunkyCat369 ᓚᘏᗢ",
         "numeralDiscriminator": null,
       },
     ],
@@ -297,53 +292,63 @@ exports[`identifyCults 1`] = `
   {
     "associates": [
       {
-        "id": "Cutefox 999 >///<",
-        "name": "Cutefox 999 >///<",
+        "id": "FunkyCat532 but not really cat",
+        "name": "FunkyCat532 but not really cat",
         "numeralDiscriminator": null,
       },
       {
-        "id": "nop CuteFox II",
-        "name": "nop CuteFox II",
+        "id": "Sparky FunkyCat010⚡",
+        "name": "Sparky FunkyCat010⚡",
         "numeralDiscriminator": null,
       },
       {
-        "id": "D4C CuteFox<3 420",
-        "name": "D4C CuteFox<3 420",
+        "id": "funkycat024",
+        "name": "funkycat024",
         "numeralDiscriminator": null,
       },
       {
-        "id": "Lag Deus (Insaneously CuteFox32)",
-        "name": "Lag Deus (Insaneously CuteFox32)",
+        "id": "FunkyCat 690 #UwUMommyToo",
+        "name": "FunkyCat 690 #UwUMommyToo",
         "numeralDiscriminator": null,
       },
       {
-        "id": "Pecky <3 (CuteFox Leader 🦊)",
-        "name": "Pecky <3 (CuteFox Leader 🦊)",
+        "id": "psi | FunkyCat 420",
+        "name": "psi | FunkyCat 420",
         "numeralDiscriminator": null,
       },
       {
-        "id": "Milan | CuteFox100",
-        "name": "Milan | CuteFox100",
+        "id": "Crispy | FunkyCat069 ◕⩊◕",
+        "name": "Crispy | FunkyCat069 ◕⩊◕",
         "numeralDiscriminator": null,
       },
       {
-        "id": "Sid | CuteFox 795 🦊",
-        "name": "Sid | CuteFox 795 🦊",
+        "id": "FunkyCat004 Shork",
+        "name": "FunkyCat004 Shork",
         "numeralDiscriminator": null,
       },
       {
-        "id": "TTT | Cutefox {010}♡",
-        "name": "TTT | Cutefox {010}♡",
+        "id": "A.L.I.C.E | FunkyCat871",
+        "name": "A.L.I.C.E | FunkyCat871",
         "numeralDiscriminator": null,
       },
       {
-        "id": "Swarnim | CuteFox007",
-        "name": "Swarnim | CuteFox007",
+        "id": "FunkyCat130.5 -Zappkin",
+        "name": "FunkyCat130.5 -Zappkin",
+        "numeralDiscriminator": null,
+      },
+      {
+        "id": "Val | FunkyCat(s)044 | DID sys",
+        "name": "Val | FunkyCat(s)044 | DID sys",
+        "numeralDiscriminator": null,
+      },
+      {
+        "id": "Funkycat~to2520",
+        "name": "Funkycat~to2520",
         "numeralDiscriminator": null,
       },
     ],
-    "identifier": "cutefox",
-    "name": "CuteFox",
+    "identifier": "funkycat",
+    "name": "FunkyCat",
   },
   {
     "associates": [
