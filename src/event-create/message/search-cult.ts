@@ -33,7 +33,7 @@ export default createChatReply({
 
     if (!_) return;
 
-    const guild = await this.guilds.fetch(`493173110799859713`); // message.guild!;
+    const guild = message.guild!;
 
     let segments = cultCache.get(guild.id);
 

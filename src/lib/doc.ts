@@ -75,7 +75,6 @@ export async function doc(s: string) {
   await load();
 
   const r: typeof _responseShape = await manager.process(`en`, s);
-  console.log(r);
 
   if (
     (() => {
