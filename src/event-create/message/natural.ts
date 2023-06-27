@@ -10,7 +10,7 @@ export default createChatReply({
     const r = await doc(message.content);
 
     if (r.answer) {
-      return message.reply(r.answer);
+      return r.answer;
     }
   },
 });
