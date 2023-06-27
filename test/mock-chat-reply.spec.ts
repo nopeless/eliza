@@ -115,7 +115,7 @@ describe(`should not reply`, () => {
     test(message, async () => {
       const m = await client.send(message);
 
-      expect(m.mockReplies).to.have.length(0);
+      expect(m.mockReplies[0]).to.be.undefined;
     });
   }
 });

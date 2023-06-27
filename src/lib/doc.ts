@@ -9,7 +9,7 @@ import { er } from "./regex-expander";
 
 export const manager = new NlpManager({
   languages: [`en`],
-  nlu: { useNoneFeature: false, log: false },
+  nlu: { useNoneFeature: true, log: false },
 });
 
 let nlpLoadPromise: undefined | ((...args: never[]) => void);
@@ -68,17 +68,21 @@ const _responseShape = {
   },
   actions: [],
   srcAnswer: `Till next time`,
-  answer: `Till next time`,
+  answer: `Till next time` as string | undefined,
 };
 
 export async function doc(s: string) {
   await load();
 
   const r: typeof _responseShape = await manager.process(`en`, s);
+  console.log(r);
   return {
     document: r,
     answer:
-      r.classifications[0] && r.classifications[0].score > 0.5
+      r.answer &&
+      r.classifications[0] &&
+      r.classifications[0].score > 0.5 &&
+      r.sentiment.score > 0.5
         ? er(r.answer)
         : null,
   };

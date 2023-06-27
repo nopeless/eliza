@@ -22,4 +22,9 @@ tu madre
 ---
 
 Eliza isn't siri!
+Eliza isn't Alexa
+Eliza isn't google
+Eliza isn't cortana
+Eliza isn't bixby
+Eliza isn't the internet
 > Or am I\?
