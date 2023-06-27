@@ -76,15 +76,33 @@ export async function doc(s: string) {
 
   const r: typeof _responseShape = await manager.process(`en`, s);
   console.log(r);
+
+  if (
+    (() => {
+      if (!r.answer) return;
+
+      // special case
+      if (r.intent.startsWith(`null`)) return;
+
+      if (r.classifications.length === 0) return;
+
+      if (r.classifications.length >= 2) {
+        if (r.classifications[0]!.score - r.classifications[1]!.score < 0.5) {
+          return;
+        }
+      }
+      return true;
+    })()
+  ) {
+    return {
+      document: r,
+      answer: er(r.answer!),
+    };
+  }
+
   return {
     document: r,
-    answer:
-      r.answer &&
-      r.classifications[0] &&
-      r.classifications[0].score > 0.5 &&
-      r.sentiment.score > 0.5
-        ? er(r.answer)
-        : null,
+    answer: null,
   };
 }
 
@@ -166,6 +184,27 @@ export async function train() {
         manager.addAnswer(`en`, slug, a);
       }
     }
+  }
+
+  // TODO improve this
+  const messages = [
+    `so I was walking down the street`,
+    `number 15 burger king foot lettuce`,
+    `victory royale`,
+    `yeah I'm a gamer`,
+    `fortnite sucks`,
+    `minecraft is better`,
+    `ackchually`,
+    `I'm gonna say the word`,
+    `You need therapy`,
+    `I need therapy`,
+    `stop trying to make me say it`,
+    `I'm not gonna say it`,
+    `We are number one`,
+  ].map((v) => `eliza ` + v);
+
+  for (const message of messages) {
+    manager.addDocument(`en`, message, `null`);
   }
 
   await manager.train();
