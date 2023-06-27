@@ -15,5 +15,8 @@ jobs:
           cache: 'yarn'
       - run: yarn install --frozen-lockfile
       - run: yarn build
+      # Prevent cross platform issues
+      - run: node --loader=./bite-me-im-making-my-own-loader.js dist/bot.js
+      - run: node 
       - run: yarn test
       - run: yarn lint
