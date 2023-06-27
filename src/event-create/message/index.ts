@@ -8,6 +8,7 @@ import define from "./define";
 import suggestion from "./suggestion";
 import randomQuote from "./random-quote";
 import natural from "./natural";
+import searchCult from "./search-cult";
 import { Id, U2I } from "../../lib/util";
 
 type ReduceToNeverProps<
@@ -52,6 +53,7 @@ export default merge(
     define,
     saveFile,
     suggestion,
+    searchCult,
 
     // passive
     urlUnshortener,
