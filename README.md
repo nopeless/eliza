@@ -37,6 +37,10 @@ yarn build
 yarn start 
 ```
 
+You do not need a `.env` to run it. Certain functions will be disabled
+
+check `src/types.d.ts` for the list of environment variables
+
 ## Handler rules
 
 handlers are applied sequentially
