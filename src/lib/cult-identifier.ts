@@ -1,5 +1,5 @@
-import { awaitTick, escapeRegExp } from "./util";
-import { nonWords } from "./nlp";
+import { awaitTick, escapeRegExp } from "./util.js";
+import { nonWords } from "./nlp.js";
 
 // const alphanumericSplitterRegex = /(?<=[A-Za-z])\d+|^\d+/g;
 const segmentRegex = /[A-Z]{2,}(?![a-z])|[A-Z][a-z]*|^[a-z]+|\d+/g;

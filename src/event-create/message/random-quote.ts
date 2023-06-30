@@ -1,5 +1,5 @@
-import { createChatReply } from "../../event";
-import { getRandomQuote } from "../../lib/apis";
+import { createChatReply } from "../../event.js";
+import { getRandomQuote } from "../../lib/apis.js";
 
 export default createChatReply({
   name: `quote`,

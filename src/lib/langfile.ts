@@ -1,7 +1,7 @@
 import { readFileSync } from "fs";
 import { join } from "path";
-import dirname from "./dirname";
-import { capitalize } from "./util";
+import dirname from "./dirname.js";
+import { capitalize } from "./util.js";
 
 export const langFile: Record<string, string> = JSON.parse(
   readFileSync(join(dirname(import.meta), `./langcode.json`), {

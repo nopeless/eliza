@@ -1,6 +1,6 @@
 // Credits: ChatGPT
 
-import { randomChoice } from "./util";
+import { randomChoice } from "./util.js";
 
 type RegexAST =
   | GroupNode

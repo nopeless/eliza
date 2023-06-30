@@ -1,11 +1,11 @@
 // @ts-ignore
 import { NlpManager } from "node-nlp";
 import { readFile, unlink } from "fs/promises";
-import dirname from "./dirname";
+import dirname from "./dirname.js";
 import { join } from "path";
 import assert from "assert";
 import { existsSync } from "fs";
-import { er } from "./regex-expander";
+import { er } from "./regex-expander.js";
 
 export const manager = new NlpManager({
   languages: [`en`],

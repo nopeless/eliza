@@ -1,11 +1,11 @@
-import { createChatReply } from "../../event";
-import { er } from "../../lib/regex-expander";
+import { createChatReply } from "../../event.js";
+import { er } from "../../lib/regex-expander.js";
 import {
   indentTrailing,
   mergeRegex,
   promiseAllMap,
   swappableRegex,
-} from "../../lib/util";
+} from "../../lib/util.js";
 
 export default createChatReply({
   name: `suggestion`,

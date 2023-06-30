@@ -1,11 +1,11 @@
-import { sortBySimilarity, swappableRegex } from "../../lib/util";
-import { createChatReply, createChatReplyExec } from "../../event";
+import { sortBySimilarity, swappableRegex } from "../../lib/util.js";
+import { createChatReply, createChatReplyExec } from "../../event.js";
 import natural from "natural";
 
 const LevenshteinDistance = natural.LevenshteinDistance;
 
 // apparently you can do circular imports, nice
-import commands from "./index";
+import commands from "./index.js";
 import { Message } from "discord.js";
 
 const listCommands = createChatReplyExec(async function (message) {

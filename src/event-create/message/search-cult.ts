@@ -1,11 +1,11 @@
 import { Guild } from "discord.js";
-import { createChatReply } from "../../event";
+import { createChatReply } from "../../event.js";
 import {
   CultUser,
   calculateCults,
   calculateSegments,
-} from "../../lib/cult-identifier";
-import { Cache } from "spica-node/dist/cache.js";
+} from "../../lib/cult-identifier.js";
+import { Cache } from "spica-node/cache";
 
 const cultCache = new Cache<string, Map<string, number>>({
   capacity: 1000,

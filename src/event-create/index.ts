@@ -1,8 +1,8 @@
 import { ClientEvents } from "discord.js";
 
-import { createMessageCreateHandler } from "../event";
+import { createMessageCreateHandler } from "../event.js";
 
-import message from "./message";
+import message from "./message/index.js";
 
 export default {
   // interactionCreate: interaction,

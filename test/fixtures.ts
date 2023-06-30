@@ -1,5 +1,5 @@
 import { ElizaClient } from "@/bot";
-import { MockMessage } from "./mock";
+import { MockMessage } from "./mock.js";
 
 const client = new ElizaClient({
   prefix: `eliza `,

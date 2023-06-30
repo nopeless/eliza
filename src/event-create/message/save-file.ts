@@ -1,4 +1,4 @@
-import { createChatReply } from "../../event";
+import { createChatReply } from "../../event.js";
 
 export default createChatReply({
   name: `save file`,

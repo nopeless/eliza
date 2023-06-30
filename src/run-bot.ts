@@ -3,7 +3,7 @@ import { GatewayIntentBits, Partials } from "discord.js";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-import { ElizaClient } from "./bot";
+import { ElizaClient } from "./bot.js";
 
 export const client = new ElizaClient({
   dev: process.env.NODE_ENV !== `production`,

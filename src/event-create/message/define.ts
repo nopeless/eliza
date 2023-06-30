@@ -1,6 +1,6 @@
-import { createChatReply } from "../../event";
-import { defineWord } from "../../lib/apis";
-import { nonWords } from "../../lib/nlp";
+import { createChatReply } from "../../event.js";
+import { defineWord } from "../../lib/apis.js";
+import { nonWords } from "../../lib/nlp.js";
 
 function anyMatch(words: string[], triggers: Record<string, unknown>) {
   return words

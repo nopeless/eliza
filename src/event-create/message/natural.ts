@@ -1,5 +1,5 @@
-import { createChatReply } from "../../event";
-import { doc } from "../../lib/doc";
+import { createChatReply } from "../../event.js";
+import { doc } from "../../lib/doc.js";
 
 export default createChatReply({
   name: `natural`,

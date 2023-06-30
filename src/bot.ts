@@ -1,10 +1,10 @@
 import { ActivityType, Client, GuildMember, User } from "discord.js";
-import eventCreate from "./event-create";
+import eventCreate from "./event-create/index.js";
 import { Hellgate, Ring } from "hellgate";
 import { writeFile } from "fs/promises";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { join } from "path";
-import { escapeRegExp } from "./lib/util";
+import { escapeRegExp } from "./lib/util.js";
 
 class ElizaClient extends Client {
   public dev: boolean;

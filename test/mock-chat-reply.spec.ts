@@ -1,4 +1,4 @@
-import { client } from "./fixtures";
+import { client } from "./fixtures.js";
 
 describe(`translate`, () => {
   test(`eliza tl|translate`, async () => {

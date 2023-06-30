@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { inspect } from "util";
-import { createChatReply } from "../../../event";
-import { train } from "../../../lib/doc";
+import { createChatReply } from "../../../event.js";
+import { train } from "../../../lib/doc.js";
 
 export default {
   exit: createChatReply({

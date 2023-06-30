@@ -1,15 +1,15 @@
-import hello from "./hello";
-import translate from "./translate";
-import saveFile from "./save-file";
-import help from "./help";
-import commands from "./commands";
-import urlUnshortener from "./url-unshortener";
-import define from "./define";
-import suggestion from "./suggestion";
-import randomQuote from "./random-quote";
-import natural from "./natural";
-import searchCult from "./search-cult";
-import { Id, U2I } from "../../lib/util";
+import hello from "./hello.js";
+import translate from "./translate.js";
+import saveFile from "./save-file.js";
+import help from "./help.js";
+import commands from "./commands/index.js";
+import urlUnshortener from "./url-unshortener.js";
+import define from "./define.js";
+import suggestion from "./suggestion.js";
+import randomQuote from "./random-quote.js";
+import natural from "./natural.js";
+import searchCult from "./search-cult.js";
+import { Id, U2I } from "../../lib/util.js";
 
 type ReduceToNeverProps<
   Arr extends readonly Record<string, unknown>[],

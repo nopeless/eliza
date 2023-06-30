@@ -1,8 +1,8 @@
 import { ChannelType, Message, ClientEvents, parseEmoji } from "discord.js";
-import { ProcessedMessage } from "./discord";
-import { ElizaClient } from "./bot";
-import { sortByKey } from "./lib/util";
-import { toWordList } from "./lib/nlp";
+import { ProcessedMessage } from "./discord.js";
+import { ElizaClient } from "./bot.js";
+import { sortByKey } from "./lib/util.js";
+import { toWordList } from "./lib/nlp.js";
 
 // If this becomes a library, this entire thing should be a typed function
 

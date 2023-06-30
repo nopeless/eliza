@@ -1,9 +1,9 @@
-import { createChatReply } from "../../event";
-import { legacyGoogleTranslate } from "../../lib/legacy-google-translate";
-import { toWordList } from "../../lib/nlp";
-import { sortBySimilarity } from "../../lib/util";
+import { createChatReply } from "../../event.js";
+import { legacyGoogleTranslate } from "../../lib/legacy-google-translate.js";
+import { toWordList } from "../../lib/nlp.js";
+import { sortBySimilarity } from "../../lib/util.js";
 // import compromise from "compromise";
-import { langFile, reverseLangFile } from "../../lib/langfile";
+import { langFile, reverseLangFile } from "../../lib/langfile.js";
 import { MessageType } from "discord.js";
 
 export default createChatReply({

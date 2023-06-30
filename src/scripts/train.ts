@@ -1,5 +1,5 @@
-import { train } from "../lib/doc";
-import { indentTrailing } from "../lib/util";
+import { train } from "../lib/doc.js";
+import { indentTrailing } from "../lib/util.js";
 
 const docs = await train();
 

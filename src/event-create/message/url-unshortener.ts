@@ -1,4 +1,4 @@
-import { createChatReply } from "../../event";
+import { createChatReply } from "../../event.js";
 // @ts-ignore
 import U from "url-unshort";
 const uu = new U() as { expand: (url: string) => Promise<string | undefined> };

@@ -1,6 +1,6 @@
 import { consola } from "consola";
 import { dedent, indentTrailing } from "@/lib/util";
-import { client } from "./fixtures";
+import { client } from "./fixtures.js";
 
 async function main(): Promise<false | void> {
   const input = await consola.prompt(`Enter a string`, {

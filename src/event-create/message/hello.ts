@@ -1,5 +1,5 @@
-import { createChatReply } from "../../event";
-import { er } from "../../lib/regex-expander";
+import { createChatReply } from "../../event.js";
+import { er } from "../../lib/regex-expander.js";
 
 export default createChatReply({
   name: `hello`,

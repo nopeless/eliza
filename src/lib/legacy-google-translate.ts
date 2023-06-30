@@ -1,4 +1,4 @@
-import { langFile } from "./langfile";
+import { langFile } from "./langfile.js";
 
 export async function legacyGoogleTranslate(content: string, lang = `en`) {
   const res = await fetch(
