@@ -47,7 +47,7 @@
     "hellgate": "^2.2.2",
     "natural": "^6.3.0",
     "node-nlp": "^4.27.0",
-    "spica-node": "0.0.738-patch4",
+    "spica-node": "0.0.738-patch5",
     "url-unshort": "^6.1.0",
     "wink-eng-lite-web-model": "^1.5.0",
     "wink-nlp": "^1.14.0",

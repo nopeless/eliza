@@ -2282,7 +2282,7 @@ __metadata:
     nopeless-config: latest
     prettier: ^2.8.8
     rimraf: ^5.0.1
-    spica-node: 0.0.738-patch4
+    spica-node: 0.0.738-patch5
     tsx: ^3.12.7
     typescript: ^5.0.4
     url-unshort: ^6.1.0
@@ -4925,10 +4925,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"spica-node@npm:0.0.738-patch4":
-  version: 0.0.738-patch4
-  resolution: "spica-node@npm:0.0.738-patch4"
-  checksum: 7cd4145bb5b89518bf03abf3ae4d276bec99806830173381d3386acebd0207c663c2e672eea5bb7c05593732e3d1f58dd6b6ea4633330f0aca2982fba6f65592
+"spica-node@npm:0.0.738-patch5":
+  version: 0.0.738-patch5
+  resolution: "spica-node@npm:0.0.738-patch5"
+  checksum: ae78c5fe9a9fd42d68209fb6ff0bbf74816dec5124b9e22ac0a70d915d1482077d659147a3482d38852219eb4be42a95224105c880ad8613c63e7b3607890784
   languageName: node
   linkType: hard
 
