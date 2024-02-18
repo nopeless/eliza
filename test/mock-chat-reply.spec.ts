@@ -100,6 +100,7 @@ describe(`help`, () => {
 describe(`should not reply`, async () => {
   const messages = await readFileLines('test/resources/mock-comments.txt')
   for (const message of messages) {
+    if (message.startsWith(";")) continue
     test(message, async () => {
       const m = await client.send(message);
 
