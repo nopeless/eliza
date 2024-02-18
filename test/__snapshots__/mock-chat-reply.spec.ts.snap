@@ -29,7 +29,7 @@ exports[`translate > no colon required 1`] = `
 
 exports[`translate > tl shorthand 1`] = `
 "translated from French to English:
-\\"Good morning sir\\""
+\\"Hello Sir\\""
 `;
 
 exports[`translate > translate syntax 1`] = `
