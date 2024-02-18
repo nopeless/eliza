@@ -9,8 +9,7 @@
       "@/*": [
         "../src/*"
       ]
-    },
-    "module": "NodeNext"
+    }
   },
   "include": [
     "../src/**/*.ts",
