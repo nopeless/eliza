@@ -238,7 +238,7 @@ export function indentTrailing(
 
 export async function readFileLines(filePath: string) {
   const data = await readFile(filePath, `utf-8`)
-  return data.split(/\r?\n/);
+  return data.split(/\r?\n/).filter(line => line.trim() !== '');
 }
 
 /**
