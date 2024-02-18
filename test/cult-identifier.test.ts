@@ -5,8 +5,8 @@ import {
   cultCacheExport,
   cultCacheImport,
   segmenter,
-} from "@/lib/cult-identifier";
-import { readFileLines } from "@/lib/util";
+} from "@/lib/cult-identifier.js";
+import { readFileLines } from "@/lib/util.js";
 
 function u(id: string) {
   return {
@@ -24,7 +24,7 @@ it(`segmenter`, async () => {
   ]);
 });
 it(`identifyCults`, async () => {
-  const names = readFileLines(`./test/resources/nicknames.txt`);
+  const names = await readFileLines(`./test/resources/nicknames.txt`);
 
   // takes around 190ms
   const segments = await calculateSegments(names.map(u));

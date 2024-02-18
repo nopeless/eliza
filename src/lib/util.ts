@@ -1,4 +1,4 @@
-import { readFileSync } from "fs";
+import { readFile } from "fs/promises";
 import natural, { DamerauLevenshteinDistanceOptions } from "natural";
 
 export type U2I<U> = (U extends unknown ? (k: U) => void : never) extends (
@@ -236,8 +236,9 @@ export function indentTrailing(
     .join(`\n`);
 }
 
-export function readFileLines(filePath: string) {
-  return readFileSync(filePath, `utf-8`).split(/\r?\n/);
+export async function readFileLines(filePath: string) {
+  const data = await readFile(filePath, `utf-8`)
+  return data.split(/\r?\n/).filter(line => line.trim() !== '');
 }
 
 /**

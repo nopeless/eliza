@@ -1,12 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`define > missing word 1`] = `"Please specify a word to define. ex) define hello"`;
-
-exports[`define > proper 1`] = `
-"Here is the definition of 'air'
-expose to fresh air"
-`;
-
 exports[`help > help vague match 1`] = `"Did you mean 'translate'? Try \\"help translate\\""`;
 
 exports[`translate > eliza tl|translate 1`] = `"missing translation context. example: \\"tl こんにちは世界\\""`;
@@ -29,7 +22,7 @@ exports[`translate > no colon required 1`] = `
 
 exports[`translate > tl shorthand 1`] = `
 "translated from French to English:
-\\"Good morning sir\\""
+\\"Hello Sir\\""
 `;
 
 exports[`translate > translate syntax 1`] = `
