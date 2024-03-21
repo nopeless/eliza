@@ -36,12 +36,11 @@
     "prettier": "^2.8.8",
     "rimraf": "^5.0.1",
     "tsx": "^3.12.7",
-    "typescript": "^5.0.4",
+    "typescript": "latest",
     "vitest": "^0.31.1"
   },
   "dependencies": {
-    "dead-easy-json": "^2.0.3",
-    "discord.js": "14.x",
+    "discord.js": "^14.14.1",
     "dotenv": "^16.0.3",
     "extensionless": "^1.4.5",
     "hellgate": "^2.2.2",

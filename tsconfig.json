@@ -1,33 +1,33 @@
 {
-    "extends": "nopeless-config/tsconfig.base.json",
-    "compilerOptions": {
-        "rootDir": "./src",
-        "outDir": "./dist",
-        "moduleResolution": "NodeNext"
-    },
-    "include": [
-        "./src/**/*.ts"
+  "extends": "nopeless-config/tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "moduleResolution": "NodeNext"
+  },
+  "include": [
+    "./src/**/*.ts"
+  ],
+  // tsx options
+  // https://www.typescriptlang.org/docs/handbook/configuring-watch.html
+  // NEW: Options for file/directory watching
+  "watchOptions": {
+    // Use native file system events for files and directories
+    "watchFile": "useFsEvents",
+    "watchDirectory": "useFsEvents",
+    // Poll files for updates more frequently
+    // when they're updated a lot.
+    "fallbackPolling": "dynamicPriority",
+    // Don't coalesce watch notification
+    "synchronousWatchDirectory": true,
+    // Finally, two additional settings for reducing the amount of possible
+    // files to track  work from these directories
+    "excludeDirectories": [
+      "**/node_modules",
+      "./dist"
     ],
-    // tsx options
-    // https://www.typescriptlang.org/docs/handbook/configuring-watch.html
-    // NEW: Options for file/directory watching
-    "watchOptions": {
-        // Use native file system events for files and directories
-        "watchFile": "useFsEvents",
-        "watchDirectory": "useFsEvents",
-        // Poll files for updates more frequently
-        // when they're updated a lot.
-        "fallbackPolling": "dynamicPriority",
-        // Don't coalesce watch notification
-        "synchronousWatchDirectory": true,
-        // Finally, two additional settings for reducing the amount of possible
-        // files to track  work from these directories
-        "excludeDirectories": [
-            "**/node_modules",
-            "./dist"
-        ],
-        // "excludeFiles": [
-        //     "build/fileWhichChangesOften.ts"
-        // ]
-    }
+    // "excludeFiles": [
+    //     "build/fileWhichChangesOften.ts"
+    // ]
+  }
 }
