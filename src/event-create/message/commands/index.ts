@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { inspect } from "util";
 import { createChatReply } from "../../../event.js";
 import { train } from "../../../lib/doc.js";
@@ -33,26 +32,28 @@ export default {
       return `🎉`;
     },
   }),
-  // eval: createChatReply({
-  //   name: `eval`,
-  //   description: `evaluates javascript code`,
-  //   async exec(message) {
-  //     if (!message.prefixlessContent.match(/^eval/i)) return;
-  //     if (!this.hell.can(message.author, `exitApplication`))
-  //       return `You don't have permissions`;
+  eval: createChatReply({
+    name: `eval`,
+    description: `evaluates javascript code`,
+    async exec(message) {
+      if (!process.env.DEV) return `eval is disabled in production`;
 
-  //     // double safety
-  //     if (this.ownerID !== message.author.id)
-  //       return `You don't have permissions`;
+      if (!message.prefixlessContent.match(/^eval/i)) return;
+      if (!this.hell.can(message.author, `exitApplication`))
+        return `You don't have permissions`;
 
-  //     // eslint-disable-next-line @typescript-eslint/no-this-alias, @typescript-eslint/no-unused-vars
-  //     const client = this; // @ts-ignore
+      // double safety
+      if (this.ownerID !== message.author.id)
+        return `You don't have permissions`;
 
-  //     let result: unknown = await eval?.(message.prefixlessContent.slice(4));
+      // eslint-disable-next-line @typescript-eslint/no-this-alias, @typescript-eslint/no-unused-vars
+      const client = this; // @ts-ignore
 
-  //     if (typeof result !== `string`) result = inspect(result);
+      let result: unknown = await eval?.(message.prefixlessContent.slice(4));
 
-  //     return `\`\`\`js\n${result}\n\`\`\``;
-  //   },
-  // }),
+      if (typeof result !== `string`) result = inspect(result);
+
+      return `\`\`\`js\n${result}\n\`\`\``;
+    },
+  }),
 } as const;
