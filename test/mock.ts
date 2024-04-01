@@ -1,3 +1,4 @@
+import { IRoleManager } from "@/lib/role-manager";
 import { ChannelType } from "discord.js";
 
 // @ts-ignore
@@ -36,4 +37,8 @@ export class MockMessage {
   async fetchReference() {
     return undefined;
   }
+}
+
+export class MockRoleManager implements IRoleManager {
+  // Fill this out
 }
